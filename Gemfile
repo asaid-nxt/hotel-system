@@ -42,9 +42,12 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
   gem 'rspec-rails', '~> 7.0', '>= 7.0.1'
   gem 'factory_bot_rails', '~> 6.4', '>= 6.4.3'
+  gem 'yard', '~> 0.9.37'
 end
 
 group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+  gem 'solargraph', '~> 0.50.0'
+  gem 'solargraph-rails', '~> 1.1'
 end
