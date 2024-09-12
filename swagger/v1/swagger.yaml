@@ -1,0 +1,44 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/users":
+    post:
+      summary: Creates a new user
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '201':
+          description: User created
+        '422':
+          description: Invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    username:
+                      type: string
+                      example: test
+                    password:
+                      type: string
+                      example: password
+                    password_confirmation:
+                      type: string
+                      example: password
+                  required:
+                  - username
+                  - password
+                  - password_confirmation
+servers:
+- url: http://127.0.0.1:3000/
+  variables:
+    defaultHost:
+      default: http://127.0.0.1:3000/

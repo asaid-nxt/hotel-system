@@ -8,7 +8,7 @@ module Api
 
         if user.save
           token = user.generate_jwt
-          render json: { token:, user: }, status: :created
+          render json: { token:, user: UserSerializer.new(user) }, status: :created
         else
           render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
         end
