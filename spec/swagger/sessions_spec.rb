@@ -10,13 +10,15 @@ RSpec.describe 'Login', type: :request do
         type: :object,
         properties: {
           username: { type: :string, example: 'test' },
-          password: { type: :string, example: 'password' }
+          password: { type: :string, example: 'password' },
+          role: { type: :integer, example: 0 }
         },
         required: %w[username password]
       }
 
       response '200', 'Login successful' do
-        let(:login_params) { { username: 'testuser', password: 'password123' } }
+        let(:user) { create(:user) }
+        let(:login_params) { { username: user.username, password: user.password } }
         schema type: :object, properties: {
           token: { type: :string }
         }

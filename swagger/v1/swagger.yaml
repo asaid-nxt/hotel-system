@@ -41,6 +41,9 @@ paths:
                 password:
                   type: string
                   example: password
+                role:
+                  type: integer
+                  example: 0
               required:
               - username
               - password

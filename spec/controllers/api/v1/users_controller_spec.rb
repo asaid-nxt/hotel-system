@@ -12,6 +12,10 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       { username: '', password: 'short', password_confirmation: 'different' }
     end
 
+    let(:admin_attributes) do
+      { username: 'adminuser', password: 'password', password_confirmation: 'password', role: 'admin' }
+    end
+
     context 'with valid parameters' do
       it 'creates a new user' do
         expect {
@@ -43,6 +47,17 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect(response).to have_http_status(:unprocessable_entity)
         expect(JSON.parse(response.body)['errors']).to include("Username can't be blank",
                                                                'Password is too short (minimum is 6 characters)')
+      end
+    end
+
+    context 'when creating an admin user' do
+      it 'creates a new admin user with role 1' do
+        expect {
+          post :create, params: { user: admin_attributes }
+        }.to change(User, :count).by(1)
+
+        user = User.last
+        expect(user.role).to eq('admin')
       end
     end
   end
