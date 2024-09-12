@@ -41,9 +41,6 @@ paths:
                 password:
                   type: string
                   example: password
-                role:
-                  type: integer
-                  example: 0
               required:
               - username
               - password
@@ -76,6 +73,9 @@ paths:
                     password_confirmation:
                       type: string
                       example: password
+                    role:
+                      type: integer
+                      example: 0
                   required:
                   - username
                   - password

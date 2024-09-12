@@ -17,7 +17,8 @@ RSpec.describe 'Users API', type: :request do
             properties: {
               username: { type: :string, example: 'test' },
               password: { type: :string, example: 'password' },
-              password_confirmation: { type: :string, example: 'password' }
+              password_confirmation: { type: :string, example: 'password' },
+              role: { type: :integer, example: 0 }
             },
             required: %w[username password password_confirmation]
           }

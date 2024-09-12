@@ -10,8 +10,7 @@ RSpec.describe 'Login', type: :request do
         type: :object,
         properties: {
           username: { type: :string, example: 'test' },
-          password: { type: :string, example: 'password' },
-          role: { type: :integer, example: 0 }
+          password: { type: :string, example: 'password' }
         },
         required: %w[username password]
       }
