@@ -7,4 +7,8 @@ class User < ApplicationRecord
 
   validates :username, presence: true, uniqueness: true
   validates :password, presence: true, length: { minimum: 6 }
+
+  def generate_jwt
+    JwtService.encode({ user_id: id })
+  end
 end
