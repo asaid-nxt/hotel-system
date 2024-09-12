@@ -122,6 +122,8 @@ GEM
     json-schema (4.3.1)
       addressable (>= 2.8)
     jsonapi-renderer (0.2.2)
+    jwt (2.8.2)
+      base64
     kramdown (2.4.0)
       rexml
     kramdown-parser-gfm (1.1.0)
@@ -335,6 +337,7 @@ DEPENDENCIES
   bootsnap
   debug
   factory_bot_rails (~> 6.4, >= 6.4.3)
+  jwt (~> 2.8, >= 2.8.2)
   puma (>= 5.0)
   rails (~> 7.1.4)
   rspec-rails (~> 7.0, >= 7.0.1)
