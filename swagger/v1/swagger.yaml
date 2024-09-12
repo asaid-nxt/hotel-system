@@ -4,7 +4,47 @@ info:
   title: API V1
   version: v1
 paths:
-  "/api/v1/users":
+  "/api/v1/login":
+    post:
+      summary: Login a user
+      tags:
+      - Authentication
+      parameters: []
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        '401':
+          description: Invalid username or password
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: test
+                password:
+                  type: string
+                  example: password
+              required:
+              - username
+              - password
+  "/api/v1/signup":
     post:
       summary: Creates a new user
       tags:

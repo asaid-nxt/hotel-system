@@ -3,7 +3,7 @@
 require 'swagger_helper'
 
 RSpec.describe 'Users API', type: :request do
-  path '/api/v1/users' do
+  path '/api/v1/signup' do
     post 'Creates a new user' do
       tags 'Users'
       consumes 'application/json'
