@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Room, type: :model do
-  let(:hotel) { create(:hotel) }
-  let(:room) { create(:room, hotel:) }
-
   describe 'Validation' do
+    let(:hotel) { create(:hotel) }
+    let(:room) { create(:room, hotel:) }
+
     it 'is valid with valid attributes' do
       expect(room).to be_valid
     end
@@ -33,5 +33,55 @@ RSpec.describe Room, type: :model do
   describe 'associations' do
     it { should belong_to(:hotel) }
     it { should have_many(:reservations).dependent(:destroy) }
+  end
+
+  describe '.available' do
+    let!(:hotel) { create(:hotel) }
+    let!(:available_room) { create(:room, hotel:) }
+    let!(:unavailable_room) { create(:room, hotel:) }
+    let(:user) { create(:user) }
+
+    before do
+      create(:reservation, room: unavailable_room, check_in: 1.day.from_now, check_out: 3.days.from_now, user:)
+    end
+
+    context 'when there are no reservations' do
+      it 'returns all rooms for the given hotel' do
+        check_in = 5.days.from_now
+        check_out = 7.days.from_now
+
+        rooms = Room.available(hotel.id, check_in, check_out)
+
+        expect(rooms).to include(available_room)
+        expect(rooms).to include(unavailable_room)
+      end
+    end
+
+    context 'when reservations overlap with the check-in and check-out dates' do
+      it 'returns only rooms that do not have overlapping reservations' do
+        check_in = 2.days.from_now
+        check_out = 4.days.from_now
+
+        rooms = Room.available(hotel.id, check_in, check_out)
+
+        expect(rooms).to include(available_room)
+        expect(rooms).not_to include(unavailable_room)
+      end
+    end
+
+    context 'when all rooms are reserved' do
+      before do
+        create(:reservation, room: available_room, check_in: 1.day.from_now, check_out: 3.days.from_now, user:)
+      end
+
+      it 'returns no rooms' do
+        check_in = 1.day.from_now
+        check_out = 2.days.from_now
+
+        rooms = Room.available(hotel.id, check_in, check_out)
+
+        expect(rooms).to be_empty
+      end
+    end
   end
 end
