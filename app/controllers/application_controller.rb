@@ -12,7 +12,7 @@ class ApplicationController < ActionController::API
     if decoded_token
       self.current_user = User.find(decoded_token[:user_id])
     else
-      render json: { error: 'Unauthorized' }, status: :unauthorized
+      render json: { error: 'Unauthorized' }, status: :unauthorized and return
     end
   end
 
