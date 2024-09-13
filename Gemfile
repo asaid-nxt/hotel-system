@@ -50,6 +50,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 7.0', '>= 7.0.1'
   gem 'factory_bot_rails', '~> 6.4', '>= 6.4.3'
   gem 'yard', '~> 0.9.37'
+  gem 'shoulda-matchers', '~> 6.4'
 end
 
 group :development do

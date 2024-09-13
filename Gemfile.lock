@@ -272,6 +272,8 @@ GEM
       rubocop (>= 1.52.0, < 2.0)
       rubocop-ast (>= 1.31.1, < 2.0)
     ruby-progressbar (1.13.0)
+    shoulda-matchers (6.4.0)
+      activesupport (>= 5.2.0)
     solargraph (0.50.0)
       backport (~> 1.2)
       benchmark
@@ -345,6 +347,7 @@ DEPENDENCIES
   rswag (~> 2.14)
   rubocop (~> 1.66, >= 1.66.1)
   rubocop-rails (~> 2.26, >= 2.26.1)
+  shoulda-matchers (~> 6.4)
   solargraph (~> 0.50.0)
   solargraph-rails (~> 1.1)
   sqlite3 (>= 1.4)
