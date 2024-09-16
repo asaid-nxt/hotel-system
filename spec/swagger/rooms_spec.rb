@@ -1,7 +1,5 @@
 require 'swagger_helper'
 
-JWT_TOKEN = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMH0.Kzb9dwgjEYPDKCKTmjFRiBrKTBiyrgVHaMojU6bdKhY'
-
 RSpec.describe 'api/v1/rooms', type: :request do
   let(:hotel) { create(:hotel) }
   let(:hotel_id) { hotel.id }
