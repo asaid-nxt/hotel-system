@@ -26,7 +26,7 @@ RSpec.configure do |config| # Specify a root folder where Swagger JSON files are
             type: :http,
             scheme: :bearer,
             bearerFormat: :JWT,
-            description: 'Enter the JWT token in the format: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMH0.Kzb9dwgjEYPDKCKTmjFRiBrKTBiyrgVHaMojU6bdKhY',
+            description: 'Enter the JWT token in the format: Bearer {token}'
           }
         }
       },
