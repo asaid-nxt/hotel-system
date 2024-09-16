@@ -3,7 +3,97 @@ openapi: 3.0.1
 info:
   title: API V1
   version: v1
+components:
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'Enter the JWT token in the format: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMH0.Kzb9dwgjEYPDKCKTmjFRiBrKTBiyrgVHaMojU6bdKhY'
 paths:
+  "/api/v1/hotels/{hotel_id}/rooms/available":
+    get:
+      summary: List available rooms for a hotel
+      security:
+      - Bearer: []
+      tags:
+      - Rooms
+      parameters:
+      - name: hotel_id
+        in: path
+        schema:
+          type: integer
+          example: 1
+        required: true
+      - name: check_in
+        in: query
+        schema:
+          type: string
+          format: date
+          example: 11/11/2024
+        required: true
+      - name: check_out
+        in: query
+        schema:
+          type: string
+          format: date
+          example: 12/11/2024
+        required: true
+      responses:
+        '200':
+          description: No available rooms found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    number:
+                      type: string
+                    hotel_id:
+                      type: integer
+                    capacity:
+                      type: integer
+                    amenities:
+                      type: text
+                      example: amenities
+                  required:
+                  - number
+                  - hotel_id
+                  - capacity
+                  - amenities
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '422':
+          description: Invalid date format
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                - error
+        '400':
+          description: Check-in and check-out dates are required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                - error
   "/api/v1/login":
     post:
       summary: Login a user

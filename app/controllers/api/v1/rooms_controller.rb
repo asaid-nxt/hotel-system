@@ -10,7 +10,7 @@ module Api
         hotel_id = params[:hotel_id]
         @available_rooms = Room.available(hotel_id, @check_in, @check_out)
 
-        render json: @available_rooms
+        render json: @available_rooms, each_serializer: RoomSerializer
       end
 
       private

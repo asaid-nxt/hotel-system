@@ -6,7 +6,7 @@ class ApplicationController < ActionController::API
   attr_accessor :current_user
 
   def authenticate_user!
-    token = request.headers['Authorization']
+    token = request.headers['Authorization']&.split(' ')&.last
     decoded_token = JwtService.decode(token)
 
     if decoded_token

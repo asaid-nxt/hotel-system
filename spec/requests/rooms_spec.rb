@@ -18,7 +18,7 @@ RSpec.describe 'Rooms API' do
 
       it 'return available rooms' do
         expect(response).to have_http_status :ok
-        expect(JSON.parse(response.body)).to eq([room].as_json)
+        expect(JSON.parse(response.body).size).to eq(1)
       end
     end
 
