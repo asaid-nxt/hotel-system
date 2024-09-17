@@ -48,7 +48,7 @@ RSpec.describe 'api/v1/reservations', type: :request do
         let(:Authorization) { '' }
         let(:reservation) { { check_in:, check_out: } }
 
-        schema type: :object, properties: { error: { type: :string } }
+        schema type: :object, properties: { error: { type: :string, example: 'Unauthorized' } }
 
         run_test!
       end
@@ -58,7 +58,7 @@ RSpec.describe 'api/v1/reservations', type: :request do
         let(:room_id) { 'invalid' }
         let(:reservation) { { check_in:, check_out: } }
 
-        schema type: :object, properties: { error: { type: :string } }
+        schema type: :object, properties: { error: { type: :string, example: 'Room not found' } }
 
         run_test!
       end
@@ -68,7 +68,7 @@ RSpec.describe 'api/v1/reservations', type: :request do
         let!(:existing_reservation) { create(:reservation, room:, check_in:, check_out:, user:) }
         let(:reservation) { { check_in:, check_out: } }
 
-        schema type: :object, properties: { error: { type: :string } }
+        schema type: :object, properties: { error: { type: :string, example: 'Room is not available for the selected dates' } }
 
         run_test!
       end
@@ -77,7 +77,7 @@ RSpec.describe 'api/v1/reservations', type: :request do
         let(:Authorization) { "Bearer #{JwtService.encode(user_id: user.id)}" }
         let(:reservation) { { check_in: 'invalid-date', check_out: 'invalid-date' } }
 
-        schema type: :object, properties: { error: { type: :string } }
+        schema type: :object, properties: { error: { type: :string, example: 'Invalid date format' } }
 
         run_test!
       end
@@ -86,7 +86,7 @@ RSpec.describe 'api/v1/reservations', type: :request do
         let(:Authorization) { "Bearer #{JwtService.encode(user_id: user.id)}" }
         let(:reservation) { { check_in: '' } }
 
-        schema type: :object, properties: { error: { type: :string } }
+        schema type: :object, properties: { error: { type: :string, example: 'Check-in and check-out dates are required' } }
 
         run_test!
       end
