@@ -11,6 +11,96 @@ components:
       bearerFormat: JWT
       description: 'Enter the JWT token in the format: Bearer {token}'
 paths:
+  "/api/v1/hotels/{hotel_id}/rooms/{room_id}/reservations":
+    post:
+      summary: Create a reservation for a room
+      security:
+      - Bearer: []
+      tags:
+      - Reservations
+      parameters:
+      - name: hotel_id
+        in: path
+        schema:
+          type: integer
+          example: 1
+        required: true
+      - name: room_id
+        in: path
+        schema:
+          type: integer
+          example: 1
+        required: true
+      responses:
+        '201':
+          description: Reservation created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  room_id:
+                    type: integer
+                  user_id:
+                    type: integer
+                  check_in:
+                    type: string
+                    format: date
+                  check_out:
+                    type: string
+                    format: date
+                required:
+                - id
+                - room_id
+                - user_id
+                - check_in
+                - check_out
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '404':
+          description: Room not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '422':
+          description: Check-in and check-out dates are required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                check_in:
+                  type: string
+                  format: date
+                  example: '2024-09-17'
+                check_out:
+                  type: string
+                  format: date
+                  example: '2024-09-18'
+              required:
+              - check_in
+              - check_out
   "/api/v1/hotels/{hotel_id}/rooms/available":
     get:
       summary: List available rooms for a hotel
