@@ -4,7 +4,7 @@ module Api
   module V1
     class RoomsController < ApplicationController
       before_action :authenticate_user!
-      before_action :require_dates
+      before_action :parse_dates
 
       def available
         hotel_id = params[:hotel_id]
@@ -15,17 +15,11 @@ module Api
 
       private
 
-      def require_dates
-        begin
-          @check_in = params[:check_in]&.to_date
-          @check_out = params[:check_out]&.to_date
-        rescue ArgumentError
-          render json: { error: 'Invalid date format' }, status: :unprocessable_entity and return
-        end
+      def parse_dates
+        result = DateParser.parse_dates(params)
+        return render json: result, status: :unprocessable_entity if result.is_a?(Hash) && result[:error]
 
-        if @check_in.blank? || @check_out.blank?
-          render json: { error: 'Check-in and check-out dates are required' }, status: :bad_request
-        end
+        @check_in, @check_out = result
       end
     end
   end

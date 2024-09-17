@@ -43,8 +43,8 @@ RSpec.describe 'Rooms API', type: :request do
       end
 
       it 'return an error for missing data' do
-        expect(response).to have_http_status :bad_request
-        expect(JSON.parse(response.body)).to eq({ 'error' => 'Check-in and check-out dates are required' })
+        expect(response).to have_http_status :unprocessable_entity
+        expect(JSON.parse(response.body)).to eq({ 'error' => 'check-in and check-out dates are required' })
       end
     end
 

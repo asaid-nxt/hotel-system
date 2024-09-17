@@ -68,7 +68,7 @@ RSpec.describe 'api/v1/rooms', type: :request do
         end
       end
 
-      response '400', 'Check-in and check-out dates are required' do
+      response '422', 'check-in and check-out dates are required' do
         let(:Authorization) { JwtService.encode(user_id: user.id) }
         let(:check_in) { '' }
 
@@ -78,10 +78,7 @@ RSpec.describe 'api/v1/rooms', type: :request do
                },
                required: ['error']
 
-        run_test! do
-          expect(response.status).to eq(400)
-          expect(JSON.parse(response.body)['error']).to eq('Check-in and check-out dates are required')
-        end
+        run_test!
       end
 
       response '200', 'No available rooms found' do

@@ -28,15 +28,15 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
         it 'returns an error for missing check-in date' do
           get :available, params: { hotel_id: hotel.id, check_out: '2024-09-20' }
 
-          expect(response).to have_http_status(:bad_request)
-          expect(JSON.parse(response.body)).to eq({ 'error' => 'Check-in and check-out dates are required' })
+          expect(response).to have_http_status(:unprocessable_entity)
+          expect(JSON.parse(response.body)).to eq({ 'error' => 'check-in and check-out dates are required' })
         end
 
         it 'returns an error for missing check-out date' do
           get :available, params: { hotel_id: hotel.id, check_in: '2024-09-15' }
 
-          expect(response).to have_http_status(:bad_request)
-          expect(JSON.parse(response.body)).to eq({ 'error' => 'Check-in and check-out dates are required' })
+          expect(response).to have_http_status(:unprocessable_entity)
+          expect(JSON.parse(response.body)).to eq({ 'error' => 'check-in and check-out dates are required' })
         end
       end
 

@@ -166,18 +166,7 @@ paths:
                   error:
                     type: string
         '422':
-          description: Invalid date format
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                required:
-                - error
-        '400':
-          description: Check-in and check-out dates are required
+          description: check-in and check-out dates are required
           content:
             application/json:
               schema:
