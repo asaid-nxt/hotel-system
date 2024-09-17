@@ -95,8 +95,18 @@ RSpec.describe Room, type: :model do
       expect(room.available?(check_in, check_out)).to be_truthy
     end
 
+    it 'when only check_in overlaps' do
+      create(:reservation, room:, check_in:, check_out: Date.today + 3.days)
+      expect(room.available?(check_in, check_out)).to be_falsy
+    end
+
+    it 'when only check_out overlaps' do
+      create(:reservation, room:, check_in: Date.today - 2.days, check_out:)
+      expect(room.available?(check_in, check_out)).to be_falsy
+    end
+
     it 'when room is not available' do
-      create(:reservation, room:,check_in:, check_out:)
+      create(:reservation, room:, check_in:, check_out:)
       expect(room.available?(check_in, check_out)).to be_falsy
     end
   end
