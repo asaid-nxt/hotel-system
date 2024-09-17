@@ -9,4 +9,8 @@ class Room < ApplicationRecord
     where(hotel_id:)
       .where.not(id: Reservation.where('check_in < ? AND check_out > ?', check_out, check_in).select(:room_id))
   }
+
+  def available?(check_in, check_out)
+    !reservations.where('check_in < ? AND check_out > ?', check_out, check_in).exists?
+  end
 end

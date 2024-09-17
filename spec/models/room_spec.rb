@@ -84,4 +84,20 @@ RSpec.describe Room, type: :model do
       end
     end
   end
+
+  describe '.available?' do
+    let(:hotel) { create(:hotel) }
+    let(:room) { create(:room, hotel:) }
+    let(:check_in) { Date.today }
+    let(:check_out) { Date.tomorrow }
+
+    it 'when room is available' do
+      expect(room.available?(check_in, check_out)).to be_truthy
+    end
+
+    it 'when room is not available' do
+      create(:reservation, room:,check_in:, check_out:)
+      expect(room.available?(check_in, check_out)).to be_falsy
+    end
+  end
 end
