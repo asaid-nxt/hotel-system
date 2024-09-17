@@ -9,7 +9,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-      description: 'Enter the JWT token in the format: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMH0.Kzb9dwgjEYPDKCKTmjFRiBrKTBiyrgVHaMojU6bdKhY'
+      description: 'Enter the JWT token in the format: Bearer {token}'
 paths:
   "/api/v1/hotels/{hotel_id}/rooms/available":
     get:
