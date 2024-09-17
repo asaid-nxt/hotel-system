@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Rooms API' do
+RSpec.describe 'Rooms API', type: :request do
   let(:user) { create(:user) }
   let(:hotel) { create(:hotel) }
   let!(:room) { create(:room, hotel:) }

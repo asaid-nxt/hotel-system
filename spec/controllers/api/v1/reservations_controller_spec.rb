@@ -15,7 +15,6 @@ RSpec.describe Api::V1::ReservationsController, type: :controller do
     it 'makes a reservation' do
       post :create, params: { hotel_id: hotel.id, room_id: room.id, reservation: { check_in:, check_out: } }
 
-      puts json_response
       expect(response).to have_http_status :created
       expect(json_response).to include(
         'id' => be_present,
