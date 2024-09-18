@@ -9,6 +9,36 @@ RSpec.describe 'api/v1/reservations', type: :request do
   let(:check_in) { Date.today.to_s }
   let(:check_out) { (Date.today + 1.day).to_s }
 
+  path '/api/v1/reservations' do
+    get 'Retrieve a list of reservations (past, current, and future)' do
+      security [Bearer: []]
+      tags 'Reservations'
+      produces 'application/json'
+
+      response '200', 'Reservations retrieved successfully' do
+        let(:Authorization) { "Bearer #{JwtService.encode(user_id: user.id)}" }
+        let!(:past_reservation) { create(:reservation, check_in: Date.today - 3.days, check_out: Date.yesterday, user:) }
+        let!(:current_reservation) { create(:reservation, check_in: Date.today, check_out: Date.tomorrow, user:) }
+        let!(:future_reservation) { create(:reservation, check_in: Date.tomorrow, check_out: Date.today + 2.days, user:) }
+
+        example 'application/json', :success_example, {
+          past: [{ id: 1, room_id: 5, user_id: 3, check_in: '2024-09-13', check_out: '2024-09-14' }],
+          current: [{ id: 2, room_id: 5, user_id: 3, check_in: '2024-09-17', check_out: '2024-09-18' }],
+          future: [{ id: 3, room_id: 5, user_id: 3, check_in: '2024-09-20', check_out: '2024-09-21' }]
+        }
+        run_test!
+      end
+
+      response '401', 'Unauthorized' do
+        let(:Authorization) { 'invalid_token' }
+
+        schema type: :object, properties: { error: { type: :string, example: 'Unauthorized' } }
+
+        run_test!
+      end
+    end
+  end
+
   path '/api/v1/hotels/{hotel_id}/rooms/{room_id}/reservations' do
     post 'Create a reservation for a room' do
       security [Bearer: []]

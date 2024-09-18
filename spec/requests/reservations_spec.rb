@@ -34,7 +34,7 @@ RSpec.describe 'Reservations API', type: :request do
       end
 
       context 'when user have no reservations' do
-        let(:other_user) { create(:user) }
+        let(:other_user) { create(:user, username: 'test1') }
         let(:other_headers) { { 'Authorization' => "Bearer #{other_user.generate_jwt}" } }
 
         before do

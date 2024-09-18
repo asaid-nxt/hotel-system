@@ -11,6 +11,49 @@ components:
       bearerFormat: JWT
       description: 'Enter the JWT token in the format: Bearer {token}'
 paths:
+  "/api/v1/reservations":
+    get:
+      summary: Retrieve a list of reservations (past, current, and future)
+      security:
+      - Bearer: []
+      tags:
+      - Reservations
+      responses:
+        '200':
+          description: Reservations retrieved successfully
+          content:
+            application/json:
+              examples:
+                success_example:
+                  value:
+                    past:
+                    - id: 1
+                      room_id: 5
+                      user_id: 3
+                      check_in: '2024-09-13'
+                      check_out: '2024-09-14'
+                    current:
+                    - id: 2
+                      room_id: 5
+                      user_id: 3
+                      check_in: '2024-09-17'
+                      check_out: '2024-09-18'
+                    future:
+                    - id: 3
+                      room_id: 5
+                      user_id: 3
+                      check_in: '2024-09-20'
+                      check_out: '2024-09-21'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized
   "/api/v1/hotels/{hotel_id}/rooms/{room_id}/reservations":
     post:
       summary: Create a reservation for a room
