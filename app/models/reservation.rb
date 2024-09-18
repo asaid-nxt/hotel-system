@@ -5,6 +5,10 @@ class Reservation < ApplicationRecord
   validates :check_in, :check_out, presence: true
   validate :check_dates
 
+  scope :past, -> { where('check_out < ?', Date.today.to_s) }
+  scope :current, -> { where('check_in <= ? AND check_out >= ?', Date.today.to_s, Date.today.to_s) }
+  scope :future, -> { where('check_in > ?', Date.today.to_s) }
+
   private
 
   def check_dates
