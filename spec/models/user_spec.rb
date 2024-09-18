@@ -62,4 +62,17 @@ RSpec.describe User, type: :model do
       expect(user.user?).to be_truthy
     end
   end
+
+  describe 'associations' do
+    it { should have_many(:reservations) }
+  end
+
+  describe '#generate_jwt' do
+    it 'it calls JWTService to encode user_id' do
+      expect(JwtService).to receive(:encode).with({ user_id: user.id }).and_return('token')
+      token = user.generate_jwt
+
+      expect(token).to eq('token')
+    end
+  end
 end
