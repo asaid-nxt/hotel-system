@@ -234,8 +234,8 @@
     <h4 class="tag_title">Examples:</h4>
     
       
-      <pre class="example code"><code><span class='const'><span class='object_link'><a href="" title="JwtService (class)">JwtService</a></span></span><span class='period'>.</span><span class='id identifier rubyid_decode'>decode</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJleHB4IjoxNjA1OTkzMDI1fQ.SlWzA4_dhzAYPL_xeFET5pPo8zZxlk5IURsl8d26Wm0</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-<span class='comment'># =&gt; { &quot;user_id&quot; =&gt; 1, &quot;exp&quot; =&gt; 1605993025 }</span></code></pre>
+      <pre class="example code"><code><span class='const'><span class='object_link'><a href="" title="JwtService (class)">JwtService</a></span></span><span class='period'>.</span><span class='id identifier rubyid_decode'>decode</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>token</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='comment'># =&gt; { &quot;user_id&quot; =&gt; 1 }</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -346,8 +346,8 @@
     <h4 class="tag_title">Examples:</h4>
     
       
-      <pre class="example code"><code><span class='const'><span class='object_link'><a href="" title="JwtService (class)">JwtService</a></span></span><span class='period'>.</span><span class='id identifier rubyid_encode'>encode</span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>user_id:</span> <span class='int'>1</span><span class='comma'>,</span> <span class='label'>exp:</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span> <span class='op'>+</span> <span class='int'>3600</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
-<span class='comment'># =&gt; &quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJleHB4IjoxNjA1OTkzMDI1fQ.SlWzA4_dhzAYPL_xeFET5pPo8zZxlk5IURsl8d26Wm0&quot;</span></code></pre>
+      <pre class="example code"><code><span class='const'><span class='object_link'><a href="" title="JwtService (class)">JwtService</a></span></span><span class='period'>.</span><span class='id identifier rubyid_encode'>encode</span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>user_id:</span> <span class='int'>1</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+<span class='comment'># =&gt; &quot;token&quot;</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -416,7 +416,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Sep 13 15:10:19 2024 by
+  Generated on Wed Sep 18 17:33:11 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.3.4).
 </div>

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Base controller for the API, providing common functionality to all controllers.
 class ApplicationController < ActionController::API
   private
 
@@ -9,11 +10,9 @@ class ApplicationController < ActionController::API
     token = request.headers['Authorization']&.split(' ')&.last
     decoded_token = JwtService.decode(token)
 
-    if decoded_token
-      self.current_user = User.find(decoded_token[:user_id])
-    else
-      render json: { error: 'Unauthorized' }, status: :unauthorized and return
-    end
+    render json: { error: 'Unauthorized' }, status: :unauthorized and return unless decoded_token
+
+    self.current_user = User.find(decoded_token[:user_id])
   end
 
   def authenticate_admin!

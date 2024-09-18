@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: DateParser
+  
+    &mdash; Documentation by YARD 0.9.37
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "DateParser";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index (D)</a> &raquo;
+    
+    
+    <span class="title">DateParser</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: DateParser
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">DateParser</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>app/services/date_parser.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>The DateParser class provides functionality for parsing and validating date parameters. It includes a class method to handle the conversion of date strings into Date objects and ensures that both check-in and check-out dates are provided and valid.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h4 class="tag_title">Examples:</h4>
+    
+      
+      <pre class="example code"><code><span class='const'>DateParser</span><span class='period'>.</span><span class='id identifier rubyid_parse_dates'><span class='object_link'><a href="#parse_dates-class_method" title="DateParser.parse_dates (method)">parse_dates</a></span></span><span class='lparen'>(</span><span class='label'>check_in:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>2024-09-01</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>check_out:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>2024-09-10</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='comment'># =&gt; [#&lt;Date: 2024-09-01&gt;, #&lt;Date: 2024-09-10&gt;]</span></code></pre>
+    
+      
+      <pre class="example code"><code><span class='const'>DateParser</span><span class='period'>.</span><span class='id identifier rubyid_parse_dates'><span class='object_link'><a href="#parse_dates-class_method" title="DateParser.parse_dates (method)">parse_dates</a></span></span><span class='lparen'>(</span><span class='label'>check_in:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>2024-09-01</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='comment'># =&gt; { error: &#39;check-in and check-out dates are required&#39; }</span></code></pre>
+    
+      
+      <pre class="example code"><code><span class='const'>DateParser</span><span class='period'>.</span><span class='id identifier rubyid_parse_dates'><span class='object_link'><a href="#parse_dates-class_method" title="DateParser.parse_dates (method)">parse_dates</a></span></span><span class='lparen'>(</span><span class='label'>check_in:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>invalid-date</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>check_out:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>2024-09-10</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='comment'># =&gt; { error: &#39;Invalid date format&#39; }</span></code></pre>
+    
+  </div>
+
+
+</div>
+
+
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#parse_dates-class_method" title="parse_dates (class method)">.<strong>parse_dates</strong>(params)  &#x21d2; Array&lt;Date, Date&gt; | Hash </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Parses and validates check-in and check-out dates from the provided parameters.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="parse_dates-class_method">
+  
+    .<strong>parse_dates</strong>(params)  &#x21d2; <tt>Array&lt;Date, Date&gt; | Hash</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Parses and validates check-in and check-out dates from the provided parameters.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>params</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a hash containing ‘:check_in` and `:check_out` keys with date values as strings or Date objects</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    <p class="tag_title">Options Hash (<tt>params</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:check_in</span>
+          <span class="type">(<tt>String</tt>, <tt>Date</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>the check-in date</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:check_out</span>
+          <span class="type">(<tt>String</tt>, <tt>Date</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>the check-out date</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;Date, Date&gt; | Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>an array containing parsed Date objects if both dates are valid, or a hash with an error message if dates are missing or invalid</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>ArgumentError</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>if the provided date strings are in an invalid format</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/services/date_parser.rb', line 31</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_parse_dates'>parse_dates</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_check_in'>check_in</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:check_in</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_check_out'>check_out</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:check_out</span><span class='rbracket'>]</span>
+
+  <span class='kw'>return</span> <span class='lbrace'>{</span> <span class='label'>error:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>check-in and check-out dates are required</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span> <span class='kw'>if</span> <span class='id identifier rubyid_check_in'>check_in</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>||</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+
+  <span class='kw'>begin</span>
+    <span class='id identifier rubyid_parsed_check_in'>parsed_check_in</span> <span class='op'>=</span> <span class='id identifier rubyid_check_in'>check_in</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Date</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_check_in'>check_in</span> <span class='op'>:</span> <span class='const'>Date</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_check_in'>check_in</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_parsed_check_out'>parsed_check_out</span> <span class='op'>=</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Date</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_check_out'>check_out</span> <span class='op'>:</span> <span class='const'>Date</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_check_out'>check_out</span><span class='rparen'>)</span>
+  <span class='kw'>rescue</span> <span class='const'>ArgumentError</span>
+    <span class='kw'>return</span> <span class='lbrace'>{</span> <span class='label'>error:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Invalid date format</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+
+  <span class='lbracket'>[</span><span class='id identifier rubyid_parsed_check_in'>parsed_check_in</span><span class='comma'>,</span> <span class='id identifier rubyid_parsed_check_out'>parsed_check_out</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Wed Sep 18 17:33:11 2024 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.3.4).
+</div>
+
+    </div>
+  </body>
+</html>

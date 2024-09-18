@@ -2,6 +2,7 @@
 
 module Api
   module V1
+    # Handles reservation-related actions such as listing and creating reservations.
     class ReservationsController < ApplicationController
       before_action :authenticate_user!
       before_action :parse_dates, only: [:create]

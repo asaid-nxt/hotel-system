@@ -2,6 +2,7 @@
 
 module Api
   module V1
+    # Handles actions related to managing hotel rooms such as showing available rooms.
     class RoomsController < ApplicationController
       before_action :authenticate_user!
       before_action :parse_dates

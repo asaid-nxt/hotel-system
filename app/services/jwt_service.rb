@@ -14,7 +14,7 @@ class JwtService
   #
   # @example
   #   JwtService.encode({ user_id: 1 })
-  #   # => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxfQ.dXNlcl9pZCBleHBpdG9rZW4"
+  #   # => "token"
   def self.encode(payload)
     JWT.encode(payload, SECRET_KEY)
   end
@@ -26,7 +26,7 @@ class JwtService
   #   or nil if decoding fails.
   #
   # @example
-  #   JwtService.decode("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxfQ.dXNlcl9pZCBleHBpdG9rZW4")
+  #   JwtService.decode("token")
   #   # => { "user_id" => 1 }
   #
   # @raise [JWT::DecodeError] If the token is invalid or cannot be decoded.

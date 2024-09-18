@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Room
+  
+    &mdash; Documentation by YARD 0.9.37
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Room";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index (R)</a> &raquo;
+    
+    
+    <span class="title">Room</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Room
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName"><span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">ActiveRecord::Base</li>
+          
+            <li class="next"><span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></li>
+          
+            <li class="next">Room</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>app/models/room.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Room model that represents a room in a hotel. A room belongs to a specific hotel and can have many reservations.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#capacity-instance_method" title="#capacity (instance method)">#<strong>capacity</strong>  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The capacity of the room, indicating how many people can stay in it.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#hotel-instance_method" title="#hotel (instance method)">#<strong>hotel</strong>  &#x21d2; Hotel </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The hotel to which this room belongs.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#number-instance_method" title="#number (instance method)">#<strong>number</strong>  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The room number in the hotel.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#reservations-instance_method" title="#reservations (instance method)">#<strong>reservations</strong>  &#x21d2; Array&lt;Reservation&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The reservations made for this room.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#available-instance_method" title="#available (instance method)">#<strong>available</strong>  &#x21d2; ActiveRecord::Relation </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Scope to find rooms that are available in a given hotel within a date range.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#available%3F-instance_method" title="#available? (instance method)">#<strong>available?</strong>(check_in, check_out)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Checks if the room is available for the given date range.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id="capacity=-instance_method"></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="capacity-instance_method">
+  
+    #<strong>capacity</strong>  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>The capacity of the room, indicating how many people can stay in it.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/room.rb', line 22</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Room (class)">Room</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></span>
+  <span class='id identifier rubyid_belongs_to'>belongs_to</span> <span class='symbol'>:hotel</span>
+  <span class='id identifier rubyid_has_many'>has_many</span> <span class='symbol'>:reservations</span><span class='comma'>,</span> <span class='label'>dependent:</span> <span class='symbol'>:destroy</span>
+
+  <span class='comment'># Validates the presence of the room number and capacity.
+</span>  <span class='comment'># Validates that the capacity must be a positive integer.
+</span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:number</span><span class='comma'>,</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>numericality:</span> <span class='lbrace'>{</span> <span class='label'>greater_than:</span> <span class='int'>0</span> <span class='rbrace'>}</span>
+
+  <span class='comment'># Scope to find rooms that are available in a given hotel within a date range.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param hotel_id [Integer] The ID of the hotel to search in.
+</span>  <span class='comment'># @param check_in [Date] The start date for room availability.
+</span>  <span class='comment'># @param check_out [Date] The end date for room availability.
+</span>  <span class='comment'># @return [ActiveRecord::Relation] The available rooms.
+</span>  <span class='id identifier rubyid_scope'>scope</span> <span class='symbol'>:available</span><span class='comma'>,</span> <span class='id identifier rubyid_lambda'>lambda</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_hotel_id'>hotel_id</span><span class='comma'>,</span> <span class='id identifier rubyid_check_in'>check_in</span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='op'>|</span>
+    <span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>hotel_id:</span><span class='rparen'>)</span>
+      <span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='period'>.</span><span class='id identifier rubyid_not'>not</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='const'><span class='object_link'><a href="Reservation.html" title="Reservation (class)">Reservation</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>check_in &lt; ? AND check_out &gt; ?</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='comma'>,</span> <span class='id identifier rubyid_check_in'>check_in</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span><span class='lparen'>(</span><span class='symbol'>:room_id</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='rbrace'>}</span>
+
+  <span class='comment'># Checks if the room is available for the given date range.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param check_in [Date] The start date to check availability.
+</span>  <span class='comment'># @param check_out [Date] The end date to check availability.
+</span>  <span class='comment'># @return [Boolean] True if the room is available, false otherwise.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_available?'>available?</span><span class='lparen'>(</span><span class='id identifier rubyid_check_in'>check_in</span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='rparen'>)</span>
+    <span class='op'>!</span><span class='id identifier rubyid_reservations'>reservations</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>check_in &lt; ? AND check_out &gt; ?</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='comma'>,</span> <span class='id identifier rubyid_check_in'>check_in</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_exists?'>exists?</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="hotel-instance_method">
+  
+    #<strong>hotel</strong>  &#x21d2; <tt><span class='object_link'><a href="Hotel.html" title="Hotel (class)">Hotel</a></span></tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>The hotel to which this room belongs.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Hotel.html" title="Hotel (class)">Hotel</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/room.rb', line 22</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Room (class)">Room</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></span>
+  <span class='id identifier rubyid_belongs_to'>belongs_to</span> <span class='symbol'>:hotel</span>
+  <span class='id identifier rubyid_has_many'>has_many</span> <span class='symbol'>:reservations</span><span class='comma'>,</span> <span class='label'>dependent:</span> <span class='symbol'>:destroy</span>
+
+  <span class='comment'># Validates the presence of the room number and capacity.
+</span>  <span class='comment'># Validates that the capacity must be a positive integer.
+</span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:number</span><span class='comma'>,</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>numericality:</span> <span class='lbrace'>{</span> <span class='label'>greater_than:</span> <span class='int'>0</span> <span class='rbrace'>}</span>
+
+  <span class='comment'># Scope to find rooms that are available in a given hotel within a date range.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param hotel_id [Integer] The ID of the hotel to search in.
+</span>  <span class='comment'># @param check_in [Date] The start date for room availability.
+</span>  <span class='comment'># @param check_out [Date] The end date for room availability.
+</span>  <span class='comment'># @return [ActiveRecord::Relation] The available rooms.
+</span>  <span class='id identifier rubyid_scope'>scope</span> <span class='symbol'>:available</span><span class='comma'>,</span> <span class='id identifier rubyid_lambda'>lambda</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_hotel_id'>hotel_id</span><span class='comma'>,</span> <span class='id identifier rubyid_check_in'>check_in</span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='op'>|</span>
+    <span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>hotel_id:</span><span class='rparen'>)</span>
+      <span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='period'>.</span><span class='id identifier rubyid_not'>not</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='const'><span class='object_link'><a href="Reservation.html" title="Reservation (class)">Reservation</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>check_in &lt; ? AND check_out &gt; ?</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='comma'>,</span> <span class='id identifier rubyid_check_in'>check_in</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span><span class='lparen'>(</span><span class='symbol'>:room_id</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='rbrace'>}</span>
+
+  <span class='comment'># Checks if the room is available for the given date range.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param check_in [Date] The start date to check availability.
+</span>  <span class='comment'># @param check_out [Date] The end date to check availability.
+</span>  <span class='comment'># @return [Boolean] True if the room is available, false otherwise.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_available?'>available?</span><span class='lparen'>(</span><span class='id identifier rubyid_check_in'>check_in</span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='rparen'>)</span>
+    <span class='op'>!</span><span class='id identifier rubyid_reservations'>reservations</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>check_in &lt; ? AND check_out &gt; ?</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='comma'>,</span> <span class='id identifier rubyid_check_in'>check_in</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_exists?'>exists?</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="number=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="number-instance_method">
+  
+    #<strong>number</strong>  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>The room number in the hotel.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/room.rb', line 22</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Room (class)">Room</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></span>
+  <span class='id identifier rubyid_belongs_to'>belongs_to</span> <span class='symbol'>:hotel</span>
+  <span class='id identifier rubyid_has_many'>has_many</span> <span class='symbol'>:reservations</span><span class='comma'>,</span> <span class='label'>dependent:</span> <span class='symbol'>:destroy</span>
+
+  <span class='comment'># Validates the presence of the room number and capacity.
+</span>  <span class='comment'># Validates that the capacity must be a positive integer.
+</span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:number</span><span class='comma'>,</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>numericality:</span> <span class='lbrace'>{</span> <span class='label'>greater_than:</span> <span class='int'>0</span> <span class='rbrace'>}</span>
+
+  <span class='comment'># Scope to find rooms that are available in a given hotel within a date range.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param hotel_id [Integer] The ID of the hotel to search in.
+</span>  <span class='comment'># @param check_in [Date] The start date for room availability.
+</span>  <span class='comment'># @param check_out [Date] The end date for room availability.
+</span>  <span class='comment'># @return [ActiveRecord::Relation] The available rooms.
+</span>  <span class='id identifier rubyid_scope'>scope</span> <span class='symbol'>:available</span><span class='comma'>,</span> <span class='id identifier rubyid_lambda'>lambda</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_hotel_id'>hotel_id</span><span class='comma'>,</span> <span class='id identifier rubyid_check_in'>check_in</span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='op'>|</span>
+    <span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>hotel_id:</span><span class='rparen'>)</span>
+      <span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='period'>.</span><span class='id identifier rubyid_not'>not</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='const'><span class='object_link'><a href="Reservation.html" title="Reservation (class)">Reservation</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>check_in &lt; ? AND check_out &gt; ?</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='comma'>,</span> <span class='id identifier rubyid_check_in'>check_in</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span><span class='lparen'>(</span><span class='symbol'>:room_id</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='rbrace'>}</span>
+
+  <span class='comment'># Checks if the room is available for the given date range.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param check_in [Date] The start date to check availability.
+</span>  <span class='comment'># @param check_out [Date] The end date to check availability.
+</span>  <span class='comment'># @return [Boolean] True if the room is available, false otherwise.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_available?'>available?</span><span class='lparen'>(</span><span class='id identifier rubyid_check_in'>check_in</span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='rparen'>)</span>
+    <span class='op'>!</span><span class='id identifier rubyid_reservations'>reservations</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>check_in &lt; ? AND check_out &gt; ?</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='comma'>,</span> <span class='id identifier rubyid_check_in'>check_in</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_exists?'>exists?</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="reservations-instance_method">
+  
+    #<strong>reservations</strong>  &#x21d2; <tt>Array&lt;<span class='object_link'><a href="Reservation.html" title="Reservation (class)">Reservation</a></span>&gt;</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>The reservations made for this room.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="Reservation.html" title="Reservation (class)">Reservation</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/room.rb', line 22</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Room (class)">Room</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></span>
+  <span class='id identifier rubyid_belongs_to'>belongs_to</span> <span class='symbol'>:hotel</span>
+  <span class='id identifier rubyid_has_many'>has_many</span> <span class='symbol'>:reservations</span><span class='comma'>,</span> <span class='label'>dependent:</span> <span class='symbol'>:destroy</span>
+
+  <span class='comment'># Validates the presence of the room number and capacity.
+</span>  <span class='comment'># Validates that the capacity must be a positive integer.
+</span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:number</span><span class='comma'>,</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>numericality:</span> <span class='lbrace'>{</span> <span class='label'>greater_than:</span> <span class='int'>0</span> <span class='rbrace'>}</span>
+
+  <span class='comment'># Scope to find rooms that are available in a given hotel within a date range.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param hotel_id [Integer] The ID of the hotel to search in.
+</span>  <span class='comment'># @param check_in [Date] The start date for room availability.
+</span>  <span class='comment'># @param check_out [Date] The end date for room availability.
+</span>  <span class='comment'># @return [ActiveRecord::Relation] The available rooms.
+</span>  <span class='id identifier rubyid_scope'>scope</span> <span class='symbol'>:available</span><span class='comma'>,</span> <span class='id identifier rubyid_lambda'>lambda</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_hotel_id'>hotel_id</span><span class='comma'>,</span> <span class='id identifier rubyid_check_in'>check_in</span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='op'>|</span>
+    <span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>hotel_id:</span><span class='rparen'>)</span>
+      <span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='period'>.</span><span class='id identifier rubyid_not'>not</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='const'><span class='object_link'><a href="Reservation.html" title="Reservation (class)">Reservation</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>check_in &lt; ? AND check_out &gt; ?</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='comma'>,</span> <span class='id identifier rubyid_check_in'>check_in</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span><span class='lparen'>(</span><span class='symbol'>:room_id</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='rbrace'>}</span>
+
+  <span class='comment'># Checks if the room is available for the given date range.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param check_in [Date] The start date to check availability.
+</span>  <span class='comment'># @param check_out [Date] The end date to check availability.
+</span>  <span class='comment'># @return [Boolean] True if the room is available, false otherwise.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_available?'>available?</span><span class='lparen'>(</span><span class='id identifier rubyid_check_in'>check_in</span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='rparen'>)</span>
+    <span class='op'>!</span><span class='id identifier rubyid_reservations'>reservations</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>check_in &lt; ? AND check_out &gt; ?</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='comma'>,</span> <span class='id identifier rubyid_check_in'>check_in</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_exists?'>exists?</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="available-instance_method">
+  
+    #<strong>available</strong>  &#x21d2; <tt>ActiveRecord::Relation</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Scope to find rooms that are available in a given hotel within a date range.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>hotel_id</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The ID of the hotel to search in.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>check_in</span>
+      
+      
+        <span class='type'>(<tt>Date</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The start date for room availability.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>check_out</span>
+      
+      
+        <span class='type'>(<tt>Date</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The end date for room availability.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>ActiveRecord::Relation</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The available rooms.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+37
+38
+39
+40</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/room.rb', line 37</span>
+
+<span class='id identifier rubyid_scope'>scope</span> <span class='symbol'>:available</span><span class='comma'>,</span> <span class='id identifier rubyid_lambda'>lambda</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_hotel_id'>hotel_id</span><span class='comma'>,</span> <span class='id identifier rubyid_check_in'>check_in</span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='op'>|</span>
+  <span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>hotel_id:</span><span class='rparen'>)</span>
+    <span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='period'>.</span><span class='id identifier rubyid_not'>not</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='const'><span class='object_link'><a href="Reservation.html" title="Reservation (class)">Reservation</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>check_in &lt; ? AND check_out &gt; ?</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='comma'>,</span> <span class='id identifier rubyid_check_in'>check_in</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span><span class='lparen'>(</span><span class='symbol'>:room_id</span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='rbrace'>}</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="available?-instance_method">
+  
+    #<strong>available?</strong>(check_in, check_out)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Checks if the room is available for the given date range.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>check_in</span>
+      
+      
+        <span class='type'>(<tt>Date</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The start date to check availability.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>check_out</span>
+      
+      
+        <span class='type'>(<tt>Date</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The end date to check availability.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>True if the room is available, false otherwise.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+47
+48
+49</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/room.rb', line 47</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_available?'>available?</span><span class='lparen'>(</span><span class='id identifier rubyid_check_in'>check_in</span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='rparen'>)</span>
+  <span class='op'>!</span><span class='id identifier rubyid_reservations'>reservations</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>check_in &lt; ? AND check_out &gt; ?</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='comma'>,</span> <span class='id identifier rubyid_check_in'>check_in</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_exists?'>exists?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Wed Sep 18 17:33:11 2024 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.3.4).
+</div>
+
+    </div>
+  </body>
+</html>

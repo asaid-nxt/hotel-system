@@ -103,9 +103,142 @@
   
 </div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>The User class represents a user in the system and handles authentication and role-based access. Users can make reservations and have a unique username and password for authentication.</p>
+
+<p>Validations:</p>
+<ul><li>
+<p>Username must be present and unique.</p>
+</li><li>
+<p>Password must be present and have a minimum length of 6 characters.</p>
+</li></ul>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
 
 
 
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#id-instance_method" title="#id (instance method)">#<strong>id</strong>  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The unique identifier for the user.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#password-instance_method" title="#password (instance method)">#<strong>password</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The user’s password, securely stored and authenticated.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#role-instance_method" title="#role (instance method)">#<strong>role</strong>  &#x21d2; Symbol </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The role of the user, either :user or :admin.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#username-instance_method" title="#username (instance method)">#<strong>username</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The username of the user, which must be unique.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
 
 
 
@@ -121,7 +254,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#generate_jwt-instance_method" title="#generate_jwt (instance method)">#<strong>generate_jwt</strong>  &#x21d2; Object </a>
+      <a href="#generate_jwt-instance_method" title="#generate_jwt (instance method)">#<strong>generate_jwt</strong>  &#x21d2; String </a>
     
 
     
@@ -135,7 +268,57 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Generates a JSON Web Token (JWT) for the user.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#has_secure_password-instance_method" title="#has_secure_password (instance method)">#<strong>has_secure_password</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Adds methods to set and authenticate against a BCrypt password.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#reservations-instance_method" title="#reservations (instance method)">#<strong>reservations</strong>  &#x21d2; ActiveRecord::Associations::CollectionProxy </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the reservations associated with this user.</p>
+</div></span>
   
 </li>
 
@@ -151,6 +334,407 @@
   
   
   
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id=""></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="id-instance_method">
+  
+    #<strong>id</strong>  &#x21d2; <tt>Integer</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the unique identifier for the user.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the unique identifier for the user</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/user.rb', line 35</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="User (class)">User</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></span>
+  <span class='comment'># Adds methods to set and authenticate a password securely.
+</span>  <span class='id identifier rubyid_has_secure_password'>has_secure_password</span>
+
+  <span class='comment'># Establishes a one-to-many relationship with reservations.
+</span>  <span class='id identifier rubyid_has_many'>has_many</span> <span class='symbol'>:reservations</span>
+
+  <span class='comment'># Defines the possible roles a user can have.
+</span>  <span class='id identifier rubyid_enum'>enum</span> <span class='label'>role:</span> <span class='lbrace'>{</span> <span class='label'>user:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>admin:</span> <span class='int'>1</span> <span class='rbrace'>}</span>
+
+  <span class='comment'># Validations
+</span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:username</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>uniqueness:</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:password</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>length:</span> <span class='lbrace'>{</span> <span class='label'>minimum:</span> <span class='int'>6</span> <span class='rbrace'>}</span>
+
+  <span class='comment'># Generates a JSON Web Token (JWT) for the user.
+</span>  <span class='comment'># This token can be used for user authentication.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [String] the generated JWT token
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_generate_jwt'>generate_jwt</span>
+    <span class='const'><span class='object_link'><a href="JwtService.html" title="JwtService (class)">JwtService</a></span></span><span class='period'>.</span><span class='id identifier rubyid_encode'><span class='object_link'><a href="JwtService.html#encode-class_method" title="JwtService.encode (method)">encode</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>user_id:</span> <span class='id identifier rubyid_id'>id</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="password=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="password-instance_method">
+  
+    #<strong>password</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the user’s password, securely stored and authenticated.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the user’s password, securely stored and authenticated</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/user.rb', line 35</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="User (class)">User</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></span>
+  <span class='comment'># Adds methods to set and authenticate a password securely.
+</span>  <span class='id identifier rubyid_has_secure_password'>has_secure_password</span>
+
+  <span class='comment'># Establishes a one-to-many relationship with reservations.
+</span>  <span class='id identifier rubyid_has_many'>has_many</span> <span class='symbol'>:reservations</span>
+
+  <span class='comment'># Defines the possible roles a user can have.
+</span>  <span class='id identifier rubyid_enum'>enum</span> <span class='label'>role:</span> <span class='lbrace'>{</span> <span class='label'>user:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>admin:</span> <span class='int'>1</span> <span class='rbrace'>}</span>
+
+  <span class='comment'># Validations
+</span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:username</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>uniqueness:</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:password</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>length:</span> <span class='lbrace'>{</span> <span class='label'>minimum:</span> <span class='int'>6</span> <span class='rbrace'>}</span>
+
+  <span class='comment'># Generates a JSON Web Token (JWT) for the user.
+</span>  <span class='comment'># This token can be used for user authentication.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [String] the generated JWT token
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_generate_jwt'>generate_jwt</span>
+    <span class='const'><span class='object_link'><a href="JwtService.html" title="JwtService (class)">JwtService</a></span></span><span class='period'>.</span><span class='id identifier rubyid_encode'><span class='object_link'><a href="JwtService.html#encode-class_method" title="JwtService.encode (method)">encode</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>user_id:</span> <span class='id identifier rubyid_id'>id</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="role=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="role-instance_method">
+  
+    #<strong>role</strong>  &#x21d2; <tt>Symbol</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the role of the user, either :user or :admin.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the role of the user, either :user or :admin</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/user.rb', line 35</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="User (class)">User</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></span>
+  <span class='comment'># Adds methods to set and authenticate a password securely.
+</span>  <span class='id identifier rubyid_has_secure_password'>has_secure_password</span>
+
+  <span class='comment'># Establishes a one-to-many relationship with reservations.
+</span>  <span class='id identifier rubyid_has_many'>has_many</span> <span class='symbol'>:reservations</span>
+
+  <span class='comment'># Defines the possible roles a user can have.
+</span>  <span class='id identifier rubyid_enum'>enum</span> <span class='label'>role:</span> <span class='lbrace'>{</span> <span class='label'>user:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>admin:</span> <span class='int'>1</span> <span class='rbrace'>}</span>
+
+  <span class='comment'># Validations
+</span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:username</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>uniqueness:</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:password</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>length:</span> <span class='lbrace'>{</span> <span class='label'>minimum:</span> <span class='int'>6</span> <span class='rbrace'>}</span>
+
+  <span class='comment'># Generates a JSON Web Token (JWT) for the user.
+</span>  <span class='comment'># This token can be used for user authentication.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [String] the generated JWT token
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_generate_jwt'>generate_jwt</span>
+    <span class='const'><span class='object_link'><a href="JwtService.html" title="JwtService (class)">JwtService</a></span></span><span class='period'>.</span><span class='id identifier rubyid_encode'><span class='object_link'><a href="JwtService.html#encode-class_method" title="JwtService.encode (method)">encode</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>user_id:</span> <span class='id identifier rubyid_id'>id</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="username=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="username-instance_method">
+  
+    #<strong>username</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the username of the user, which must be unique.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the username of the user, which must be unique</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/user.rb', line 35</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="User (class)">User</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></span>
+  <span class='comment'># Adds methods to set and authenticate a password securely.
+</span>  <span class='id identifier rubyid_has_secure_password'>has_secure_password</span>
+
+  <span class='comment'># Establishes a one-to-many relationship with reservations.
+</span>  <span class='id identifier rubyid_has_many'>has_many</span> <span class='symbol'>:reservations</span>
+
+  <span class='comment'># Defines the possible roles a user can have.
+</span>  <span class='id identifier rubyid_enum'>enum</span> <span class='label'>role:</span> <span class='lbrace'>{</span> <span class='label'>user:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>admin:</span> <span class='int'>1</span> <span class='rbrace'>}</span>
+
+  <span class='comment'># Validations
+</span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:username</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>uniqueness:</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:password</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>length:</span> <span class='lbrace'>{</span> <span class='label'>minimum:</span> <span class='int'>6</span> <span class='rbrace'>}</span>
+
+  <span class='comment'># Generates a JSON Web Token (JWT) for the user.
+</span>  <span class='comment'># This token can be used for user authentication.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [String] the generated JWT token
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_generate_jwt'>generate_jwt</span>
+    <span class='const'><span class='object_link'><a href="JwtService.html" title="JwtService (class)">JwtService</a></span></span><span class='period'>.</span><span class='id identifier rubyid_encode'><span class='object_link'><a href="JwtService.html#encode-class_method" title="JwtService.encode (method)">encode</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>user_id:</span> <span class='id identifier rubyid_id'>id</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
@@ -159,27 +743,270 @@
       <div class="method_details first">
   <h3 class="signature first" id="generate_jwt-instance_method">
   
-    #<strong>generate_jwt</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>generate_jwt</strong>  &#x21d2; <tt>String</tt> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Generates a JSON Web Token (JWT) for the user. This token can be used for user authentication.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the generated JWT token</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-11
-12
-13</pre>
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/user.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'app/models/user.rb', line 35</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_generate_jwt'>generate_jwt</span>
-  <span class='const'><span class='object_link'><a href="JwtService.html" title="JwtService (class)">JwtService</a></span></span><span class='period'>.</span><span class='id identifier rubyid_encode'><span class='object_link'><a href="JwtService.html#encode-class_method" title="JwtService.encode (method)">encode</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>user_id:</span> <span class='id identifier rubyid_id'>id</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="User (class)">User</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></span>
+  <span class='comment'># Adds methods to set and authenticate a password securely.
+</span>  <span class='id identifier rubyid_has_secure_password'>has_secure_password</span>
+
+  <span class='comment'># Establishes a one-to-many relationship with reservations.
+</span>  <span class='id identifier rubyid_has_many'>has_many</span> <span class='symbol'>:reservations</span>
+
+  <span class='comment'># Defines the possible roles a user can have.
+</span>  <span class='id identifier rubyid_enum'>enum</span> <span class='label'>role:</span> <span class='lbrace'>{</span> <span class='label'>user:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>admin:</span> <span class='int'>1</span> <span class='rbrace'>}</span>
+
+  <span class='comment'># Validations
+</span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:username</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>uniqueness:</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:password</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>length:</span> <span class='lbrace'>{</span> <span class='label'>minimum:</span> <span class='int'>6</span> <span class='rbrace'>}</span>
+
+  <span class='comment'># Generates a JSON Web Token (JWT) for the user.
+</span>  <span class='comment'># This token can be used for user authentication.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [String] the generated JWT token
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_generate_jwt'>generate_jwt</span>
+    <span class='const'><span class='object_link'><a href="JwtService.html" title="JwtService (class)">JwtService</a></span></span><span class='period'>.</span><span class='id identifier rubyid_encode'><span class='object_link'><a href="JwtService.html#encode-class_method" title="JwtService.encode (method)">encode</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>user_id:</span> <span class='id identifier rubyid_id'>id</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="has_secure_password-instance_method">
+  
+    #<strong>has_secure_password</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Adds methods to set and authenticate against a BCrypt password. This method is added by ‘has_secure_password`.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/user.rb', line 35</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="User (class)">User</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></span>
+  <span class='comment'># Adds methods to set and authenticate a password securely.
+</span>  <span class='id identifier rubyid_has_secure_password'>has_secure_password</span>
+
+  <span class='comment'># Establishes a one-to-many relationship with reservations.
+</span>  <span class='id identifier rubyid_has_many'>has_many</span> <span class='symbol'>:reservations</span>
+
+  <span class='comment'># Defines the possible roles a user can have.
+</span>  <span class='id identifier rubyid_enum'>enum</span> <span class='label'>role:</span> <span class='lbrace'>{</span> <span class='label'>user:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>admin:</span> <span class='int'>1</span> <span class='rbrace'>}</span>
+
+  <span class='comment'># Validations
+</span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:username</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>uniqueness:</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:password</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>length:</span> <span class='lbrace'>{</span> <span class='label'>minimum:</span> <span class='int'>6</span> <span class='rbrace'>}</span>
+
+  <span class='comment'># Generates a JSON Web Token (JWT) for the user.
+</span>  <span class='comment'># This token can be used for user authentication.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [String] the generated JWT token
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_generate_jwt'>generate_jwt</span>
+    <span class='const'><span class='object_link'><a href="JwtService.html" title="JwtService (class)">JwtService</a></span></span><span class='period'>.</span><span class='id identifier rubyid_encode'><span class='object_link'><a href="JwtService.html#encode-class_method" title="JwtService.encode (method)">encode</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>user_id:</span> <span class='id identifier rubyid_id'>id</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="reservations-instance_method">
+  
+    #<strong>reservations</strong>  &#x21d2; <tt>ActiveRecord::Associations::CollectionProxy</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the reservations associated with this user.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>ActiveRecord::Associations::CollectionProxy</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a collection of the user’s reservations</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/user.rb', line 35</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="User (class)">User</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></span>
+  <span class='comment'># Adds methods to set and authenticate a password securely.
+</span>  <span class='id identifier rubyid_has_secure_password'>has_secure_password</span>
+
+  <span class='comment'># Establishes a one-to-many relationship with reservations.
+</span>  <span class='id identifier rubyid_has_many'>has_many</span> <span class='symbol'>:reservations</span>
+
+  <span class='comment'># Defines the possible roles a user can have.
+</span>  <span class='id identifier rubyid_enum'>enum</span> <span class='label'>role:</span> <span class='lbrace'>{</span> <span class='label'>user:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>admin:</span> <span class='int'>1</span> <span class='rbrace'>}</span>
+
+  <span class='comment'># Validations
+</span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:username</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>uniqueness:</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:password</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>length:</span> <span class='lbrace'>{</span> <span class='label'>minimum:</span> <span class='int'>6</span> <span class='rbrace'>}</span>
+
+  <span class='comment'># Generates a JSON Web Token (JWT) for the user.
+</span>  <span class='comment'># This token can be used for user authentication.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [String] the generated JWT token
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_generate_jwt'>generate_jwt</span>
+    <span class='const'><span class='object_link'><a href="JwtService.html" title="JwtService (class)">JwtService</a></span></span><span class='period'>.</span><span class='id identifier rubyid_encode'><span class='object_link'><a href="JwtService.html#encode-class_method" title="JwtService.encode (method)">encode</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>user_id:</span> <span class='id identifier rubyid_id'>id</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -191,7 +1018,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Sep 13 15:10:19 2024 by
+  Generated on Wed Sep 18 17:33:11 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.3.4).
 </div>
