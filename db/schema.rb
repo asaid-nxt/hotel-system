@@ -11,44 +11,44 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_09_17_174520) do
-  create_table "hotels", force: :cascade do |t|
-    t.string "name"
-    t.string "location"
-    t.text "amenities"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'hotels', force: :cascade do |t|
+    t.string 'name'
+    t.string 'location'
+    t.text 'amenities'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  create_table "reservations", force: :cascade do |t|
-    t.date "check_in"
-    t.date "check_out"
-    t.integer "user_id", null: false
-    t.integer "room_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["room_id"], name: "index_reservations_on_room_id"
-    t.index ["user_id"], name: "index_reservations_on_user_id"
+  create_table 'reservations', force: :cascade do |t|
+    t.date 'check_in'
+    t.date 'check_out'
+    t.integer 'user_id', null: false
+    t.integer 'room_id', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['room_id'], name: 'index_reservations_on_room_id'
+    t.index ['user_id'], name: 'index_reservations_on_user_id'
   end
 
-  create_table "rooms", force: :cascade do |t|
-    t.string "number"
-    t.integer "capacity"
-    t.text "amenities"
-    t.integer "hotel_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["hotel_id"], name: "index_rooms_on_hotel_id"
+  create_table 'rooms', force: :cascade do |t|
+    t.string 'number'
+    t.integer 'capacity'
+    t.text 'amenities'
+    t.integer 'hotel_id', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['hotel_id'], name: 'index_rooms_on_hotel_id'
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "username"
-    t.string "password_digest"
-    t.integer "role", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'users', force: :cascade do |t|
+    t.string 'username'
+    t.string 'password_digest'
+    t.integer 'role', default: 0
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  add_foreign_key "reservations", "rooms"
-  add_foreign_key "reservations", "users"
-  add_foreign_key "rooms", "hotels"
+  add_foreign_key 'reservations', 'rooms'
+  add_foreign_key 'reservations', 'users'
+  add_foreign_key 'rooms', 'hotels'
 end

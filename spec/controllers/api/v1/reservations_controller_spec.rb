@@ -9,8 +9,8 @@ RSpec.describe Api::V1::ReservationsController, type: :controller do
     let(:check_out) { Date.tomorrow }
 
     before do
-      allow_any_instance_of(Api::V1::ReservationsController).to receive(:authenticate_user!)
-      allow_any_instance_of(Api::V1::ReservationsController).to receive(:current_user).and_return(user)
+      allow_any_instance_of(described_class).to receive(:authenticate_user!)
+      allow_any_instance_of(described_class).to receive(:current_user).and_return(user)
     end
 
     describe 'GET #index' do
