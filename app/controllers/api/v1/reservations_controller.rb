@@ -8,6 +8,15 @@ module Api
       before_action :find_room, only: :create
       before_action :check_room_availability, only: :create
 
+      def index
+        reservations = current_user.reservations
+        render json: {
+          past: serialize(reservations.past),
+          current: serialize(reservations.current),
+          future: serialize(reservations.future)
+        }, status: :ok
+      end
+
       def create
         reservation = @room.reservations.build(reservation_params.merge(user: current_user))
 
@@ -19,6 +28,10 @@ module Api
       end
 
       private
+
+      def serialize(resource, serializer = ReservationSerializer)
+        ActiveModelSerializers::SerializableResource.new(resource, each_serializer: serializer)
+      end
 
       def reservation_params
         params.require(:reservation).permit(:check_in, :check_out)

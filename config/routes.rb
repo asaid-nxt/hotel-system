@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :users, only: [:create], path: 'signup'
+      resources :reservations, only: [:index]
       post 'login', to: 'sessions#create'
       resources :hotels, only: [] do
         resources :rooms, only: [] do

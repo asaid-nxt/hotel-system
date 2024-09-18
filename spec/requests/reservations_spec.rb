@@ -9,6 +9,58 @@ RSpec.describe 'Reservations API', type: :request do
   let(:check_in) { Date.today }
   let(:check_out) { Date.tomorrow }
 
+  describe 'GET /api/v1/reservations' do
+    let!(:past_reservation) { create(:reservation, check_in: Date.today - 3.days, check_out: Date.yesterday, user:) }
+    let!(:current_reservation) { create(:reservation, check_in: Date.today, check_out: Date.tomorrow, user:) }
+    let!(:future_reservation) { create(:reservation, check_in: Date.tomorrow, check_out: Date.today + 2.days, user:) }
+
+    describe 'when user is authenticated' do
+      context 'when user have reservations' do
+        before do
+          get '/api/v1/reservations', headers:
+        end
+        it 'returns the past, current and future reservations' do
+          expect(response).to have_http_status :ok
+          expect(json_response['past']).to include(JSON.parse(ActiveModelSerializers::SerializableResource.new(
+            past_reservation, each_serializer: ReservationSerializer
+          ).to_json))
+          expect(json_response['current']).to include(JSON.parse(ActiveModelSerializers::SerializableResource.new(
+            current_reservation, each_serializer: ReservationSerializer
+          ).to_json))
+          expect(json_response['future']).to include(JSON.parse(ActiveModelSerializers::SerializableResource.new(
+            future_reservation, each_serializer: ReservationSerializer
+          ).to_json))
+        end
+      end
+
+      context 'when user have no reservations' do
+        let(:other_user) { create(:user) }
+        let(:other_headers) { { 'Authorization' => "Bearer #{other_user.generate_jwt}" } }
+
+        before do
+          get '/api/v1/reservations', headers: other_headers
+        end
+
+        it 'returns empty past, current and future reservations' do
+          expect(response).to have_http_status :ok
+          expect(json_response['past']).to be_empty
+          expect(json_response['current']).to be_empty
+          expect(json_response['future']).to be_empty
+        end
+      end
+    end
+
+    describe 'when user is not authenticated' do
+      before do
+        get '/api/v1/reservations', headers: { 'Authorization' => 'invalid_token' }
+      end
+
+      it 'return an error Unauthoraized' do
+        expect(response).to have_http_status :unauthorized
+      end
+    end
+  end
+
   describe 'POST /api/v1/hotels/:hotel_id/rooms/:room_id/reservations' do
     describe 'when user is authenticated and room is available' do
       before do
@@ -70,7 +122,7 @@ RSpec.describe 'Reservations API', type: :request do
       end
       it 'returns an error' do
         expect(response).to have_http_status :unprocessable_entity
-        expect(json_response).to eq({ 'error' => "check-in and check-out dates are required" })
+        expect(json_response).to eq({ 'error' => 'check-in and check-out dates are required' })
       end
     end
 
@@ -81,7 +133,7 @@ RSpec.describe 'Reservations API', type: :request do
       end
       it 'returns an error' do
         expect(response).to have_http_status :unprocessable_entity
-        expect(json_response).to eq({ 'error' => "check-in and check-out dates are required" })
+        expect(json_response).to eq({ 'error' => 'check-in and check-out dates are required' })
       end
     end
 
@@ -93,7 +145,7 @@ RSpec.describe 'Reservations API', type: :request do
 
       it 'return an error' do
         expect(response).to have_http_status :unprocessable_entity
-        expect(json_response).to eq({ 'error' => "Invalid date format" })
+        expect(json_response).to eq({ 'error' => 'Invalid date format' })
       end
     end
   end
