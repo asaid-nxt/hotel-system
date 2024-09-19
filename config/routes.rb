@@ -10,8 +10,8 @@ Rails.application.routes.draw do
       resources :reservations, only: [:index]
       post 'login', to: 'sessions#create'
       resources :hotels, only: %i[create update destroy] do
-        resources :rooms, only: [] do
-          get 'available', on: :collection
+        resources :rooms, only: %i[create update destroy] do
+          get :available, on: :collection
           resources :reservations, only: [:create]
         end
       end

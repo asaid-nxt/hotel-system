@@ -1,17 +1,83 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::RoomsController, type: :controller do
+RSpec.describe Api::V1::RoomsController, type: :controller do # rubocop:disable Metrics/BlockLength
   let(:user) { create(:user) }
-  let(:token) { user.generate_jwt }
+  let(:admin) { create(:user, role: 'admin') }
+  let!(:hotel) { create(:hotel) }
+  let!(:room) { create(:room, hotel:) }
+  let(:valid_attributes) { { number: '1A', capacity: 2, amenities: 'Pool' } }
+  let(:invalid_attributes) { { number: '', amenities: '' } }
 
-  describe 'GET #available' do
+  describe 'POST #create' do
+    before do
+      allow_any_instance_of(described_class).to receive(:authenticate_admin!).and_return(true)
+    end
+    describe 'with valid params' do
+      it 'creates a room' do
+        expect do
+          post(:create, params: { hotel_id: hotel.id, room: valid_attributes })
+        end.to change(Room, :count).by(1)
+        expect(response).to have_http_status :created
+        expect(json_response['number']).to eq('1A')
+      end
+    end
+
+    describe 'with invalid attributes' do
+      it "doesn't create a room" do
+        expect do
+          post(:create, params: { hotel_id: hotel.id, room: invalid_attributes })
+        end.to change(Room, :count).by(0)
+      end
+
+      it 'returns an error' do
+        post(:create, params: { hotel_id: hotel.id, room: invalid_attributes })
+        expect(response).to have_http_status :unprocessable_entity
+        expect(json_response).to eq({ 'error' => ["Number can't be blank", "Capacity can't be blank", 'Capacity is not a number'] })
+      end
+    end
+  end
+
+  describe 'PUT #update' do
+    before do
+      allow_any_instance_of(described_class).to receive(:authenticate_admin!).and_return(true)
+    end
+    describe 'with valid attributes' do
+      it 'updates the selected room' do
+        put :update, params: { hotel_id: hotel.id, id: room.id, room: { number: 'updated number' } }
+        expect(json_response['number']).to eq('updated number')
+        expect(response).to have_http_status :ok
+      end
+    end
+
+    describe 'with invalid attributes' do
+      it 'returns an error' do
+        put :update, params: { hotel_id: hotel.id, id: room.id, room: { number: '' } }
+        expect(json_response).to eq({ 'error' => ["Number can't be blank"] })
+        expect(response).to have_http_status :unprocessable_entity
+      end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    before do
+      allow_any_instance_of(described_class).to receive(:authenticate_admin!).and_return(true)
+    end
+    it 'deletes the hotel' do
+      expect do
+        delete :destroy, params: { hotel_id: hotel.id, id: room.id }
+      end.to change(Room, :count).by(-1)
+      expect(response).to have_http_status :no_content
+    end
+  end
+
+  describe 'GET #available' do # rubocop:disable Metrics/BlockLength
     let(:hotel) { create(:hotel) }
     let(:room1) { create(:room, hotel:) }
     let(:room2) { create(:room, hotel:) }
 
-    context 'when the user is authenticated' do
+    context 'when the user is authenticated' do # rubocop:disable Metrics/BlockLength
       before do
-        request.headers['Authorization'] = token
+        allow_any_instance_of(described_class).to receive(:authenticate_user!).and_return(true)
       end
 
       context 'with valid check-in and check-out dates' do
@@ -58,10 +124,6 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
     end
 
     context 'when the user is not authenticated' do
-      before do
-        request.headers['Authorization'] = nil
-      end
-
       it 'returns an unauthorized status' do
         get :available, params: { hotel_id: hotel.id, check_in: '2024-09-15', check_out: '2024-09-20' }
 
