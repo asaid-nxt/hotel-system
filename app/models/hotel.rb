@@ -22,5 +22,6 @@ class Hotel < ApplicationRecord
   # Ensures that these attributes must be present for a hotel to be valid.
   #
   # @note Does not need a return type for validation
-  validates :name, :location, presence: true
+  validates :name, presence: true, uniqueness: true
+  validates :location, presence: true
 end

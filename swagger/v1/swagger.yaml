@@ -11,6 +11,147 @@ components:
       bearerFormat: JWT
       description: 'Enter the JWT token in the format: Bearer {token}'
 paths:
+  "/api/v1/hotels":
+    post:
+      summary: Create a hotel
+      security:
+      - Bearer: []
+      tags:
+      - Hotels
+      parameters: []
+      responses:
+        '201':
+          description: Hotel created
+          content:
+            application/json:
+              examples:
+                success_example:
+                  value:
+                    id: 1
+                    name: Hotel California
+                    location: Los Angeles
+                    amenities: Pool, Gym
+        '422':
+          description: Invalid attributes
+          content:
+            application/json:
+              examples:
+                error_example:
+                  value:
+                    error:
+                    - Name can't be blank
+                    - Location can't be blank
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              examples:
+                unauthorized_example:
+                  value:
+                    error: Unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Hotel California
+                location:
+                  type: string
+                  example: Los Angeles
+                amenities:
+                  type: string
+                  example: Pool, Gym
+              required:
+              - name
+              - location
+              - amenities
+  "/api/v1/hotels/{hotel_id}":
+    parameters:
+    - name: hotel_id
+      in: path
+      description: ID of the hotel
+      required: true
+      schema:
+        type: integer
+    put:
+      summary: Update a hotel
+      security:
+      - Bearer: []
+      tags:
+      - Hotels
+      parameters: []
+      responses:
+        '200':
+          description: Hotel updated
+          content:
+            application/json:
+              examples:
+                success_example:
+                  value:
+                    id: 1
+                    name: Updated Hotel
+                    location: Los Angeles
+                    amenities: Pool, Gym
+        '422':
+          description: Invalid hotel attributes
+          content:
+            application/json:
+              examples:
+                error_example:
+                  value:
+                    error:
+                    - Name has already been taken
+        '404':
+          description: Hotel not found
+          content:
+            application/json:
+              examples:
+                not_found_example:
+                  value:
+                    error: Hotel not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Updated Hotel
+                location:
+                  type: string
+                  example: New York
+                amenities:
+                  type: string
+                  example: Pool, Gym, Spa
+    delete:
+      summary: Delete a hotel
+      security:
+      - Bearer: []
+      tags:
+      - Hotels
+      responses:
+        '204':
+          description: Hotel deleted
+        '404':
+          description: Hotel not found
+          content:
+            application/json:
+              examples:
+                not_found_example:
+                  value:
+                    error: Hotel not found
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              examples:
+                unauthorized_example:
+                  value:
+                    error: Unauthorized
   "/api/v1/reservations":
     get:
       summary: Retrieve a list of reservations (past, current, and future)
