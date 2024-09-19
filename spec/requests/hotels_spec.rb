@@ -10,7 +10,7 @@ RSpec.describe 'Hotels Api', type: :request do
   let(:valid_attributes) { { name: 'hotel', location: 'Cairo', amenities: 'Pool' } }
   let(:invalid_attributes) { { name: '', location: '', amenities: '' } }
 
-  describe 'POST /api/v1/hotels' do
+  describe 'POST /api/v1/hotels' do # rubocop:disable Metrics/BlockLength
     describe 'when admin is authenticated' do
       context 'with valid attributes' do
         before do

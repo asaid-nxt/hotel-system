@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::HotelsController, type: :controller do
+RSpec.describe Api::V1::HotelsController, type: :controller do # rubocop:disable Metrics/BlockLength
   let(:admin) { create(:user, role: 'admin') }
   let!(:hotel) { create(:hotel) }
   let(:valid_attributes) { { name: 'hotel', location: 'Cairo', amenities: 'Pool' } }

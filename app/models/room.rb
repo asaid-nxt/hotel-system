@@ -25,7 +25,8 @@ class Room < ApplicationRecord
 
   # Validates the presence of the room number and capacity.
   # Validates that the capacity must be a positive integer.
-  validates :number, :capacity, presence: true
+  validates :number, presence: true, uniqueness: true
+  validates :capacity, presence: true
   validates :capacity, numericality: { greater_than: 0 }
 
   # Scope to find rooms that are available in a given hotel within a date range.

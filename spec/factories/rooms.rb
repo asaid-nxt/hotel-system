@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :room do
-    number { "MyString" }
+    sequence(:number) { |n| "#{n}" }
     capacity { 1 }
-    amenities { "MyText" }
+    amenities { 'Gym' }
     association :hotel
   end
 end

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :hotel do
-    name { "MyString" }
+    sequence(:name) { |n| "MyString#{n}" }
     location { "MyString" }
     amenities { "MyText" }
   end
