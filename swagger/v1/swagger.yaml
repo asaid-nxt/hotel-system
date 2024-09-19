@@ -288,6 +288,173 @@ paths:
               required:
               - check_in
               - check_out
+  "/api/v1/hotels/{hotel_id}/rooms":
+    post:
+      summary: Create a room for a hotel (Admin only)
+      security:
+      - Bearer: []
+      tags:
+      - Rooms
+      parameters:
+      - name: hotel_id
+        in: path
+        schema:
+          type: integer
+          example: 1
+        required: true
+      responses:
+        '201':
+          description: Room created
+          content:
+            application/json:
+              examples:
+                success_example:
+                  value:
+                    number: '101'
+                    capacity: 2
+                    amenities: WiFi, TV, Pool
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              examples:
+                error_example:
+                  value:
+                    error: Unauthorized access
+        '422':
+          description: Invalid attributes
+          content:
+            application/json:
+              examples:
+                error_example:
+                  value:
+                    error:
+                    - Number can't be blank
+                    - Amenities can't be blank
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                number:
+                  type: string
+                  example: '101'
+                capacity:
+                  type: integer
+                  example: 2
+                amenities:
+                  type: string
+                  example: WiFi, TV, Pool
+              required:
+              - number
+              - capacity
+              - amenities
+  "/api/v1/hotels/{hotel_id}/rooms/{room_id}":
+    put:
+      summary: Update a room (Admin only)
+      security:
+      - Bearer: []
+      tags:
+      - Rooms
+      parameters:
+      - name: hotel_id
+        in: path
+        schema:
+          type: integer
+          example: 1
+        required: true
+      - name: room_id
+        in: path
+        schema:
+          type: integer
+          example: 1
+        required: true
+      responses:
+        '200':
+          description: Room updated
+          content:
+            application/json:
+              examples:
+                success_example:
+                  value:
+                    number: '202'
+                    capacity: 3
+                    amenities: AC, Pool
+        '404':
+          description: Room not found
+          content:
+            application/json:
+              examples:
+                error_example:
+                  value:
+                    error: Room not found
+        '422':
+          description: Invalid attributes
+          content:
+            application/json:
+              examples:
+                error_example:
+                  value:
+                    error:
+                    - Number can't be blank
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                number:
+                  type: string
+                  example: '202'
+                capacity:
+                  type: integer
+                  example: 3
+                amenities:
+                  type: string
+                  example: AC, Pool
+              required:
+              - number
+              - capacity
+              - amenities
+    delete:
+      summary: Delete a room (Admin only)
+      security:
+      - Bearer: []
+      tags:
+      - Rooms
+      parameters:
+      - name: hotel_id
+        in: path
+        schema:
+          type: integer
+          example: 1
+        required: true
+      - name: room_id
+        in: path
+        schema:
+          type: integer
+          example: 1
+        required: true
+      responses:
+        '204':
+          description: Room deleted
+        '404':
+          description: Room not found
+          content:
+            application/json:
+              examples:
+                error_example:
+                  value:
+                    error: Room not found
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              examples:
+                error_example:
+                  value:
+                    error: Unauthorized access
   "/api/v1/hotels/{hotel_id}/rooms/available":
     get:
       summary: List available rooms for a hotel
@@ -321,45 +488,29 @@ paths:
           description: No available rooms found
           content:
             application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    number:
-                      type: string
-                    hotel_id:
-                      type: integer
-                    capacity:
-                      type: integer
-                    amenities:
-                      type: text
-                      example: amenities
-                  required:
-                  - number
-                  - hotel_id
-                  - capacity
-                  - amenities
+              examples:
+                success_example:
+                  value:
+                  - number: '101'
+                    hotel_id: 1
+                    capacity: 2
+                    amenities: WiFi, TV, Pool
         '401':
           description: Unauthorized
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
+              examples:
+                error_example:
+                  value:
+                    error: Unauthorized access
         '422':
           description: check-in and check-out dates are required
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                required:
-                - error
+              examples:
+                error_example:
+                  value:
+                    error: Check-in and check-out dates are required
   "/api/v1/login":
     post:
       summary: Login a user
