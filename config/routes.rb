@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       resources :users, only: [:create], path: 'signup'
       resources :reservations, only: [:index]
       post 'login', to: 'sessions#create'
-      resources :hotels, only: [] do
+      resources :hotels, only: %i[create update destroy] do
         resources :rooms, only: [] do
           get 'available', on: :collection
           resources :reservations, only: [:create]
