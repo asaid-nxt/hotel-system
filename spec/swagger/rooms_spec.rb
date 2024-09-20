@@ -8,6 +8,14 @@ RSpec.describe 'api/v1/rooms', type: :request do
   let(:user) { create(:user) }
   let(:admin) { create(:user, role: 'admin') }
   let(:valid_attributes) { { number: '101', capacity: 2, amenities: 'WiFi, TV, Pool' } }
+  let(:valid_attributes) do
+    {
+      number: '101',
+      capacity: 2,
+      amenities: 'WiFi, TV, Pool',
+      image: fixture_file_upload(Rails.root.join('spec', 'fixtures', 'files', 'hotel.jpg'), 'image/jpg')
+    }
+  end
   let(:invalid_attributes) { { number: '', amenities: '' } }
   let(:check_in) { Date.today.to_s }
   let(:check_out) { (Date.today + 1.day).to_s }
@@ -25,9 +33,10 @@ RSpec.describe 'api/v1/rooms', type: :request do
         properties: {
           number: { type: :string, example: '101' },
           capacity: { type: :integer, example: 2 },
-          amenities: { type: :string, example: 'WiFi, TV, Pool' }
+          amenities: { type: :string, example: 'WiFi, TV, Pool' },
+          image: { type: :string, format: :binary }
         },
-        required: %w[number capacity amenities]
+        required: %w[number capacity]
       }
 
       response '201', 'Room created' do
@@ -37,7 +46,8 @@ RSpec.describe 'api/v1/rooms', type: :request do
         example 'application/json', :success_example, {
           number: '101',
           capacity: 2,
-          amenities: 'WiFi, TV, Pool'
+          amenities: 'WiFi, TV, Pool',
+          image_url: '/path/to/image.png'
         }
 
         run_test!
@@ -81,9 +91,10 @@ RSpec.describe 'api/v1/rooms', type: :request do
         properties: {
           number: { type: :string, example: '202' },
           capacity: { type: :integer, example: 3 },
-          amenities: { type: :string, example: 'AC, Pool' }
+          amenities: { type: :string, example: 'AC, Pool' },
+          image: { type: :string, format: :binary }
         },
-        required: %w[number capacity amenities]
+        required: %w[number capacity ]
       }
 
       response '200', 'Room updated' do
@@ -93,7 +104,8 @@ RSpec.describe 'api/v1/rooms', type: :request do
         example 'application/json', :success_example, {
           number: '202',
           capacity: 3,
-          amenities: 'AC, Pool'
+          amenities: 'AC, Pool',
+          image_url: '/path/to/image.png'
         }
 
         run_test!
@@ -227,7 +239,7 @@ RSpec.describe 'api/v1/rooms', type: :request do
 
         example 'application/json', :success_example, []
 
-        run_test! 
+        run_test!
       end
     end
   end

@@ -5,7 +5,14 @@ require 'swagger_helper'
 RSpec.describe 'api/v1/hotels', type: :request do # rubocop:disable Metrics/BlockLength
   let(:admin) { create(:user, role: 'admin') }
   let(:jwt_token) { admin.generate_jwt }
-  let(:valid_attributes) { { name: 'Hotel California', location: 'Los Angeles', amenities: 'Pool, Gym' } }
+  let(:valid_attributes) do
+    {
+      name: 'Hotel California',
+      location: 'Los Angeles',
+      amenities: 'Pool, Gym',
+      image: fixture_file_upload(Rails.root.join('spec', 'fixtures', 'files', 'hotel.jpg'), 'image/jpg')
+    }
+  end
   let(:invalid_attributes) { { name: '', location: '', amenities: '' } }
   let!(:hotel) { create(:hotel) }
 
@@ -20,9 +27,10 @@ RSpec.describe 'api/v1/hotels', type: :request do # rubocop:disable Metrics/Bloc
         properties: {
           name: { type: :string, example: 'Hotel California' },
           location: { type: :string, example: 'Los Angeles' },
-          amenities: { type: :string, example: 'Pool, Gym' }
+          amenities: { type: :string, example: 'Pool, Gym' },
+          image: { type: :string, format: :binary }
         },
-        required: %w[name location amenities]
+        required: %w[name location]
       }
 
       response '201', 'Hotel created' do
@@ -33,7 +41,8 @@ RSpec.describe 'api/v1/hotels', type: :request do # rubocop:disable Metrics/Bloc
           id: 1,
           name: 'Hotel California',
           location: 'Los Angeles',
-          amenities: 'Pool, Gym'
+          amenities: 'Pool, Gym',
+          image_url: '/path/to/image.png'
         }
         run_test!
       end
@@ -71,7 +80,8 @@ RSpec.describe 'api/v1/hotels', type: :request do # rubocop:disable Metrics/Bloc
         properties: {
           name: { type: :string, example: 'Updated Hotel' },
           location: { type: :string, example: 'New York' },
-          amenities: { type: :string, example: 'Pool, Gym, Spa' }
+          amenities: { type: :string, example: 'Pool, Gym, Spa' },
+          image: { type: :string, format: :binary }
         }
       }
 
@@ -84,7 +94,8 @@ RSpec.describe 'api/v1/hotels', type: :request do # rubocop:disable Metrics/Bloc
           id: 1,
           name: 'Updated Hotel',
           location: 'Los Angeles',
-          amenities: 'Pool, Gym'
+          amenities: 'Pool, Gym',
+          image_url: '/path/to/image.png'
         }
         run_test!
       end
@@ -94,7 +105,7 @@ RSpec.describe 'api/v1/hotels', type: :request do # rubocop:disable Metrics/Bloc
         let(:attributes) { invalid_attributes }
         let(:Authorization) { "Bearer #{jwt_token}" }
 
-        example 'application/json', :error_example, { error: ["Name has already been taken"] }
+        example 'application/json', :error_example, { error: ['Name has already been taken'] }
         run_test!
       end
 

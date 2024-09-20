@@ -31,6 +31,7 @@ paths:
                     name: Hotel California
                     location: Los Angeles
                     amenities: Pool, Gym
+                    image_url: "/path/to/image.png"
         '422':
           description: Invalid attributes
           content:
@@ -64,10 +65,12 @@ paths:
                 amenities:
                   type: string
                   example: Pool, Gym
+                image:
+                  type: string
+                  format: binary
               required:
               - name
               - location
-              - amenities
   "/api/v1/hotels/{hotel_id}":
     parameters:
     - name: hotel_id
@@ -95,6 +98,7 @@ paths:
                     name: Updated Hotel
                     location: Los Angeles
                     amenities: Pool, Gym
+                    image_url: "/path/to/image.png"
         '422':
           description: Invalid hotel attributes
           content:
@@ -127,6 +131,9 @@ paths:
                 amenities:
                   type: string
                   example: Pool, Gym, Spa
+                image:
+                  type: string
+                  format: binary
     delete:
       summary: Delete a hotel
       security:
@@ -344,6 +351,7 @@ paths:
                     number: '101'
                     capacity: 2
                     amenities: WiFi, TV, Pool
+                    image_url: "/path/to/image.png"
         '401':
           description: Unauthorized
           content:
@@ -377,10 +385,12 @@ paths:
                 amenities:
                   type: string
                   example: WiFi, TV, Pool
+                image:
+                  type: string
+                  format: binary
               required:
               - number
               - capacity
-              - amenities
   "/api/v1/hotels/{hotel_id}/rooms/{room_id}":
     put:
       summary: Update a room (Admin only)
@@ -412,6 +422,7 @@ paths:
                     number: '202'
                     capacity: 3
                     amenities: AC, Pool
+                    image_url: "/path/to/image.png"
         '404':
           description: Room not found
           content:
@@ -444,10 +455,12 @@ paths:
                 amenities:
                   type: string
                   example: AC, Pool
+                image:
+                  type: string
+                  format: binary
               required:
               - number
               - capacity
-              - amenities
     delete:
       summary: Delete a room (Admin only)
       security:
