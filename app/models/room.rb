@@ -5,7 +5,7 @@
 #
 # @!attribute [rw] number
 #   The room number in the hotel.
-#   @return [Integer]
+#   @return [Sting]
 #
 # @!attribute [rw] capacity
 #   The capacity of the room, indicating how many people can stay in it.
@@ -19,9 +19,18 @@
 #   The reservations made for this room.
 #   @return [Array<Reservation>]
 #
+# @!attribute [rw] image
+#   The image attached to the room.
+#   @return [ActiveStorage::Attached::One]
+#
 class Room < ApplicationRecord
   belongs_to :hotel
   has_many :reservations, dependent: :destroy
+
+  # A room can have an image attached.
+  #
+  # @return [ActiveStorage::Attached::One]
+  has_one_attached :image
 
   # Validates the presence of the room number and capacity.
   # Validates that the capacity must be a positive integer.
