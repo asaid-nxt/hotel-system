@@ -43,6 +43,7 @@ gem 'rswag', '~> 2.14'
 gem 'rubocop', '~> 1.66', '>= 1.66.1'
 gem 'rubocop-rails', '~> 2.26', '>= 2.26.1'
 gem 'jwt', '~> 2.8', '>= 2.8.2'
+gem 'aws-sdk-s3', '~> 1.163'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
