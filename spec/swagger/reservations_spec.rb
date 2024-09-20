@@ -39,8 +39,51 @@ RSpec.describe 'api/v1/reservations', type: :request do
     end
   end
 
-  path '/api/v1/hotels/{hotel_id}/rooms/{room_id}/reservations' do
-    post 'Create a reservation for a room' do
+  path '/api/v1/reservations/all' do # rubocop:disable Metrics/BlockLength
+    get 'Fetch all reservations (Admin only)' do # rubocop:disable Metrics/BlockLength
+      tags 'Reservations'
+      produces 'application/json'
+      security [Bearer: []]
+
+      response '200', 'list of reservations' do
+        let(:admin) { create(:user, username: 'admin', role: 'admin') }
+        let(:Authorization) { "Bearer #{JwtService.encode(user_id: admin.id)}" }
+
+        run_test!
+
+        example 'application/json', :example_response, [
+          {
+            id: 1,
+            check_in: '2024-10-01',
+            check_out: '2024-10-05',
+            room_id: 10,
+            user_id: 2,
+            created_at: '2024-09-20T10:00:00.000Z',
+            updated_at: '2024-09-20T10:00:00.000Z'
+          },
+          {
+            id: 2,
+            check_in: '2024-09-25',
+            check_out: '2024-09-30',
+            room_id: 12,
+            user_id: 3,
+            created_at: '2024-09-20T09:30:00.000Z',
+            updated_at: '2024-09-20T09:30:00.000Z'
+          }
+        ]
+      end
+
+      response '401', 'unauthorized' do
+        let(:Authorization) { 'invalid_token' }
+        run_test!
+      end
+    end
+  end
+
+
+
+  path '/api/v1/hotels/{hotel_id}/rooms/{room_id}/reservations' do # rubocop:disable Metrics/BlockLength
+    post 'Create a reservation for a room' do # rubocop:disable Metrics/BlockLength
       security [Bearer: []]
       tags 'Reservations'
       consumes 'application/json'
