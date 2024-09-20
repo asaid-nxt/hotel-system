@@ -10,7 +10,6 @@ module Api
       def create
         hotel = Hotel.new(hotel_params)
         if hotel.save
-          hotel.image.attach(params[:image]) if params[:image].present?
           render json: hotel, status: :created
         else
           render json: { error: hotel.errors.full_messages }, status: :unprocessable_entity

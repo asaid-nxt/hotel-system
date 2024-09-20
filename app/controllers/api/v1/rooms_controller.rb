@@ -12,7 +12,6 @@ module Api
       def create
         room = Room.new(room_params.merge(hotel_id: params[:hotel_id]))
         if room.save
-          room.image.attach(params[:image]) if params[:image].present?
           render json: room, status: :created
         else
           render json: { error: room.errors.full_messages }, status: :unprocessable_entity
