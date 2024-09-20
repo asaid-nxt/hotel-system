@@ -180,7 +180,34 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#number-instance_method" title="#number (instance method)">#<strong>number</strong>  &#x21d2; Integer </a>
+      <a href="#image-instance_method" title="#image (instance method)">#<strong>image</strong>  &#x21d2; ActiveStorage::Attached::One </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>A room can have an image attached.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#number-instance_method" title="#number (instance method)">#<strong>number</strong>  &#x21d2; Sting </a>
     
 
     
@@ -349,10 +376,6 @@
       <pre class="lines">
 
 
-22
-23
-24
-25
 26
 27
 28
@@ -378,14 +401,28 @@
 48
 49
 50
-51</pre>
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/room.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'app/models/room.rb', line 26</span>
 
 <span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Room (class)">Room</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></span>
   <span class='id identifier rubyid_belongs_to'>belongs_to</span> <span class='symbol'>:hotel</span>
   <span class='id identifier rubyid_has_many'>has_many</span> <span class='symbol'>:reservations</span><span class='comma'>,</span> <span class='label'>dependent:</span> <span class='symbol'>:destroy</span>
+
+  <span class='comment'># A room can have an image attached.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [ActiveStorage::Attached::One]
+</span>  <span class='id identifier rubyid_has_one_attached'>has_one_attached</span> <span class='symbol'>:image</span>
 
   <span class='comment'># Validates the presence of the room number and capacity.
 </span>  <span class='comment'># Validates that the capacity must be a positive integer.
@@ -459,10 +496,6 @@
       <pre class="lines">
 
 
-22
-23
-24
-25
 26
 27
 28
@@ -488,14 +521,148 @@
 48
 49
 50
-51</pre>
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/room.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'app/models/room.rb', line 26</span>
 
 <span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Room (class)">Room</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></span>
   <span class='id identifier rubyid_belongs_to'>belongs_to</span> <span class='symbol'>:hotel</span>
   <span class='id identifier rubyid_has_many'>has_many</span> <span class='symbol'>:reservations</span><span class='comma'>,</span> <span class='label'>dependent:</span> <span class='symbol'>:destroy</span>
+
+  <span class='comment'># A room can have an image attached.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [ActiveStorage::Attached::One]
+</span>  <span class='id identifier rubyid_has_one_attached'>has_one_attached</span> <span class='symbol'>:image</span>
+
+  <span class='comment'># Validates the presence of the room number and capacity.
+</span>  <span class='comment'># Validates that the capacity must be a positive integer.
+</span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:number</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>uniqueness:</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>numericality:</span> <span class='lbrace'>{</span> <span class='label'>greater_than:</span> <span class='int'>0</span> <span class='rbrace'>}</span>
+
+  <span class='comment'># Scope to find rooms that are available in a given hotel within a date range.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param hotel_id [Integer] The ID of the hotel to search in.
+</span>  <span class='comment'># @param check_in [Date] The start date for room availability.
+</span>  <span class='comment'># @param check_out [Date] The end date for room availability.
+</span>  <span class='comment'># @return [ActiveRecord::Relation] The available rooms.
+</span>  <span class='id identifier rubyid_scope'>scope</span> <span class='symbol'>:available</span><span class='comma'>,</span> <span class='id identifier rubyid_lambda'>lambda</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_hotel_id'>hotel_id</span><span class='comma'>,</span> <span class='id identifier rubyid_check_in'>check_in</span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='op'>|</span>
+    <span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>hotel_id:</span><span class='rparen'>)</span>
+      <span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='period'>.</span><span class='id identifier rubyid_not'>not</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='const'><span class='object_link'><a href="Reservation.html" title="Reservation (class)">Reservation</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>check_in &lt; ? AND check_out &gt; ?</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='comma'>,</span> <span class='id identifier rubyid_check_in'>check_in</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span><span class='lparen'>(</span><span class='symbol'>:room_id</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='rbrace'>}</span>
+
+  <span class='comment'># Checks if the room is available for the given date range.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @param check_in [Date] The start date to check availability.
+</span>  <span class='comment'># @param check_out [Date] The end date to check availability.
+</span>  <span class='comment'># @return [Boolean] True if the room is available, false otherwise.
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_available?'>available?</span><span class='lparen'>(</span><span class='id identifier rubyid_check_in'>check_in</span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='rparen'>)</span>
+    <span class='op'>!</span><span class='id identifier rubyid_reservations'>reservations</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>check_in &lt; ? AND check_out &gt; ?</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='comma'>,</span> <span class='id identifier rubyid_check_in'>check_in</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_exists?'>exists?</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="image=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="image-instance_method">
+  
+    #<strong>image</strong>  &#x21d2; <tt>ActiveStorage::Attached::One</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>A room can have an image attached.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>ActiveStorage::Attached::One</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/room.rb', line 26</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Room (class)">Room</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></span>
+  <span class='id identifier rubyid_belongs_to'>belongs_to</span> <span class='symbol'>:hotel</span>
+  <span class='id identifier rubyid_has_many'>has_many</span> <span class='symbol'>:reservations</span><span class='comma'>,</span> <span class='label'>dependent:</span> <span class='symbol'>:destroy</span>
+
+  <span class='comment'># A room can have an image attached.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [ActiveStorage::Attached::One]
+</span>  <span class='id identifier rubyid_has_one_attached'>has_one_attached</span> <span class='symbol'>:image</span>
 
   <span class='comment'># Validates the presence of the room number and capacity.
 </span>  <span class='comment'># Validates that the capacity must be a positive integer.
@@ -533,7 +700,7 @@
       <div class="method_details ">
   <h3 class="signature " id="number-instance_method">
   
-    #<strong>number</strong>  &#x21d2; <tt>Integer</tt> 
+    #<strong>number</strong>  &#x21d2; <tt>Sting</tt> 
   
 
   
@@ -555,7 +722,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Integer</tt>)</span>
+        <span class='type'>(<tt>Sting</tt>)</span>
       
       
       
@@ -569,10 +736,6 @@
       <pre class="lines">
 
 
-22
-23
-24
-25
 26
 27
 28
@@ -598,14 +761,28 @@
 48
 49
 50
-51</pre>
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/room.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'app/models/room.rb', line 26</span>
 
 <span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Room (class)">Room</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></span>
   <span class='id identifier rubyid_belongs_to'>belongs_to</span> <span class='symbol'>:hotel</span>
   <span class='id identifier rubyid_has_many'>has_many</span> <span class='symbol'>:reservations</span><span class='comma'>,</span> <span class='label'>dependent:</span> <span class='symbol'>:destroy</span>
+
+  <span class='comment'># A room can have an image attached.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [ActiveStorage::Attached::One]
+</span>  <span class='id identifier rubyid_has_one_attached'>has_one_attached</span> <span class='symbol'>:image</span>
 
   <span class='comment'># Validates the presence of the room number and capacity.
 </span>  <span class='comment'># Validates that the capacity must be a positive integer.
@@ -679,10 +856,6 @@
       <pre class="lines">
 
 
-22
-23
-24
-25
 26
 27
 28
@@ -708,14 +881,28 @@
 48
 49
 50
-51</pre>
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/room.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'app/models/room.rb', line 26</span>
 
 <span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Room (class)">Room</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></span>
   <span class='id identifier rubyid_belongs_to'>belongs_to</span> <span class='symbol'>:hotel</span>
   <span class='id identifier rubyid_has_many'>has_many</span> <span class='symbol'>:reservations</span><span class='comma'>,</span> <span class='label'>dependent:</span> <span class='symbol'>:destroy</span>
+
+  <span class='comment'># A room can have an image attached.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [ActiveStorage::Attached::One]
+</span>  <span class='id identifier rubyid_has_one_attached'>has_one_attached</span> <span class='symbol'>:image</span>
 
   <span class='comment'># Validates the presence of the room number and capacity.
 </span>  <span class='comment'># Validates that the capacity must be a positive integer.
@@ -851,13 +1038,13 @@
       <pre class="lines">
 
 
-38
-39
-40
-41</pre>
+47
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/room.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'app/models/room.rb', line 47</span>
 
 <span class='id identifier rubyid_scope'>scope</span> <span class='symbol'>:available</span><span class='comma'>,</span> <span class='id identifier rubyid_lambda'>lambda</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_hotel_id'>hotel_id</span><span class='comma'>,</span> <span class='id identifier rubyid_check_in'>check_in</span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='op'>|</span>
   <span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>hotel_id:</span><span class='rparen'>)</span>
@@ -948,12 +1135,12 @@
       <pre class="lines">
 
 
-48
-49
-50</pre>
+57
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/room.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'app/models/room.rb', line 57</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_available?'>available?</span><span class='lparen'>(</span><span class='id identifier rubyid_check_in'>check_in</span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='rparen'>)</span>
   <span class='op'>!</span><span class='id identifier rubyid_reservations'>reservations</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>check_in &lt; ? AND check_out &gt; ?</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='comma'>,</span> <span class='id identifier rubyid_check_in'>check_in</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_exists?'>exists?</span>
@@ -968,7 +1155,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Sep 20 14:04:24 2024 by
+  Generated on Fri Sep 20 19:26:22 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.3.4).
 </div>

@@ -28,7 +28,7 @@ module Api
         }, status: :ok
       end
 
-      # GET /api/v1/reservations/all_reservations
+      # GET /api/v1/reservations/all
       #
       # Fetches all reservations in the system. Only accessible by admins.
       #

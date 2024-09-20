@@ -106,7 +106,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>Hotel model that represents a hotel entity. A hotel can have many rooms associated with it.</p>
+<p>Hotel model that represents a hotel entity. A hotel can have many rooms associated with it and an attached image.</p>
 
 
   </div>
@@ -120,6 +120,33 @@
 
   <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
   <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#image-instance_method" title="#image (instance method)">#<strong>image</strong>  &#x21d2; ActiveStorage::Attached::One </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>A hotel can have an image attached.</p>
+</div></span>
+  
+</li>
+
     
       <li class="public ">
   <span class="summary_signature">
@@ -227,9 +254,97 @@
     <h2>Instance Attribute Details</h2>
     
       
-      <span id="location=-instance_method"></span>
+      <span id="image=-instance_method"></span>
       <div class="method_details first">
-  <h3 class="signature first" id="location-instance_method">
+  <h3 class="signature first" id="image-instance_method">
+  
+    #<strong>image</strong>  &#x21d2; <tt>ActiveStorage::Attached::One</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>A hotel can have an image attached.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>ActiveStorage::Attached::One</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/hotel.rb', line 18</span>
+
+<span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Hotel (class)">Hotel</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></span>
+  <span class='comment'># A hotel has many rooms. If the hotel is destroyed, its associated rooms
+</span>  <span class='comment'># will also be destroyed.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [ActiveRecord::Associations::CollectionProxy&lt;Room&gt;]
+</span>  <span class='id identifier rubyid_has_many'>has_many</span> <span class='symbol'>:rooms</span><span class='comma'>,</span> <span class='label'>dependent:</span> <span class='symbol'>:destroy</span>
+
+  <span class='comment'># A hotel can have an image attached.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [ActiveStorage::Attached::One]
+</span>  <span class='id identifier rubyid_has_one_attached'>has_one_attached</span> <span class='symbol'>:image</span>
+
+  <span class='comment'># Validates the presence of the hotel&#39;s name and location.
+</span>  <span class='comment'># Ensures that these attributes must be present for a hotel to be valid.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @note Does not need a return type for validation
+</span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>uniqueness:</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:location</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="location=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="location-instance_method">
   
     #<strong>location</strong>  &#x21d2; <tt>String</tt> 
   
@@ -267,10 +382,6 @@
       <pre class="lines">
 
 
-14
-15
-16
-17
 18
 19
 20
@@ -280,10 +391,19 @@
 24
 25
 26
-27</pre>
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/hotel.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'app/models/hotel.rb', line 18</span>
 
 <span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Hotel (class)">Hotel</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></span>
   <span class='comment'># A hotel has many rooms. If the hotel is destroyed, its associated rooms
@@ -291,6 +411,11 @@
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @return [ActiveRecord::Associations::CollectionProxy&lt;Room&gt;]
 </span>  <span class='id identifier rubyid_has_many'>has_many</span> <span class='symbol'>:rooms</span><span class='comma'>,</span> <span class='label'>dependent:</span> <span class='symbol'>:destroy</span>
+
+  <span class='comment'># A hotel can have an image attached.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [ActiveStorage::Attached::One]
+</span>  <span class='id identifier rubyid_has_one_attached'>has_one_attached</span> <span class='symbol'>:image</span>
 
   <span class='comment'># Validates the presence of the hotel&#39;s name and location.
 </span>  <span class='comment'># Ensures that these attributes must be present for a hotel to be valid.
@@ -345,10 +470,6 @@
       <pre class="lines">
 
 
-14
-15
-16
-17
 18
 19
 20
@@ -358,10 +479,19 @@
 24
 25
 26
-27</pre>
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/hotel.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'app/models/hotel.rb', line 18</span>
 
 <span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="Hotel (class)">Hotel</a></span></span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></span>
   <span class='comment'># A hotel has many rooms. If the hotel is destroyed, its associated rooms
@@ -369,6 +499,11 @@
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @return [ActiveRecord::Associations::CollectionProxy&lt;Room&gt;]
 </span>  <span class='id identifier rubyid_has_many'>has_many</span> <span class='symbol'>:rooms</span><span class='comma'>,</span> <span class='label'>dependent:</span> <span class='symbol'>:destroy</span>
+
+  <span class='comment'># A hotel can have an image attached.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [ActiveStorage::Attached::One]
+</span>  <span class='id identifier rubyid_has_one_attached'>has_one_attached</span> <span class='symbol'>:image</span>
 
   <span class='comment'># Validates the presence of the hotel&#39;s name and location.
 </span>  <span class='comment'># Ensures that these attributes must be present for a hotel to be valid.
@@ -428,10 +563,10 @@
       <pre class="lines">
 
 
-19</pre>
+23</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/hotel.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'app/models/hotel.rb', line 23</span>
 
 <span class='id identifier rubyid_has_many'>has_many</span> <span class='symbol'>:rooms</span><span class='comma'>,</span> <span class='label'>dependent:</span> <span class='symbol'>:destroy</span></pre>
     </td>
@@ -444,7 +579,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Sep 20 14:04:24 2024 by
+  Generated on Fri Sep 20 19:26:22 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.3.4).
 </div>

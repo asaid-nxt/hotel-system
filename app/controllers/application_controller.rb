@@ -23,9 +23,7 @@ class ApplicationController < ActionController::API
     token = request.headers['Authorization']&.split(' ')&.last
     decoded_token = JwtService.decode(token)
 
-    unless decoded_token
-      render json: { error: 'Unauthorized' }, status: :unauthorized and return
-    end
+    return render json: { error: 'Unauthorized' }, status: :unauthorized unless decoded_token
 
     self.current_user = User.find(decoded_token[:user_id])
   end
