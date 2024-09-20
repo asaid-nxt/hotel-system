@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Reservations API', type: :request do
+RSpec.describe 'Reservations API', type: :request do # rubocop:disable Metrics/BlockLength
   let(:user) { create(:user) }
   let(:jwt_token) { user.generate_jwt }
   let(:headers) { { 'Authorization' => jwt_token } }
@@ -9,12 +9,12 @@ RSpec.describe 'Reservations API', type: :request do
   let(:check_in) { Date.today }
   let(:check_out) { Date.tomorrow }
 
-  describe 'GET /api/v1/reservations' do
+  describe 'GET /api/v1/reservations' do # rubocop:disable Metrics/BlockLength
     let!(:past_reservation) { create(:reservation, check_in: Date.today - 3.days, check_out: Date.yesterday, user:) }
     let!(:current_reservation) { create(:reservation, check_in: Date.today, check_out: Date.tomorrow, user:) }
     let!(:future_reservation) { create(:reservation, check_in: Date.tomorrow, check_out: Date.today + 2.days, user:) }
 
-    describe 'when user is authenticated' do
+    describe 'when user is authenticated' do # rubocop:disable Metrics/BlockLength
       context 'when user have reservations' do
         before do
           get '/api/v1/reservations', headers:
@@ -61,7 +61,34 @@ RSpec.describe 'Reservations API', type: :request do
     end
   end
 
-  describe 'POST /api/v1/hotels/:hotel_id/rooms/:room_id/reservations' do
+  describe 'GET /api/v1/reservations/all' do
+    let!(:reservations) { create_list(:reservation, 3, user:) }
+    describe 'when admin is authenticated' do
+      let(:admin) { create(:user, username: 'admin', role: 'admin') }
+      let(:admin_headers) { { 'Authorization': admin.generate_jwt } }
+
+      before do
+        get '/api/v1/reservations/all', headers: admin_headers
+      end
+
+      it 'return all reservations' do
+        expect(response).to have_http_status :ok
+        expect(json_response.size).to eq(3)
+      end
+    end
+
+    describe 'when admin is not authenticated' do
+      before do
+        get '/api/v1/reservations/all'
+      end
+
+      it 'returns an Unauthorized error' do
+        expect(response).to have_http_status :unauthorized
+      end
+    end
+  end
+
+  describe 'POST /api/v1/hotels/:hotel_id/rooms/:room_id/reservations' do # rubocop:disable Metrics/BlockLength
     describe 'when user is authenticated and room is available' do
       before do
         post "/api/v1/hotels/#{hotel.id}/rooms/#{room.id}/reservations",
