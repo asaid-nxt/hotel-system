@@ -10,7 +10,14 @@ RSpec.describe 'Rooms API', type: :request do # rubocop:disable Metrics/BlockLen
   let(:jwt_token) { user.generate_jwt }
   let(:headers) { { 'Authorization' => jwt_token } }
   let(:admin_headers) { { 'Authorization' => admin.generate_jwt } }
-  let(:valid_attributes) { { number: '1A', capacity: 2, amenities: 'Pool' } }
+  let(:valid_attributes) do
+    {
+      number: '1A',
+      capacity: 2,
+      amenities: 'Pool',
+      image: fixture_file_upload(Rails.root.join('spec', 'fixtures', 'files', 'hotel.jpg'), 'image/jpg')
+    }
+  end
   let(:invalid_attributes) { { number: '', amenities: '' } }
 
   describe 'POST /api/v1/hotels/:hotel_id/rooms' do # rubocop:disable Metrics/BlockLength
@@ -23,7 +30,8 @@ RSpec.describe 'Rooms API', type: :request do # rubocop:disable Metrics/BlockLen
 
         it 'creates a room' do
           expect(response).to have_http_status :created
-          expect(json_response['number']).to eq('1A')
+          expect(json_response['room_number']).to eq('1A')
+          expect(json_response['image_url']).to be_present
         end
       end
 
@@ -37,6 +45,7 @@ RSpec.describe 'Rooms API', type: :request do # rubocop:disable Metrics/BlockLen
           expect(response).to have_http_status :unprocessable_entity
           expect(json_response).to eq({ 'error' => ["Number can't be blank", "Capacity can't be blank",
                                                     'Capacity is not a number'] })
+          expect(json_response['image_url']).not_to be_present
         end
       end
     end
@@ -72,7 +81,7 @@ RSpec.describe 'Rooms API', type: :request do # rubocop:disable Metrics/BlockLen
 
         it 'updates the room' do
           expect(response).to have_http_status :ok
-          expect(json_response['number']).to eq('updated number')
+          expect(json_response['room_number']).to eq('updated number')
         end
       end
 

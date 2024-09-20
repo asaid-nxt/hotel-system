@@ -1,13 +1,22 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe 'Hotels Api', type: :request do
+RSpec.describe 'Hotels Api', type: :request do # rubocop:disable Metrics/BlockLength
   let(:admin) { create(:user, role: 'admin') }
   let(:user) { create(:user, username: 'user2') }
   let(:jwt_token) { admin.generate_jwt }
   let(:headers) { { 'Authorization' => jwt_token } }
   let(:user_headers) { { 'Authorization' => user.generate_jwt } }
   let!(:hotel) { create(:hotel) }
-  let(:valid_attributes) { { name: 'hotel', location: 'Cairo', amenities: 'Pool' } }
+  let(:valid_attributes) do
+    {
+      name: 'hotel',
+      location: 'Cairo',
+      amenities: 'Pool',
+      image: fixture_file_upload(Rails.root.join('spec', 'fixtures', 'files', 'hotel.jpg'), 'image/jpg')
+    }
+  end
   let(:invalid_attributes) { { name: '', location: '', amenities: '' } }
 
   describe 'POST /api/v1/hotels' do # rubocop:disable Metrics/BlockLength
@@ -20,6 +29,7 @@ RSpec.describe 'Hotels Api', type: :request do
         it 'creates a hotel' do
           expect(response).to have_http_status :created
           expect(json_response['name']).to eq('hotel')
+          expect(json_response['image_url']).to be_present
         end
       end
 
@@ -31,6 +41,7 @@ RSpec.describe 'Hotels Api', type: :request do
         it 'returns an error' do
           expect(response).to have_http_status :unprocessable_entity
           expect(json_response).to eq({ 'error' => ["Name can't be blank", "Location can't be blank"] })
+          expect(json_response['image_url']).not_to be_present
         end
       end
     end

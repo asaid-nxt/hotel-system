@@ -3,14 +3,21 @@ require 'rails_helper'
 RSpec.describe Api::V1::HotelsController, type: :controller do # rubocop:disable Metrics/BlockLength
   let(:admin) { create(:user, role: 'admin') }
   let!(:hotel) { create(:hotel) }
-  let(:valid_attributes) { { name: 'hotel', location: 'Cairo', amenities: 'Pool' } }
+  let(:valid_attributes) do
+    {
+      name: 'hotel',
+      location: 'Cairo',
+      amenities: 'Pool',
+      image: fixture_file_upload(Rails.root.join('spec', 'fixtures', 'files', 'hotel.jpg'), 'image/jpg')
+    }
+  end
   let(:invalid_attributes) { { name: '', location: '', amenities: '' } }
 
   before do
     allow_any_instance_of(described_class).to receive(:authenticate_admin!).and_return(true)
   end
 
-  describe 'POST #create' do
+  describe 'POST #create' do # rubocop:disable Metrics/BlockLength
     describe 'with valid params' do
       it 'creates a hotel' do
         expect do
@@ -22,6 +29,7 @@ RSpec.describe Api::V1::HotelsController, type: :controller do # rubocop:disable
         post :create, params: { hotel: valid_attributes }
         expect(response).to have_http_status :created
         expect(json_response['name']).to eq('hotel')
+        expect(Hotel.last.image).to be_attached
       end
     end
 
@@ -36,6 +44,7 @@ RSpec.describe Api::V1::HotelsController, type: :controller do # rubocop:disable
         post :create, params: { hotel: invalid_attributes }
         expect(response).to have_http_status :unprocessable_entity
         expect(json_response).to eq({ 'error' => ["Name can't be blank", "Location can't be blank"] })
+        expect(Hotel.last.image).not_to be_attached
       end
     end
   end

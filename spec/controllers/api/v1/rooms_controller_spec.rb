@@ -5,10 +5,17 @@ RSpec.describe Api::V1::RoomsController, type: :controller do # rubocop:disable 
   let(:admin) { create(:user, role: 'admin') }
   let!(:hotel) { create(:hotel) }
   let!(:room) { create(:room, hotel:) }
-  let(:valid_attributes) { { number: '1A', capacity: 2, amenities: 'Pool' } }
+  let(:valid_attributes) do
+    {
+      number: '1A',
+      capacity: 2,
+      amenities: 'Pool',
+      image: fixture_file_upload(Rails.root.join('spec', 'fixtures', 'files', 'hotel.jpg'), 'image/jpg')
+    }
+  end
   let(:invalid_attributes) { { number: '', amenities: '' } }
 
-  describe 'POST #create' do
+  describe 'POST #create' do # rubocop:disable Metrics/BlockLength
     before do
       allow_any_instance_of(described_class).to receive(:authenticate_admin!).and_return(true)
     end
@@ -18,7 +25,8 @@ RSpec.describe Api::V1::RoomsController, type: :controller do # rubocop:disable 
           post(:create, params: { hotel_id: hotel.id, room: valid_attributes })
         end.to change(Room, :count).by(1)
         expect(response).to have_http_status :created
-        expect(json_response['number']).to eq('1A')
+        expect(json_response['room_number']).to eq('1A')
+        expect(Room.last.image).to be_attached
       end
     end
 
@@ -27,12 +35,14 @@ RSpec.describe Api::V1::RoomsController, type: :controller do # rubocop:disable 
         expect do
           post(:create, params: { hotel_id: hotel.id, room: invalid_attributes })
         end.to change(Room, :count).by(0)
+        expect(Room.last.image).not_to be_attached
       end
 
       it 'returns an error' do
         post(:create, params: { hotel_id: hotel.id, room: invalid_attributes })
         expect(response).to have_http_status :unprocessable_entity
-        expect(json_response).to eq({ 'error' => ["Number can't be blank", "Capacity can't be blank", 'Capacity is not a number'] })
+        expect(json_response).to eq({ 'error' => ["Number can't be blank", "Capacity can't be blank",
+                                                  'Capacity is not a number'] })
       end
     end
   end
@@ -44,7 +54,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do # rubocop:disable 
     describe 'with valid attributes' do
       it 'updates the selected room' do
         put :update, params: { hotel_id: hotel.id, id: room.id, room: { number: 'updated number' } }
-        expect(json_response['number']).to eq('updated number')
+        expect(json_response['room_number']).to eq('updated number')
         expect(response).to have_http_status :ok
       end
     end
