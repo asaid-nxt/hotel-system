@@ -122,7 +122,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#amenities-instance_method" title="#amenities (instance method)">#<strong>amenities</strong>  &#x21d2; Array&lt;String&gt; </a>
+      <a href="#amenities-instance_method" title="#amenities (instance method)">#<strong>amenities</strong>  &#x21d2; String </a>
     
 
     
@@ -209,7 +209,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#number-instance_method" title="#number (instance method)">#<strong>number</strong>  &#x21d2; Integer </a>
+      <a href="#room_number-instance_method" title="#room_number (instance method)">#<strong>room_number</strong>  &#x21d2; String </a>
     
 
     
@@ -229,7 +229,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>The room number.</p>
+<p>Maps the room number from the Room model’s ‘number` attribute.</p>
 </div></span>
   
 </li>
@@ -250,7 +250,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="amenities-instance_method">
   
-    #<strong>amenities</strong>  &#x21d2; <tt>Array&lt;String&gt;</tt>  <span class="extras">(readonly)</span>
+    #<strong>amenities</strong>  &#x21d2; <tt>String</tt>  <span class="extras">(readonly)</span>
   
 
   
@@ -272,7 +272,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
       
@@ -294,14 +294,28 @@
 18
 19
 20
-21</pre>
+21
+22
+23
+24
+25
+26
+27
+28</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'app/serializers/room_serializer.rb', line 18</span>
 
 <span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="RoomSerializer (class)">RoomSerializer</a></span></span> <span class='op'>&lt;</span> <span class='const'>ActiveModel</span><span class='op'>::</span><span class='const'>Serializer</span>
   <span class='comment'># Specifies the attributes to be serialized.
-</span>  <span class='id identifier rubyid_attributes'>attributes</span> <span class='symbol'>:number</span><span class='comma'>,</span> <span class='symbol'>:hotel_id</span><span class='comma'>,</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='symbol'>:amenities</span>
+</span>  <span class='id identifier rubyid_attributes'>attributes</span> <span class='symbol'>:room_number</span><span class='comma'>,</span> <span class='symbol'>:hotel_id</span><span class='comma'>,</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='symbol'>:amenities</span>
+
+  <span class='comment'># Maps the room number from the Room model&#39;s `number` attribute.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [String] the room number
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_room_number'>room_number</span>
+    <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_number'>number</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -357,14 +371,28 @@
 18
 19
 20
-21</pre>
+21
+22
+23
+24
+25
+26
+27
+28</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'app/serializers/room_serializer.rb', line 18</span>
 
 <span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="RoomSerializer (class)">RoomSerializer</a></span></span> <span class='op'>&lt;</span> <span class='const'>ActiveModel</span><span class='op'>::</span><span class='const'>Serializer</span>
   <span class='comment'># Specifies the attributes to be serialized.
-</span>  <span class='id identifier rubyid_attributes'>attributes</span> <span class='symbol'>:number</span><span class='comma'>,</span> <span class='symbol'>:hotel_id</span><span class='comma'>,</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='symbol'>:amenities</span>
+</span>  <span class='id identifier rubyid_attributes'>attributes</span> <span class='symbol'>:room_number</span><span class='comma'>,</span> <span class='symbol'>:hotel_id</span><span class='comma'>,</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='symbol'>:amenities</span>
+
+  <span class='comment'># Maps the room number from the Room model&#39;s `number` attribute.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [String] the room number
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_room_number'>room_number</span>
+    <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_number'>number</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -420,14 +448,28 @@
 18
 19
 20
-21</pre>
+21
+22
+23
+24
+25
+26
+27
+28</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'app/serializers/room_serializer.rb', line 18</span>
 
 <span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="RoomSerializer (class)">RoomSerializer</a></span></span> <span class='op'>&lt;</span> <span class='const'>ActiveModel</span><span class='op'>::</span><span class='const'>Serializer</span>
   <span class='comment'># Specifies the attributes to be serialized.
-</span>  <span class='id identifier rubyid_attributes'>attributes</span> <span class='symbol'>:number</span><span class='comma'>,</span> <span class='symbol'>:hotel_id</span><span class='comma'>,</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='symbol'>:amenities</span>
+</span>  <span class='id identifier rubyid_attributes'>attributes</span> <span class='symbol'>:room_number</span><span class='comma'>,</span> <span class='symbol'>:hotel_id</span><span class='comma'>,</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='symbol'>:amenities</span>
+
+  <span class='comment'># Maps the room number from the Room model&#39;s `number` attribute.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [String] the room number
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_room_number'>room_number</span>
+    <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_number'>number</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -437,9 +479,9 @@
       
       <span id=""></span>
       <div class="method_details ">
-  <h3 class="signature " id="number-instance_method">
+  <h3 class="signature " id="room_number-instance_method">
   
-    #<strong>number</strong>  &#x21d2; <tt>Integer</tt>  <span class="extras">(readonly)</span>
+    #<strong>room_number</strong>  &#x21d2; <tt>String</tt>  <span class="extras">(readonly)</span>
   
 
   
@@ -448,7 +490,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns the room number.</p>
+<p>Maps the room number from the Room model’s ‘number` attribute.</p>
 
 
   </div>
@@ -461,7 +503,7 @@
     <li>
       
       
-        <span class='type'>(<tt>Integer</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
       
@@ -483,14 +525,28 @@
 18
 19
 20
-21</pre>
+21
+22
+23
+24
+25
+26
+27
+28</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'app/serializers/room_serializer.rb', line 18</span>
 
 <span class='kw'>class</span> <span class='const'><span class='object_link'><a href="" title="RoomSerializer (class)">RoomSerializer</a></span></span> <span class='op'>&lt;</span> <span class='const'>ActiveModel</span><span class='op'>::</span><span class='const'>Serializer</span>
   <span class='comment'># Specifies the attributes to be serialized.
-</span>  <span class='id identifier rubyid_attributes'>attributes</span> <span class='symbol'>:number</span><span class='comma'>,</span> <span class='symbol'>:hotel_id</span><span class='comma'>,</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='symbol'>:amenities</span>
+</span>  <span class='id identifier rubyid_attributes'>attributes</span> <span class='symbol'>:room_number</span><span class='comma'>,</span> <span class='symbol'>:hotel_id</span><span class='comma'>,</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='symbol'>:amenities</span>
+
+  <span class='comment'># Maps the room number from the Room model&#39;s `number` attribute.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># @return [String] the room number
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_room_number'>room_number</span>
+    <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_number'>number</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -503,7 +559,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Sep 20 13:52:04 2024 by
+  Generated on Fri Sep 20 14:04:25 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.3.4).
 </div>
