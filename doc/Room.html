@@ -377,7 +377,8 @@
 47
 48
 49
-50</pre>
+50
+51</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'app/models/room.rb', line 22</span>
@@ -388,7 +389,8 @@
 
   <span class='comment'># Validates the presence of the room number and capacity.
 </span>  <span class='comment'># Validates that the capacity must be a positive integer.
-</span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:number</span><span class='comma'>,</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span>
+</span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:number</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>uniqueness:</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span>
   <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>numericality:</span> <span class='lbrace'>{</span> <span class='label'>greater_than:</span> <span class='int'>0</span> <span class='rbrace'>}</span>
 
   <span class='comment'># Scope to find rooms that are available in a given hotel within a date range.
@@ -485,7 +487,8 @@
 47
 48
 49
-50</pre>
+50
+51</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'app/models/room.rb', line 22</span>
@@ -496,7 +499,8 @@
 
   <span class='comment'># Validates the presence of the room number and capacity.
 </span>  <span class='comment'># Validates that the capacity must be a positive integer.
-</span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:number</span><span class='comma'>,</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span>
+</span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:number</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>uniqueness:</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span>
   <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>numericality:</span> <span class='lbrace'>{</span> <span class='label'>greater_than:</span> <span class='int'>0</span> <span class='rbrace'>}</span>
 
   <span class='comment'># Scope to find rooms that are available in a given hotel within a date range.
@@ -593,7 +597,8 @@
 47
 48
 49
-50</pre>
+50
+51</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'app/models/room.rb', line 22</span>
@@ -604,7 +609,8 @@
 
   <span class='comment'># Validates the presence of the room number and capacity.
 </span>  <span class='comment'># Validates that the capacity must be a positive integer.
-</span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:number</span><span class='comma'>,</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span>
+</span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:number</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>uniqueness:</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span>
   <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>numericality:</span> <span class='lbrace'>{</span> <span class='label'>greater_than:</span> <span class='int'>0</span> <span class='rbrace'>}</span>
 
   <span class='comment'># Scope to find rooms that are available in a given hotel within a date range.
@@ -701,7 +707,8 @@
 47
 48
 49
-50</pre>
+50
+51</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'app/models/room.rb', line 22</span>
@@ -712,7 +719,8 @@
 
   <span class='comment'># Validates the presence of the room number and capacity.
 </span>  <span class='comment'># Validates that the capacity must be a positive integer.
-</span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:number</span><span class='comma'>,</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span>
+</span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:number</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>uniqueness:</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span>
   <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>numericality:</span> <span class='lbrace'>{</span> <span class='label'>greater_than:</span> <span class='int'>0</span> <span class='rbrace'>}</span>
 
   <span class='comment'># Scope to find rooms that are available in a given hotel within a date range.
@@ -843,13 +851,13 @@
       <pre class="lines">
 
 
-37
 38
 39
-40</pre>
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/room.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'app/models/room.rb', line 38</span>
 
 <span class='id identifier rubyid_scope'>scope</span> <span class='symbol'>:available</span><span class='comma'>,</span> <span class='id identifier rubyid_lambda'>lambda</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_hotel_id'>hotel_id</span><span class='comma'>,</span> <span class='id identifier rubyid_check_in'>check_in</span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='op'>|</span>
   <span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>hotel_id:</span><span class='rparen'>)</span>
@@ -940,12 +948,12 @@
       <pre class="lines">
 
 
-47
 48
-49</pre>
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/room.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'app/models/room.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_available?'>available?</span><span class='lparen'>(</span><span class='id identifier rubyid_check_in'>check_in</span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='rparen'>)</span>
   <span class='op'>!</span><span class='id identifier rubyid_reservations'>reservations</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>check_in &lt; ? AND check_out &gt; ?</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_check_out'>check_out</span><span class='comma'>,</span> <span class='id identifier rubyid_check_in'>check_in</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_exists?'>exists?</span>
@@ -960,7 +968,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Sep 18 17:33:11 2024 by
+  Generated on Fri Sep 20 13:52:04 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.3.4).
 </div>

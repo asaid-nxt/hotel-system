@@ -279,7 +279,8 @@
 23
 24
 25
-26</pre>
+26
+27</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'app/models/hotel.rb', line 14</span>
@@ -295,7 +296,8 @@
 </span>  <span class='comment'># Ensures that these attributes must be present for a hotel to be valid.
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @note Does not need a return type for validation
-</span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='symbol'>:location</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span>
+</span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>uniqueness:</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:location</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -355,7 +357,8 @@
 23
 24
 25
-26</pre>
+26
+27</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'app/models/hotel.rb', line 14</span>
@@ -371,7 +374,8 @@
 </span>  <span class='comment'># Ensures that these attributes must be present for a hotel to be valid.
 </span>  <span class='comment'>#
 </span>  <span class='comment'># @note Does not need a return type for validation
-</span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='symbol'>:location</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span>
+</span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>uniqueness:</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:location</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -440,7 +444,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Sep 18 17:33:11 2024 by
+  Generated on Fri Sep 20 13:52:04 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.3.4).
 </div>
