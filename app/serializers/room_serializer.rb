@@ -17,5 +17,9 @@
 #
 class RoomSerializer < ActiveModel::Serializer
   # Specifies the attributes to be serialized.
-  attributes :number, :hotel_id, :capacity, :amenities
+  attributes :room_number, :hotel_id, :capacity, :amenities
+
+  def room_number
+    object.number
+  end
 end
