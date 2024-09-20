@@ -4,7 +4,8 @@ module Api
   module V1
     # Handles reservation-related actions such as listing and creating reservations.
     class ReservationsController < ApplicationController
-      before_action :authenticate_user!
+      before_action :authenticate_user!, only: %i[index create]
+      before_action :authenticate_admin!, only: :all_reservations
       before_action :parse_dates, only: [:create]
       before_action :find_room, only: :create
       before_action :check_room_availability, only: :create
@@ -16,6 +17,11 @@ module Api
           current: serialize(reservations.current),
           future: serialize(reservations.future)
         }, status: :ok
+      end
+
+      def all_reservations
+        reservations = Reservation.all
+        render json: reservations, each_serializer: ReservationSerializer, status: :ok
       end
 
       def create

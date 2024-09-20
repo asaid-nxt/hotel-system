@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :users, only: [:create], path: 'signup'
-      resources :reservations, only: [:index]
+      resources :reservations, only: [:index] do
+        get 'all', to: 'reservations#all_reservations', on: :collection
+      end
       post 'login', to: 'sessions#create'
       resources :hotels, only: %i[create update destroy] do
         resources :rooms, only: %i[create update destroy] do
