@@ -55,7 +55,7 @@ This is a Rails 7 API for managing hotels. It includes functionality for users t
    rails db:create
    rails db:migrate
 
-4. Set up environment variables (see #Environment Variables)
+4. Set up environment variables (#environment-variables)
 
 5. Start the server:
    ```bash
