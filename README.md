@@ -14,8 +14,7 @@ This is a Rails 7 API for managing hotels. It includes functionality for users t
     - [User Endpoints](#user-endpoints)
     - [Admin Endpoints](#admin-endpoints)
 - [Testing](#testing)
-- [Contributing](#contributing)
-- [License](#license)
+
 
 ## Features
 
@@ -44,8 +43,8 @@ This is a Rails 7 API for managing hotels. It includes functionality for users t
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/username/hotel-reservation-api.git
-   cd hotel-reservation-api
+   git clone https://github.com/username/hotel-system.git
+   cd hotel-system
 
 2. Install dependencies:
    ```bash
@@ -66,10 +65,10 @@ This is a Rails 7 API for managing hotels. It includes functionality for users t
 ## Environment Variables
 The following environment variables should be set:
 
-- **JWT_SECRET_KEY**: Secret key for encoding and decoding JWT tokens.
-- **AWS_ACCESS_KEY_ID (Optional)**: AWS access key for image storage.
-- **AWS_SECRET_ACCESS_KEY (Optional)**: AWS secret key.
-- **AWS_BUCKET (Optional)**: AWS S3 bucket name for storing images.
+- `JWT_SECRET_KEY`: Secret key for encoding and decoding JWT tokens.
+- `AWS_ACCESS_KEY_ID (Optional)`: AWS access key for image storage.
+- `AWS_SECRET_ACCESS_KEY (Optional)`: AWS secret key.
+- `AWS_BUCKET (Optional)`: AWS S3 bucket name for storing images.
 
 
 ## Usage
@@ -77,3 +76,115 @@ The following environment variables should be set:
 ### Authentication
 
 This API uses JWT for authentication. You'll need to authenticate and receive a token to access protected endpoints.
+
+1. **Register a new user:**
+
+- Endpoint: `POST /api/v1/users`
+- Example request body:
+  ```json
+  {
+  "username": "example_user",
+  "password": "password123"
+  }
+
+2. **Login:**
+
+- Endpoint: `POST /api/v1/login`
+- Example response:
+  ```json
+  {
+  "token": "your_jwt_token"
+  }
+
+3. **Use JWT Token:**
+
+- Include the token in the `Authorization` header for protected routes:
+  ```bash
+  Authorization: Bearer your_jwt_token
+
+## Endpoints
+
+### User Endpoints
+
+1. **View Available Rooms:**
+
+- Endpoint: `GET /api/v1/rooms/available`
+- Query Parameters: `check_in`, `check_out`
+- Example:
+  ```bash
+  GET /api/v1/rooms/available?check_in=2024-09-30&check_out=2024-10-05
+
+2. **Create Reservation:**
+
+- Endpoint: `POST /api/v1/reservations`
+- Example request body:
+  ```json
+  {
+  "room_id": 1,
+  "check_in": "2024-09-30",
+  "check_out": "2024-10-05"
+  }
+
+3. **View User's Reservations:**
+
+- Endpoint: GET /api/v1/reservations
+- Example
+  ```bash
+  GET /api/v1/reservations
+
+**Admin Endpoints**
+
+1. **Create Hotel**:
+
+- Endpoint: `POST /api/v1/admin/hotels`
+- Example request body:
+  ```json
+  {
+  "name": "Luxury Hotel",
+  "location": "New York",
+  "rating": 5
+  }
+
+2. **Update Room**:
+
+- Endpoint: `PUT /api/v1/admin/rooms/:id`
+- Example request body:
+  ```json
+  {
+  "name": "Suite",
+  "price": 200,
+  "available": true
+  }
+
+3. **View All Reservations**:
+
+- Endpoint: `GET /api/v1/admin/reservations`
+- Example:
+  ```bash
+  GET /api/v1/admin/reservations
+
+## Testing
+
+To run the test suite:
+```bash
+rspec
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
