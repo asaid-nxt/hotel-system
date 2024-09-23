@@ -45,21 +45,25 @@ This is a Rails 7 API for managing hotels. It includes functionality for users t
    ```bash
    git clone https://github.com/username/hotel-system.git
    cd hotel-system
+   ```
 
 2. Install dependencies:
    ```bash
    bundle install
+   ```
 
 3. Set up the database:
    ```bash
    rails db:create
    rails db:migrate
+   ```
 
 4. Set up environment variables (see [Environment Variables](#environment-variables)).
 
 5. Start the server:
    ```bash
    rails s
+   ```
 
 
 ## Environment Variables
@@ -77,114 +81,94 @@ The following environment variables should be set:
 
 This API uses JWT for authentication. You'll need to authenticate and receive a token to access protected endpoints.
 
-1. **Register a new user:**
+- **Register a new user**:
+  - Endpoint: `POST /api/v1/signup`
+  - Example request body:
+    ```json
+    {
+      "username": "example_user",
+      "password": "password123"
+    }
+    ```
 
-- Endpoint: `POST /api/v1/users`
-- Example request body:
-  ```json
-  {
-  "username": "example_user",
-  "password": "password123"
-  }
+- **Login**:
+  - Endpoint: `POST /api/v1/login`
+  - Example response:
+    ```json
+    {
+      "token": "your_jwt_token"
+    }
+    ```
 
-2. **Login:**
-
-- Endpoint: `POST /api/v1/login`
-- Example response:
-  ```json
-  {
-  "token": "your_jwt_token"
-  }
-
-3. **Use JWT Token:**
-
-- Include the token in the `Authorization` header for protected routes:
-  ```bash
-  Authorization: Bearer your_jwt_token
+- **Use JWT Token**:
+  - Include the token in the `Authorization` header for protected routes:
+    ```bash
+    Authorization: Bearer your_jwt_token
+    ```
 
 ## Endpoints
 
 ### User Endpoints
 
-1. **View Available Rooms:**
+1. **Register a new user**:
+   - **Endpoint**: `POST /api/v1/signup`
+   - **Description**: Creates a new user account.
 
-- Endpoint: `GET /api/v1/rooms/available`
-- Query Parameters: `check_in`, `check_out`
-- Example:
-  ```bash
-  GET /api/v1/rooms/available?check_in=2024-09-30&check_out=2024-10-05
+2. **Login**:
+   - **Endpoint**: `POST /api/v1/login`
+   - **Description**: Authenticates a user and returns a JWT token.
 
-2. **Create Reservation:**
+3. **View User's Reservations**:
+   - **Endpoint**: `GET /api/v1/reservations/all`
+   - **Description**: Retrieves all reservations for the authenticated user.
 
-- Endpoint: `POST /api/v1/reservations`
-- Example request body:
-  ```json
-  {
-  "room_id": 1,
-  "check_in": "2024-09-30",
-  "check_out": "2024-10-05"
-  }
+---
 
-3. **View User's Reservations:**
+### Hotel Endpoints
 
-- Endpoint: GET /api/v1/reservations
-- Example
-  ```bash
-  GET /api/v1/reservations
+1. **Create a Hotel**:
+   - **Endpoint**: `POST /api/v1/hotels`
+   - **Description**: Creates a new hotel.
 
-**Admin Endpoints**
+2. **Update a Hotel**:
+   - **Endpoint**: `PUT /api/v1/hotels/:id`
+   - **Description**: Updates the details of an existing hotel.
 
-1. **Create Hotel**:
+3. **Delete a Hotel**:
+   - **Endpoint**: `DELETE /api/v1/hotels/:id`
+   - **Description**: Deletes a specified hotel.
 
-- Endpoint: `POST /api/v1/admin/hotels`
-- Example request body:
-  ```json
-  {
-  "name": "Luxury Hotel",
-  "location": "New York",
-  "rating": 5
-  }
+---
 
-2. **Update Room**:
+### Room Endpoints
 
-- Endpoint: `PUT /api/v1/admin/rooms/:id`
-- Example request body:
-  ```json
-  {
-  "name": "Suite",
-  "price": 200,
-  "available": true
-  }
+1. **Create a Room**:
+   - **Endpoint**: `POST /api/v1/hotels/:hotel_id/rooms`
+   - **Description**: Creates a new room in a specified hotel.
 
-3. **View All Reservations**:
+2. **Update a Room**:
+   - **Endpoint**: `PUT /api/v1/hotels/:hotel_id/rooms/:id`
+   - **Description**: Updates the details of an existing room.
 
-- Endpoint: `GET /api/v1/admin/reservations`
-- Example:
-  ```bash
-  GET /api/v1/admin/reservations
+3. **Delete a Room**:
+   - **Endpoint**: `DELETE /api/v1/hotels/:hotel_id/rooms/:id`
+   - **Description**: Deletes a specified room.
+
+4. **View Available Rooms**:
+   - **Endpoint**: `GET /api/v1/hotels/:hotel_id/rooms/available`
+   - **Description**: Retrieves available rooms for a specified date range.
+
+---
+
+### Reservation Endpoints
+
+1. **Create a Reservation**:
+   - **Endpoint**: `POST /api/v1/hotels/:hotel_id/rooms/:room_id/reservations`
+   - **Description**: Creates a reservation for a specified room.
 
 ## Testing
 
 To run the test suite:
 ```bash
 rspec
-
-  
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-  
+```
