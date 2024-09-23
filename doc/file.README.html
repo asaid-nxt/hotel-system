@@ -57,28 +57,241 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><div id='filecontents'><h1 id="readme">README</h1>
+      <div id="content"><div id='filecontents'><h1 id="hotel-system-api">Hotel System API</h1>
 
-<p>This README would normally document whatever steps are necessary to get the
-application up and running.</p>
+<p>This is a Rails 7 API for managing hotels. It includes functionality for users to make reservations and view available rooms, as well as admin actions to manage hotels, rooms, and reservations. The API uses JWT-based authentication.</p>
 
-<p>Things you may want to cover:</p>
+<h2 id="table-of-contents">Table of Contents</h2>
 
 <ul>
-<li><p>Ruby version</p></li>
-<li><p>System dependencies</p></li>
-<li><p>Configuration</p></li>
-<li><p>Database creation</p></li>
-<li><p>Database initialization</p></li>
-<li><p>How to run the test suite</p></li>
-<li><p>Services (job queues, cache servers, search engines, etc.)</p></li>
-<li><p>Deployment instructions</p></li>
-<li><p>...</p></li>
+<li><a href="#features">Features</a></li>
+<li><a href="#technologies-used">Technologies Used</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#environment-variables">Environment Variables</a></li>
+<li><a href="#usage">Usage</a>
+
+<ul>
+<li><a href="#authentication">Authentication</a></li>
+<li><a href="#endpoints">Endpoints</a></li>
+<li><a href="#user-endpoints">User Endpoints</a></li>
+<li><a href="#admin-endpoints">Admin Endpoints</a></li>
+</ul></li>
+<li><a href="#testing">Testing</a></li>
 </ul>
+
+<h2 id="features">Features</h2>
+
+<ul>
+<li><p><strong>User actions</strong>:</p>
+
+<ul>
+<li>View available rooms for a specified date range.</li>
+<li>Create a new reservation for a room.</li>
+<li>View user&#39;s own reservations.</li>
+</ul></li>
+<li><p><strong>Admin actions</strong>:</p>
+
+<ul>
+<li>Create, update, and delete hotels and rooms.</li>
+<li>View all reservations in the system.</li>
+</ul></li>
+<li><p><strong>JWT Authentication</strong>:</p>
+
+<ul>
+<li>Secure login system for both users and admins using JSON Web Tokens (JWT).</li>
+<li>Tokens are required for accessing protected resources.</li>
+</ul></li>
+</ul>
+
+<h2 id="technologies-used">Technologies Used</h2>
+
+<ul>
+<li><strong>Ruby on Rails 7</strong> - The web framework used for developing the API.</li>
+<li><strong>SQLite</strong> - The database management system.</li>
+<li><strong>JWT</strong> - Used for securing user authentication.</li>
+<li><strong>ActiveModelSerializers</strong> - For formatting the JSON responses.</li>
+<li><strong>AWS</strong> (Optional) - For managing images of hotels and rooms.</li>
+</ul>
+
+<h2 id="installation">Installation</h2>
+
+<ol>
+<li><p>Clone the repository:</p>
+
+<pre class="code bash"><code class="bash">git clone https://github.com/username/hotel-system.git
+cd hotel-system
+</code></pre></li>
+<li><p>Install dependencies:</p>
+
+<pre class="code bash"><code class="bash">bundle install
+</code></pre></li>
+<li><p>Set up the database:</p>
+
+<pre class="code bash"><code class="bash">rails db:create
+rails db:migrate
+</code></pre></li>
+<li><p>Set up environment variables (see <a href="#environment-variables">Environment Variables</a>).</p></li>
+<li><p>Start the server:</p>
+
+<pre class="code bash"><code class="bash">rails s
+</code></pre></li>
+</ol>
+
+<h2 id="environment-variables">Environment Variables</h2>
+
+<p>The following environment variables should be set:</p>
+
+<ul>
+<li><code>JWT_SECRET_KEY</code>: Secret key for encoding and decoding JWT tokens.</li>
+<li><code>AWS_ACCESS_KEY_ID (Optional)</code>: AWS access key for image storage.</li>
+<li><code>AWS_SECRET_ACCESS_KEY (Optional)</code>: AWS secret key.</li>
+<li><code>AWS_BUCKET (Optional)</code>: AWS S3 bucket name for storing images.</li>
+</ul>
+
+<h2 id="usage">Usage</h2>
+
+<h3 id="authentication">Authentication</h3>
+
+<p>This API uses JWT for authentication. You&#39;ll need to authenticate and receive a token to access protected endpoints.</p>
+
+<ul>
+<li><p><strong>Register a new user</strong>:</p>
+
+<ul>
+<li>Endpoint: <code>POST /api/v1/signup</code></li>
+<li>Example request body:
+<code>json
+{
+&quot;username&quot;: &quot;example_user&quot;,
+&quot;password&quot;: &quot;password123&quot;
+}
+</code></li>
+</ul></li>
+<li><p><strong>Login</strong>:</p>
+
+<ul>
+<li>Endpoint: <code>POST /api/v1/login</code></li>
+<li>Example response:
+<code>json
+{
+&quot;token&quot;: &quot;your_jwt_token&quot;
+}
+</code></li>
+</ul></li>
+<li><p><strong>Use JWT Token</strong>:</p>
+
+<ul>
+<li>Include the token in the <code>Authorization</code> header for protected routes:
+<code>bash
+Authorization: Bearer your_jwt_token
+</code></li>
+</ul></li>
+</ul>
+
+<h2 id="endpoints">Endpoints</h2>
+
+<h3 id="user-endpoints">User Endpoints</h3>
+
+<ol>
+<li><p><strong>Register a new user</strong>:</p>
+
+<ul>
+<li><strong>Endpoint</strong>: <code>POST /api/v1/signup</code></li>
+<li><strong>Description</strong>: Creates a new user account.</li>
+</ul></li>
+<li><p><strong>Login</strong>:</p>
+
+<ul>
+<li><strong>Endpoint</strong>: <code>POST /api/v1/login</code></li>
+<li><strong>Description</strong>: Authenticates a user and returns a JWT token.</li>
+</ul></li>
+<li><p><strong>View User&#39;s Reservations</strong>:</p>
+
+<ul>
+<li><strong>Endpoint</strong>: <code>GET /api/v1/reservations/all</code></li>
+<li><strong>Description</strong>: Retrieves all reservations for the authenticated user.</li>
+</ul></li>
+</ol>
+
+<hr>
+
+<h3 id="hotel-endpoints">Hotel Endpoints</h3>
+
+<ol>
+<li><p><strong>Create a Hotel</strong>:</p>
+
+<ul>
+<li><strong>Endpoint</strong>: <code>POST /api/v1/hotels</code></li>
+<li><strong>Description</strong>: Creates a new hotel.</li>
+</ul></li>
+<li><p><strong>Update a Hotel</strong>:</p>
+
+<ul>
+<li><strong>Endpoint</strong>: <code>PUT /api/v1/hotels/:id</code></li>
+<li><strong>Description</strong>: Updates the details of an existing hotel.</li>
+</ul></li>
+<li><p><strong>Delete a Hotel</strong>:</p>
+
+<ul>
+<li><strong>Endpoint</strong>: <code>DELETE /api/v1/hotels/:id</code></li>
+<li><strong>Description</strong>: Deletes a specified hotel.</li>
+</ul></li>
+</ol>
+
+<hr>
+
+<h3 id="room-endpoints">Room Endpoints</h3>
+
+<ol>
+<li><p><strong>Create a Room</strong>:</p>
+
+<ul>
+<li><strong>Endpoint</strong>: <code>POST /api/v1/hotels/:hotel_id/rooms</code></li>
+<li><strong>Description</strong>: Creates a new room in a specified hotel.</li>
+</ul></li>
+<li><p><strong>Update a Room</strong>:</p>
+
+<ul>
+<li><strong>Endpoint</strong>: <code>PUT /api/v1/hotels/:hotel_id/rooms/:id</code></li>
+<li><strong>Description</strong>: Updates the details of an existing room.</li>
+</ul></li>
+<li><p><strong>Delete a Room</strong>:</p>
+
+<ul>
+<li><strong>Endpoint</strong>: <code>DELETE /api/v1/hotels/:hotel_id/rooms/:id</code></li>
+<li><strong>Description</strong>: Deletes a specified room.</li>
+</ul></li>
+<li><p><strong>View Available Rooms</strong>:</p>
+
+<ul>
+<li><strong>Endpoint</strong>: <code>GET /api/v1/hotels/:hotel_id/rooms/available</code></li>
+<li><strong>Description</strong>: Retrieves available rooms for a specified date range.</li>
+</ul></li>
+</ol>
+
+<hr>
+
+<h3 id="reservation-endpoints">Reservation Endpoints</h3>
+
+<ol>
+<li><strong>Create a Reservation</strong>:
+
+<ul>
+<li><strong>Endpoint</strong>: <code>POST /api/v1/hotels/:hotel_id/rooms/:room_id/reservations</code></li>
+<li><strong>Description</strong>: Creates a reservation for a specified room.</li>
+</ul></li>
+</ol>
+
+<h2 id="testing">Testing</h2>
+
+<p>To run the test suite:</p>
+
+<pre class="code bash"><code class="bash">rspec
+</code></pre>
 </div></div>
 
       <div id="footer">
-  Generated on Fri Sep 20 19:26:21 2024 by
+  Generated on Mon Sep 23 13:24:20 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.3.4).
 </div>
