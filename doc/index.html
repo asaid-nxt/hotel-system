@@ -193,31 +193,37 @@ Authorization: Bearer your_jwt_token
 <h3 id="user-endpoints">User Endpoints</h3>
 
 <ol>
-<li><p><strong>Register a new user</strong>:</p>
-
-<ul>
-<li><strong>Endpoint</strong>: <code>POST /api/v1/signup</code></li>
-<li><strong>Description</strong>: Creates a new user account.</li>
-</ul></li>
-<li><p><strong>Login</strong>:</p>
-
-<ul>
-<li><strong>Endpoint</strong>: <code>POST /api/v1/login</code></li>
-<li><strong>Description</strong>: Authenticates a user and returns a JWT token.</li>
-</ul></li>
 <li><p><strong>View User&#39;s Reservations</strong>:</p>
 
 <ul>
-<li><strong>Endpoint</strong>: <code>GET /api/v1/reservations/all</code></li>
+<li><strong>Endpoint</strong>: <code>GET /api/v1/reservations</code></li>
 <li><strong>Description</strong>: Retrieves all reservations for the authenticated user.</li>
+</ul></li>
+<li><p><strong>View Available Rooms</strong>:</p>
+
+<ul>
+<li><strong>Endpoint</strong>: <code>GET /api/v1/hotels/:hotel_id/rooms/available</code></li>
+<li><strong>Description</strong>: Retrieves available rooms for a specified date range.</li>
+</ul></li>
+<li><p><strong>Create a Reservation</strong>:</p>
+
+<ul>
+<li><strong>Endpoint</strong>: <code>POST /api/v1/hotels/:hotel_id/rooms/:room_id/reservations</code></li>
+<li><strong>Description</strong>: Creates a reservation for a specified room.</li>
 </ul></li>
 </ol>
 
 <hr>
 
-<h3 id="hotel-endpoints">Hotel Endpoints</h3>
+<h3 id="admin-endpoints">Admin Endpoints</h3>
 
 <ol>
+<li><p><strong>View All Reservations</strong>:</p>
+
+<ul>
+<li><strong>Endpoint</strong>: <code>GET /api/v1/reservations/all</code></li>
+<li><strong>Description</strong>: Retrieves all reservations in the system for admin users.</li>
+</ul></li>
 <li><p><strong>Create a Hotel</strong>:</p>
 
 <ul>
@@ -236,13 +242,6 @@ Authorization: Bearer your_jwt_token
 <li><strong>Endpoint</strong>: <code>DELETE /api/v1/hotels/:id</code></li>
 <li><strong>Description</strong>: Deletes a specified hotel.</li>
 </ul></li>
-</ol>
-
-<hr>
-
-<h3 id="room-endpoints">Room Endpoints</h3>
-
-<ol>
 <li><p><strong>Create a Room</strong>:</p>
 
 <ul>
@@ -261,25 +260,6 @@ Authorization: Bearer your_jwt_token
 <li><strong>Endpoint</strong>: <code>DELETE /api/v1/hotels/:hotel_id/rooms/:id</code></li>
 <li><strong>Description</strong>: Deletes a specified room.</li>
 </ul></li>
-<li><p><strong>View Available Rooms</strong>:</p>
-
-<ul>
-<li><strong>Endpoint</strong>: <code>GET /api/v1/hotels/:hotel_id/rooms/available</code></li>
-<li><strong>Description</strong>: Retrieves available rooms for a specified date range.</li>
-</ul></li>
-</ol>
-
-<hr>
-
-<h3 id="reservation-endpoints">Reservation Endpoints</h3>
-
-<ol>
-<li><strong>Create a Reservation</strong>:
-
-<ul>
-<li><strong>Endpoint</strong>: <code>POST /api/v1/hotels/:hotel_id/rooms/:room_id/reservations</code></li>
-<li><strong>Description</strong>: Creates a reservation for a specified room.</li>
-</ul></li>
 </ol>
 
 <h2 id="testing">Testing</h2>
@@ -291,7 +271,7 @@ Authorization: Bearer your_jwt_token
 </div></div>
 
       <div id="footer">
-  Generated on Mon Sep 23 13:24:20 2024 by
+  Generated on Mon Sep 23 13:35:33 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.3.4).
 </div>
