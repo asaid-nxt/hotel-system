@@ -108,63 +108,53 @@ This API uses JWT for authentication. You'll need to authenticate and receive a 
 
 ## Endpoints
 
+
 ### User Endpoints
 
-1. **Register a new user**:
-   - **Endpoint**: `POST /api/v1/signup`
-   - **Description**: Creates a new user account.
-
-2. **Login**:
-   - **Endpoint**: `POST /api/v1/login`
-   - **Description**: Authenticates a user and returns a JWT token.
-
-3. **View User's Reservations**:
-   - **Endpoint**: `GET /api/v1/reservations/all`
+1. **View User's Reservations**:
+   - **Endpoint**: `GET /api/v1/reservations`
    - **Description**: Retrieves all reservations for the authenticated user.
 
----
-
-### Hotel Endpoints
-
-1. **Create a Hotel**:
-   - **Endpoint**: `POST /api/v1/hotels`
-   - **Description**: Creates a new hotel.
-
-2. **Update a Hotel**:
-   - **Endpoint**: `PUT /api/v1/hotels/:id`
-   - **Description**: Updates the details of an existing hotel.
-
-3. **Delete a Hotel**:
-   - **Endpoint**: `DELETE /api/v1/hotels/:id`
-   - **Description**: Deletes a specified hotel.
-
----
-
-### Room Endpoints
-
-1. **Create a Room**:
-   - **Endpoint**: `POST /api/v1/hotels/:hotel_id/rooms`
-   - **Description**: Creates a new room in a specified hotel.
-
-2. **Update a Room**:
-   - **Endpoint**: `PUT /api/v1/hotels/:hotel_id/rooms/:id`
-   - **Description**: Updates the details of an existing room.
-
-3. **Delete a Room**:
-   - **Endpoint**: `DELETE /api/v1/hotels/:hotel_id/rooms/:id`
-   - **Description**: Deletes a specified room.
-
-4. **View Available Rooms**:
+2. **View Available Rooms**:
    - **Endpoint**: `GET /api/v1/hotels/:hotel_id/rooms/available`
    - **Description**: Retrieves available rooms for a specified date range.
 
----
-
-### Reservation Endpoints
-
-1. **Create a Reservation**:
+3. **Create a Reservation**:
    - **Endpoint**: `POST /api/v1/hotels/:hotel_id/rooms/:room_id/reservations`
    - **Description**: Creates a reservation for a specified room.
+
+---
+
+### Admin Endpoints
+
+1. **View All Reservations**:
+   - **Endpoint**: `GET /api/v1/reservations/all`
+   - **Description**: Retrieves all reservations in the system for admin users.
+
+2. **Create a Hotel**:
+   - **Endpoint**: `POST /api/v1/hotels`
+   - **Description**: Creates a new hotel.
+
+3. **Update a Hotel**:
+   - **Endpoint**: `PUT /api/v1/hotels/:id`
+   - **Description**: Updates the details of an existing hotel.
+
+4. **Delete a Hotel**:
+   - **Endpoint**: `DELETE /api/v1/hotels/:id`
+   - **Description**: Deletes a specified hotel.
+
+5. **Create a Room**:
+   - **Endpoint**: `POST /api/v1/hotels/:hotel_id/rooms`
+   - **Description**: Creates a new room in a specified hotel.
+
+6. **Update a Room**:
+   - **Endpoint**: `PUT /api/v1/hotels/:hotel_id/rooms/:id`
+   - **Description**: Updates the details of an existing room.
+
+7. **Delete a Room**:
+   - **Endpoint**: `DELETE /api/v1/hotels/:hotel_id/rooms/:id`
+   - **Description**: Deletes a specified room.
+
 
 ## Testing
 
