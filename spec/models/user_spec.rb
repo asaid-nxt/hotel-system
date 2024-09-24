@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
+RSpec.describe User, type: :model do # rubocop:disable Metrics/BlockLength
   let(:user) { create(:user) }
 
   describe 'Validations' do
@@ -73,6 +73,14 @@ RSpec.describe User, type: :model do
       token = user.generate_jwt
 
       expect(token).to eq('token')
+    end
+  end
+
+  describe 'image attachment' do
+    it 'attaches an image' do
+      user.image.attach(io: File.open(Rails.root.join('spec/fixtures/files/avatar.jpg')),
+                        filename: 'avatar.jpg', content_type: 'image/jpg')
+      expect(user.image).to be_attached
     end
   end
 end

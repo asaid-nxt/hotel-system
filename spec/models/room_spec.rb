@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Room, type: :model do # rubocop:disable Metrics/BlockLength
-  describe 'Validation' do
-    let(:hotel) { create(:hotel) }
-    let(:room) { create(:room, hotel:) }
+  let(:hotel) { create(:hotel) }
+  let(:room) { create(:room, hotel:) }
 
+  describe 'Validation' do
     it 'is valid with valid attributes' do
       expect(room).to be_valid
     end
@@ -113,6 +113,14 @@ RSpec.describe Room, type: :model do # rubocop:disable Metrics/BlockLength
     it 'when room is not available' do
       create(:reservation, room:, check_in:, check_out:)
       expect(room.available?(check_in, check_out)).to be_falsy
+    end
+  end
+
+  describe 'image attachment' do
+    it 'attaches an image' do
+      room.image.attach(io: File.open(Rails.root.join('spec/fixtures/files/room.jpg')),
+                        filename: 'room.jpg', content_type: 'image/jpg')
+      expect(room.image).to be_attached
     end
   end
 end
