@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Room, type: :model do
+RSpec.describe Room, type: :model do # rubocop:disable Metrics/BlockLength
   describe 'Validation' do
     let(:hotel) { create(:hotel) }
     let(:room) { create(:room, hotel:) }
@@ -24,6 +24,11 @@ RSpec.describe Room, type: :model do
       expect(room).not_to be_valid
     end
 
+    it 'not vaild if data type is not integer' do
+      room.capacity = 'n'
+      expect(room).not_to be_valid
+    end
+
     it 'not valid with less than 1 capacity' do
       room.capacity = 0
       expect(room).not_to be_valid
@@ -35,7 +40,7 @@ RSpec.describe Room, type: :model do
     it { should have_many(:reservations).dependent(:destroy) }
   end
 
-  describe '.available' do
+  describe '.available' do # rubocop:disable Metrics/BlockLength
     let!(:hotel) { create(:hotel) }
     let!(:available_room) { create(:room, hotel:) }
     let!(:unavailable_room) { create(:room, hotel:) }
