@@ -13,6 +13,7 @@ class UserSerializer < ActiveModel::Serializer
   #
   # @return [Array<Symbol>] An array of symbols representing the attributes of the user.
   attributes :username, :full_name, :preferences, :image_url
+
   # Returns the URL for the User's attached avatar.
   #
   # @return [String, nil] The URL of the attached avatar or nil if no image is attached.
@@ -20,6 +21,9 @@ class UserSerializer < ActiveModel::Serializer
     Rails.application.routes.url_helpers.rails_blob_url(object.image, only_path: true) if object.image.attached?
   end
 
+  # Returns the full name of the User by concatenating first and last names.
+  #
+  # @return [String] The full name of the User.
   def full_name
     "#{object.first_name} #{object.last_name}"
   end

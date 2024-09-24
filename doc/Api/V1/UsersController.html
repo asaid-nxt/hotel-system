@@ -108,6 +108,8 @@
     
 <p>UsersController handles user registration and JWT generation.</p>
 
+<p>This controller provides actions for user registration, including creating a new user and generating a JWT for authenticated sessions.</p>
+
 
   </div>
 </div>
@@ -197,7 +199,7 @@
 </div></h5>
       
       <pre class="example code"><code>POST /api/v1/users
-Params: { username: &quot;new_user&quot;, password: &quot;password&quot;, password_confirmation: &quot;password&quot;, role: &quot;user&quot; }
+Params: { user: { username: &quot;new_user&quot;, password: &quot;password&quot;, password_confirmation: &quot;password&quot;, role: &quot;user&quot; } }
 Response: { token: &quot;jwt_token&quot;, user: { username: &quot;new_user&quot;, role: &quot;user&quot; } }</code></pre>
     
       
@@ -206,7 +208,7 @@ Response: { token: &quot;jwt_token&quot;, user: { username: &quot;new_user&quot;
 </div></h5>
       
       <pre class="example code"><code>POST /api/v1/users
-Params: { username: &quot;new_user&quot;, password: &quot;password&quot;, password_confirmation: &quot;wrong_password&quot;, role: &quot;user&quot; }
+Params: { user: { username: &quot;new_user&quot;, password: &quot;password&quot;, password_confirmation: &quot;wrong_password&quot;, role: &quot;user&quot; } }
 Response: { errors: [&quot;Password confirmation doesn&#39;t match Password&quot;] }</code></pre>
     
   </div>
@@ -223,7 +225,7 @@ Response: { errors: [&quot;Password confirmation doesn&#39;t match Password&quot
       
         &mdash;
         <div class='inline'>
-<p>A JSON response containing the JWT token and user information if the user is successfully created, or an error message if the user creation fails.</p>
+<p>A JSON response containing the JWT token and user information if the user is successfully created, or an error message if user creation fails.</p>
 </div>
       
     </li>
@@ -241,7 +243,7 @@ Response: { errors: [&quot;Password confirmation doesn&#39;t match Password&quot
       
         &mdash;
         <div class='inline'>
-<p>if user fails validation and is not saved.</p>
+<p>if the user fails validation and is not saved.</p>
 </div>
       
     </li>
@@ -254,19 +256,19 @@ Response: { errors: [&quot;Password confirmation doesn&#39;t match Password&quot
       <pre class="lines">
 
 
-25
-26
-27
 28
 29
 30
 31
 32
 33
-34</pre>
+34
+35
+36
+37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/controllers/api/v1/users_controller.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'app/controllers/api/v1/users_controller.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create'>create</span>
   <span class='id identifier rubyid_user'>user</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../User.html" title="User (class)">User</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_user_params'>user_params</span><span class='rparen'>)</span>
@@ -288,7 +290,7 @@ Response: { errors: [&quot;Password confirmation doesn&#39;t match Password&quot
 </div>
 
       <div id="footer">
-  Generated on Tue Sep 24 15:52:05 2024 by
+  Generated on Tue Sep 24 19:49:18 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.3.4).
 </div>
