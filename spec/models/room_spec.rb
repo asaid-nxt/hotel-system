@@ -106,7 +106,7 @@ RSpec.describe Room, type: :model do # rubocop:disable Metrics/BlockLength
     end
 
     it 'when only check_out overlaps' do
-      create(:reservation, room:, check_in: Date.today - 2.days, check_out:)
+      create(:reservation, room:, check_in: Date.today, check_out:)
       expect(room.available?(check_in, check_out)).to be_falsy
     end
 

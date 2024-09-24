@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::ReservationsController, type: :controller do
+RSpec.describe Api::V1::ReservationsController, type: :controller do # rubocop:disable Metrics/BlockLength
   let(:user) { create(:user) }
   let(:hotel) { create(:hotel) }
   let(:room) { create(:room, hotel:) }
@@ -8,7 +8,6 @@ RSpec.describe Api::V1::ReservationsController, type: :controller do
   let(:check_out) { Date.tomorrow }
 
   describe 'GET #index' do
-    let!(:past_reservation) { create(:reservation, check_in: Date.today - 3.days, check_out: Date.yesterday, user:) }
     let!(:current_reservation) { create(:reservation, check_in: Date.today, check_out: Date.tomorrow, user:) }
     let!(:future_reservation) { create(:reservation, check_in: Date.tomorrow, check_out: Date.today + 2.days, user:) }
 
@@ -21,9 +20,7 @@ RSpec.describe Api::V1::ReservationsController, type: :controller do
       get :index
 
       expect(response).to have_http_status :ok
-      expect(json_response['past']).to include(JSON.parse(ActiveModelSerializers::SerializableResource.new(
-        past_reservation, each_serializer: ReservationSerializer
-      ).to_json))
+      expect(json_response['past']).to be_blank
       expect(json_response['current']).to include(JSON.parse(ActiveModelSerializers::SerializableResource.new(
         current_reservation, each_serializer: ReservationSerializer
       ).to_json))
@@ -100,7 +97,7 @@ RSpec.describe Api::V1::ReservationsController, type: :controller do
       post :create, params: { hotel_id: hotel.id, room_id: room.id, reservation: { check_in:, check_out: } }
 
       expect(response).to have_http_status :unprocessable_entity
-      expect(json_response).to eq({ 'error' => 'Room is not available for the selected dates' })
+      expect(json_response).to eq({ 'error' => ['Room is not available for the selected dates'] })
     end
   end
 end

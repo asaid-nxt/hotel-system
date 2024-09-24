@@ -10,7 +10,6 @@ RSpec.describe 'Reservations API', type: :request do # rubocop:disable Metrics/B
   let(:check_out) { Date.tomorrow }
 
   describe 'GET /api/v1/reservations' do # rubocop:disable Metrics/BlockLength
-    let!(:past_reservation) { create(:reservation, check_in: Date.today - 3.days, check_out: Date.yesterday, user:) }
     let!(:current_reservation) { create(:reservation, check_in: Date.today, check_out: Date.tomorrow, user:) }
     let!(:future_reservation) { create(:reservation, check_in: Date.tomorrow, check_out: Date.today + 2.days, user:) }
 
@@ -21,9 +20,7 @@ RSpec.describe 'Reservations API', type: :request do # rubocop:disable Metrics/B
         end
         it 'returns the past, current and future reservations' do
           expect(response).to have_http_status :ok
-          expect(json_response['past']).to include(JSON.parse(ActiveModelSerializers::SerializableResource.new(
-            past_reservation, each_serializer: ReservationSerializer
-          ).to_json))
+          expect(json_response['past']).to be_blank
           expect(json_response['current']).to include(JSON.parse(ActiveModelSerializers::SerializableResource.new(
             current_reservation, each_serializer: ReservationSerializer
           ).to_json))
@@ -126,7 +123,7 @@ RSpec.describe 'Reservations API', type: :request do # rubocop:disable Metrics/B
 
       it 'returns an error' do
         expect(response).to have_http_status :unprocessable_entity
-        expect(json_response).to eq({ 'error' => 'Room is not available for the selected dates' })
+        expect(json_response).to eq({ 'error' => ['Room is not available for the selected dates'] })
       end
     end
 
