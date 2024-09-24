@@ -37,7 +37,7 @@ class User < ApplicationRecord
   has_secure_password
 
   # Establishes a one-to-many relationship with reservations.
-  has_many :reservations
+  has_many :reservations, dependent: :destroy
 
   # Defines the possible roles a user can have.
   enum role: { user: 0, admin: 1 }
