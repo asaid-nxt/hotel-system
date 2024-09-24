@@ -12,7 +12,6 @@ module Api
       before_action :authenticate_admin!, only: :all_reservations
       before_action :parse_dates, only: [:create]
       before_action :find_room, only: :create
-      before_action :check_room_availability, only: :create
 
       # GET /api/v1/reservations
       #
@@ -88,15 +87,6 @@ module Api
       def find_room
         @room = Room.find_by(id: params[:room_id])
         render json: { error: 'Room not found' }, status: :not_found unless @room
-      end
-
-      # Checks if the room is available for the selected dates.
-      #
-      # @return [void] proceeds if available or renders an error if the room is not available.
-      def check_room_availability
-        return if @room.available?(@check_in, @check_out)
-
-        render json: { error: 'Room is not available for the selected dates' }, status: :unprocessable_entity
       end
     end
   end

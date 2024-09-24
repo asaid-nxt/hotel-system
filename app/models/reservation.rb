@@ -31,8 +31,9 @@ class Reservation < ApplicationRecord
   belongs_to :user
   belongs_to :room
 
-  validates :check_in, :check_out, presence: true
+  validates :room, :check_in, :check_out, presence: true
   validate :check_dates
+  validate :check_room_availability
 
   scope :past, -> { where('check_out < ?', Date.today.to_s) }
   scope :current, -> { where('check_in <= ? AND check_out >= ?', Date.today.to_s, Date.today.to_s) }
@@ -46,6 +47,13 @@ class Reservation < ApplicationRecord
   def check_dates
     return if check_in.nil? || check_out.nil?
 
+    errors.add(:check_in, 'can not be in the past') if check_in < Date.today
     errors.add(:check_out, 'must be after check-in') if check_in >= check_out
+  end
+
+  def check_room_availability
+    return if room&.available?(check_in, check_out)
+
+    errors.add(:base, 'Room is not available for the selected dates')
   end
 end
