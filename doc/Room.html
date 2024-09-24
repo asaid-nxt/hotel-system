@@ -428,7 +428,7 @@
 </span>  <span class='comment'># Validates that the capacity must be a positive integer.
 </span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:number</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>uniqueness:</span> <span class='kw'>true</span>
   <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span>
-  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>numericality:</span> <span class='lbrace'>{</span> <span class='label'>greater_than:</span> <span class='int'>0</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>numericality:</span> <span class='lbrace'>{</span> <span class='label'>only_integer:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>greater_than:</span> <span class='int'>0</span> <span class='rbrace'>}</span>
 
   <span class='comment'># Scope to find rooms that are available in a given hotel within a date range.
 </span>  <span class='comment'>#
@@ -548,7 +548,7 @@
 </span>  <span class='comment'># Validates that the capacity must be a positive integer.
 </span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:number</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>uniqueness:</span> <span class='kw'>true</span>
   <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span>
-  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>numericality:</span> <span class='lbrace'>{</span> <span class='label'>greater_than:</span> <span class='int'>0</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>numericality:</span> <span class='lbrace'>{</span> <span class='label'>only_integer:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>greater_than:</span> <span class='int'>0</span> <span class='rbrace'>}</span>
 
   <span class='comment'># Scope to find rooms that are available in a given hotel within a date range.
 </span>  <span class='comment'>#
@@ -668,7 +668,7 @@
 </span>  <span class='comment'># Validates that the capacity must be a positive integer.
 </span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:number</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>uniqueness:</span> <span class='kw'>true</span>
   <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span>
-  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>numericality:</span> <span class='lbrace'>{</span> <span class='label'>greater_than:</span> <span class='int'>0</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>numericality:</span> <span class='lbrace'>{</span> <span class='label'>only_integer:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>greater_than:</span> <span class='int'>0</span> <span class='rbrace'>}</span>
 
   <span class='comment'># Scope to find rooms that are available in a given hotel within a date range.
 </span>  <span class='comment'>#
@@ -788,7 +788,7 @@
 </span>  <span class='comment'># Validates that the capacity must be a positive integer.
 </span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:number</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>uniqueness:</span> <span class='kw'>true</span>
   <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span>
-  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>numericality:</span> <span class='lbrace'>{</span> <span class='label'>greater_than:</span> <span class='int'>0</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>numericality:</span> <span class='lbrace'>{</span> <span class='label'>only_integer:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>greater_than:</span> <span class='int'>0</span> <span class='rbrace'>}</span>
 
   <span class='comment'># Scope to find rooms that are available in a given hotel within a date range.
 </span>  <span class='comment'>#
@@ -908,7 +908,7 @@
 </span>  <span class='comment'># Validates that the capacity must be a positive integer.
 </span>  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:number</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>uniqueness:</span> <span class='kw'>true</span>
   <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>presence:</span> <span class='kw'>true</span>
-  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>numericality:</span> <span class='lbrace'>{</span> <span class='label'>greater_than:</span> <span class='int'>0</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_validates'>validates</span> <span class='symbol'>:capacity</span><span class='comma'>,</span> <span class='label'>numericality:</span> <span class='lbrace'>{</span> <span class='label'>only_integer:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>greater_than:</span> <span class='int'>0</span> <span class='rbrace'>}</span>
 
   <span class='comment'># Scope to find rooms that are available in a given hotel within a date range.
 </span>  <span class='comment'>#
@@ -1155,7 +1155,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Sep 23 13:35:33 2024 by
+  Generated on Tue Sep 24 15:52:05 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.3.4).
 </div>

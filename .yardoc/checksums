@@ -1,7 +1,7 @@
-app/models/room.rb c0e43105d7d2f4ba7a9192424e709fef9ac22988
-app/models/user.rb a73778c18c574b161474801a14ba6e9e1cdd684d
+app/models/room.rb a7b29f1f9ed20f93bcd4df6ca37a26b45c615add
+app/models/user.rb d5b7ece6ef964727132ddfae92245b31594fe2ba
 app/models/hotel.rb 43552a482803f14ba13f285e669f655c906fd59c
-app/models/reservation.rb 725fe1be881d846b74a4f7a0a5652d5927f1fce7
+app/models/reservation.rb 283ee03983a6cd7c170128eaa34a6c0190c56286
 app/jobs/application_job.rb 2d7aea448b6f7b6a9c182cd5369df41b5f338a7c
 app/services/date_parser.rb 7229cbda1e9b8265ed5d8db8ef86c30f87ab97d4
 app/services/jwt_service.rb 6445b412487b335c9b86e444e3e1bd38af168d4f
@@ -18,4 +18,4 @@ app/controllers/api/v1/users_controller.rb 0458a605b9cd2435346f82dda687129f003fd
 app/controllers/api/v1/hotels_controller.rb c6c129a4cfbbf7bb37031065b4821918b5eb8c8e
 app/channels/application_cable/connection.rb d50148a662b6d182eb9073a5da4cc4115c697ece
 app/controllers/api/v1/sessions_controller.rb 0fe6de204251dfc99125a9e211fed5f9d72f7ebd
-app/controllers/api/v1/reservations_controller.rb 0f6723cccc4671bd7027b8eecf253820dc05f186
+app/controllers/api/v1/reservations_controller.rb b9577963866f2c5fcd5f16aa211233fc9a8638a9

@@ -51,6 +51,13 @@ class Reservation < ApplicationRecord
     errors.add(:check_out, 'must be after check-in') if check_in >= check_out
   end
 
+  # Validates that the room is available for the selected check-in and check-out dates.
+  #
+  # This method checks if the room is available by calling the `available?`
+  # method on the associated room. If the room is not available, an error
+  # is added to the base of the reservation.
+  #
+  # @return [void]
   def check_room_availability
     return if room&.available?(check_in, check_out)
 
