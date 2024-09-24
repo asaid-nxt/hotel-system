@@ -17,5 +17,27 @@
 #
 class ReservationSerializer < ActiveModel::Serializer
   # Specifies the attributes to be serialized.
-  attributes :id, :user_id, :room_id, :check_in, :check_out
+  attributes :full_name, :avatar, :hotel_name, :room_number, :check_in, :check_out, :user_preferences
+
+  def full_name
+    "#{object.user.first_name} #{object.user.last_name}"
+  end
+
+  def avatar
+    return unless object.user.image.attached?
+
+    Rails.application.routes.url_helpers.rails_blob_url(object.user.image, only_path: true)
+  end
+
+  def hotel_name
+    object.room.hotel.name
+  end
+
+  def room_number
+    object.room.number
+  end
+
+  def user_preferences
+    object.user.preferences
+  end
 end

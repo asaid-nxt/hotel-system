@@ -79,9 +79,8 @@ RSpec.describe Api::V1::ReservationsController, type: :controller do # rubocop:d
 
       expect(response).to have_http_status :created
       expect(json_response).to include(
-        'id' => be_present,
-        'room_id' => room.id,
-        'user_id' => be_present
+        'room_number' => room.number,
+        'hotel_name' => be_present
       )
     end
 

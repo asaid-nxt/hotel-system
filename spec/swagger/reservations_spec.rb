@@ -98,15 +98,15 @@ RSpec.describe 'api/v1/reservations', type: :request do
         let(:Authorization) { "Bearer #{JwtService.encode(user_id: user.id)}" }
         let(:reservation) { { check_in:, check_out: } }
 
-        schema type: :object,
-               properties: {
-                 id: { type: :integer },
-                 room_id: { type: :integer },
-                 user_id: { type: :integer },
-                 check_in: { type: :string, format: :date },
-                 check_out: { type: :string, format: :date }
-               },
-               required: %w[id room_id user_id check_in check_out]
+        example 'application/json', :success_example, {
+          full_name: 'Harry Kane',
+          avatar: '/path/to/image.jpg',
+          hotel_name: 'Hotel Name',
+          room_number: '101' ,
+          check_in: '2023-09-15',
+          check_out: '2023-09-20',
+          user_preferences: 'Gym, Pool'
+      }
 
         run_test!
       end

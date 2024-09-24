@@ -95,9 +95,8 @@ RSpec.describe 'Reservations API', type: :request do # rubocop:disable Metrics/B
       it 'makes a reservation' do
         expect(response).to have_http_status :created
         expect(json_response).to include(
-          'id' => be_present,
-          'room_id' => room.id,
-          'user_id' => be_present
+          'room_number' => room.number,
+          'hotel_name' => be_present
         )
       end
     end
