@@ -2,8 +2,11 @@
 
 FactoryBot.define do
   factory :user do
-    username { "test" }
+    username { 'test' }
     password { 'test123' }
+    first_name { 'Harry' }
+    last_name { 'Kane' }
+    preferences { 'Gym, Pool' }
     role { 'user' }
   end
 end
