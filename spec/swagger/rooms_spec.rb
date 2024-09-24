@@ -9,7 +9,6 @@ RSpec.describe 'api/v1/rooms', type: :request do # rubocop:disable Metrics/Block
   let(:room_id) { room.id }
   let(:user) { create(:user) }
   let(:admin) { create(:user, role: 'admin') }
-  let(:valid_attributes) { { number: '101', capacity: 2, amenities: 'WiFi, TV, Pool' } }
   let(:valid_attributes) do
     {
       number: '101',
@@ -94,7 +93,7 @@ RSpec.describe 'api/v1/rooms', type: :request do # rubocop:disable Metrics/Block
           number: { type: :string, example: '202' },
           capacity: { type: :integer, example: 3 },
           amenities: { type: :string, example: 'AC, Pool' },
-          image: { type: :string, format: :binary }
+          image: { type: :string, format: :binary, example: '' }
         },
         required: %w[number capacity ]
       }

@@ -80,7 +80,7 @@ module Api
       # Strong parameters for the room object.
       # @return [ActionController::Parameters] the permitted room parameters.
       def room_params
-        params.require(:room).permit(:hotel_id, :number, :capacity, :amenities, :image)
+        params.require(:room).permit(:number, :capacity, :amenities, :image)
       end
 
       # Parses the check-in and check-out dates from the request parameters.

@@ -28,7 +28,7 @@ RSpec.describe 'api/v1/hotels', type: :request do # rubocop:disable Metrics/Bloc
           name: { type: :string, example: 'Hotel California' },
           location: { type: :string, example: 'Los Angeles' },
           amenities: { type: :string, example: 'Pool, Gym' },
-          image: { type: :string, format: :binary }
+          image: { type: :string, format: :binary, example: '' }
         },
         required: %w[name location]
       }

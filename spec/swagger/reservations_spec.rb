@@ -54,21 +54,17 @@ RSpec.describe 'api/v1/reservations', type: :request do
         example 'application/json', :example_response, [
           {
             id: 1,
-            check_in: '2024-10-01',
-            check_out: '2024-10-05',
             room_id: 10,
             user_id: 2,
-            created_at: '2024-09-20T10:00:00.000Z',
-            updated_at: '2024-09-20T10:00:00.000Z'
+            check_in: '2024-10-01',
+            check_out: '2024-10-05'
           },
           {
             id: 2,
-            check_in: '2024-09-25',
-            check_out: '2024-09-30',
             room_id: 12,
             user_id: 3,
-            created_at: '2024-09-20T09:30:00.000Z',
-            updated_at: '2024-09-20T09:30:00.000Z'
+            check_in: '2024-09-25',
+            check_out: '2024-09-30'
           }
         ]
       end
@@ -92,8 +88,8 @@ RSpec.describe 'api/v1/reservations', type: :request do
       parameter name: :reservation, in: :body, schema: {
         type: :object,
         properties: {
-          check_in: { type: :string, format: :date, example: '2024-09-17' },
-          check_out: { type: :string, format: :date, example: '2024-09-18' }
+          check_in: { type: :string, format: :date, example: Date.today },
+          check_out: { type: :string, format: :date, example: Date.tomorrow }
         },
         required: %w[check_in check_out]
       }
