@@ -14,9 +14,11 @@ ActiveRecord::Base.connection.execute("DELETE FROM sqlite_sequence WHERE name='r
 
 # Create users
 User.create!([
-               { username: 'admin', password: 'password', role: 1 },
-               { username: 'test', password: 'password', role: 0 },
-               { username: 'test1', password: 'password', role: 0 }
+               { username: 'admin', password: 'password', role: 1, first_name: 'admin' },
+               { username: 'test', password: 'password', role: 0, first_name: 'John', last_name: 'Wick',
+                 preferences: 'Gym, Pool' },
+               { username: 'test1', password: 'password', role: 0, first_name: 'Harry', last_name: 'Potter',
+                 preferences: 'Tennis Court' }
              ])
 
 # Create hotels
