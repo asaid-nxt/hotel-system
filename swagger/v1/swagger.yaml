@@ -175,24 +175,23 @@ paths:
               examples:
                 success_example:
                   value:
-                    past:
-                    - id: 1
-                      room_id: 5
-                      user_id: 3
-                      check_in: '2024-09-13'
-                      check_out: '2024-09-14'
+                    past: []
                     current:
-                    - id: 2
-                      room_id: 5
-                      user_id: 3
-                      check_in: '2024-09-17'
-                      check_out: '2024-09-18'
+                    - full_name: Harry Kane
+                      avatar: "/path/to/image.jpg"
+                      hotel_name: Hotel Name
+                      room_number: '101'
+                      check_in: '2023-09-15'
+                      check_out: '2023-09-20'
+                      user_preferences: Gym, Pool
                     future:
-                    - id: 3
-                      room_id: 5
-                      user_id: 3
-                      check_in: '2024-09-20'
-                      check_out: '2024-09-21'
+                    - full_name: Harry Potter
+                      avatar: "/path/to/image.jpg"
+                      hotel_name: Hotel Name
+                      room_number: '102'
+                      check_in: '2023-09-15'
+                      check_out: '2023-09-20'
+                      user_preferences: Tennis Court
         '401':
           description: Unauthorized
           content:
@@ -218,16 +217,20 @@ paths:
               examples:
                 example_response:
                   value:
-                  - id: 1
-                    room_id: 10
-                    user_id: 2
-                    check_in: '2024-10-01'
-                    check_out: '2024-10-05'
-                  - id: 2
-                    room_id: 12
-                    user_id: 3
-                    check_in: '2024-09-25'
-                    check_out: '2024-09-30'
+                  - full_name: Harry Kane
+                    avatar: "/path/to/image.jpg"
+                    hotel_name: Hotel Name
+                    room_number: '101'
+                    check_in: '2023-09-15'
+                    check_out: '2023-09-20'
+                    user_preferences: Gym, Pool
+                  - full_name: Harry Potter
+                    avatar: "/path/to/image.jpg"
+                    hotel_name: Hotel Name
+                    room_number: '102'
+                    check_in: '2023-09-15'
+                    check_out: '2023-09-20'
+                    user_preferences: Tennis Court
         '401':
           description: unauthorized
   "/api/v1/hotels/{hotel_id}/rooms/{room_id}/reservations":
@@ -255,27 +258,16 @@ paths:
           description: Reservation created successfully
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  room_id:
-                    type: integer
-                  user_id:
-                    type: integer
-                  check_in:
-                    type: string
-                    format: date
-                  check_out:
-                    type: string
-                    format: date
-                required:
-                - id
-                - room_id
-                - user_id
-                - check_in
-                - check_out
+              examples:
+                success_example:
+                  value:
+                    full_name: Harry Kane
+                    avatar: "/path/to/image.jpg"
+                    hotel_name: Hotel Name
+                    room_number: '101'
+                    check_in: '2023-09-15'
+                    check_out: '2023-09-20'
+                    user_preferences: Gym, Pool
         '401':
           description: Unauthorized
           content:

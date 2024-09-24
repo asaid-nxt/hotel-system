@@ -9,22 +9,38 @@ RSpec.describe 'api/v1/reservations', type: :request do
   let(:check_in) { Date.today.to_s }
   let(:check_out) { (Date.today + 1.day).to_s }
 
-  path '/api/v1/reservations' do
-    get 'Retrieve a list of reservations (past, current, and future) (User only)' do
+  path '/api/v1/reservations' do # rubocop:disable Metrics/BlockLength
+    get 'Retrieve a list of reservations (past, current, and future) (User only)' do # rubocop:disable Metrics/BlockLength
       security [Bearer: []]
       tags 'Reservations'
       produces 'application/json'
 
-      response '200', 'Reservations retrieved successfully' do
+      response '200', 'Reservations retrieved successfully' do # rubocop:disable Metrics/BlockLength
         let(:Authorization) { "Bearer #{JwtService.encode(user_id: user.id)}" }
         let!(:current_reservation) { create(:reservation, check_in: Date.today, check_out: Date.tomorrow, user:) }
         let!(:future_reservation) {
                                     create(:reservation, check_in: Date.tomorrow, check_out: Date.today + 2.days, user:)
                                   }
         example 'application/json', :success_example, {
-          past: [{ id: 1, room_id: 5, user_id: 3, check_in: '2024-09-13', check_out: '2024-09-14' }],
-          current: [{ id: 2, room_id: 5, user_id: 3, check_in: '2024-09-17', check_out: '2024-09-18' }],
-          future: [{ id: 3, room_id: 5, user_id: 3, check_in: '2024-09-20', check_out: '2024-09-21' }]
+          past: [],
+          current: [{
+            full_name: 'Harry Kane',
+            avatar: '/path/to/image.jpg',
+            hotel_name: 'Hotel Name',
+            room_number: '101',
+            check_in: '2023-09-15',
+            check_out: '2023-09-20',
+            user_preferences: 'Gym, Pool'
+             }],
+          future: [{
+            full_name: 'Harry Kane',
+            avatar: '/path/to/image.jpg',
+            hotel_name: 'Hotel Name',
+            room_number: '101',
+            check_in: '2023-09-15',
+            check_out: '2023-09-20',
+            user_preferences: 'Gym, Pool'
+             }]
         }
         run_test!
       end
@@ -53,18 +69,22 @@ RSpec.describe 'api/v1/reservations', type: :request do
 
         example 'application/json', :example_response, [
           {
-            id: 1,
-            room_id: 10,
-            user_id: 2,
-            check_in: '2024-10-01',
-            check_out: '2024-10-05'
+            full_name: 'Harry Kane',
+            avatar: '/path/to/image.jpg',
+            hotel_name: 'Hotel Name',
+            room_number: '101',
+            check_in: '2023-09-15',
+            check_out: '2023-09-20',
+            user_preferences: 'Gym, Pool'
           },
           {
-            id: 2,
-            room_id: 12,
-            user_id: 3,
-            check_in: '2024-09-25',
-            check_out: '2024-09-30'
+            full_name: 'Harry Potter',
+            avatar: '/path/to/image.jpg',
+            hotel_name: 'Hotel Name',
+            room_number: '102',
+            check_in: '2023-09-15',
+            check_out: '2023-09-20',
+            user_preferences: 'Tennis Court'
           }
         ]
       end
@@ -102,11 +122,11 @@ RSpec.describe 'api/v1/reservations', type: :request do
           full_name: 'Harry Kane',
           avatar: '/path/to/image.jpg',
           hotel_name: 'Hotel Name',
-          room_number: '101' ,
+          room_number: '101',
           check_in: '2023-09-15',
           check_out: '2023-09-20',
           user_preferences: 'Gym, Pool'
-      }
+        }
 
         run_test!
       end
