@@ -43,7 +43,9 @@ module Api
       # @example
       #   { user: { username: "example", password: "password", password_confirmation: "password", role: "user" } }
       def user_params
-        params.require(:user).permit(:username, :password, :password_confirmation, :role)
+        params.require(:user).permit(
+          :username, :password, :password_confirmation, :first_name, :last_name, :preferences, :image, :role
+        )
       end
     end
   end

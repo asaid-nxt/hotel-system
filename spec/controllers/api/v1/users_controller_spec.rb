@@ -2,10 +2,17 @@
 
 require 'rails_helper'
 
-RSpec.describe Api::V1::UsersController, type: :controller do
-  describe 'POST #create' do
-    let(:valid_attributes) do
-      { username: 'testuser', password: 'password', password_confirmation: 'password' }
+RSpec.describe Api::V1::UsersController, type: :controller do # rubocop:disable Metrics/BlockLength
+  describe 'POST #create' do # rubocop:disable Metrics/BlockLength
+    let(:valid_attributes) do {
+      username: 'testuser',
+      password: 'password',
+      password_confirmation: 'password',
+      first_name: 'harry',
+      last_name: 'kane',
+      preferences: 'Gym, Pool',
+      image: fixture_file_upload(Rails.root.join('spec', 'fixtures', 'files', 'avatar.jpg'), 'image/jpg')
+    }
     end
 
     let(:invalid_attributes) do
@@ -18,9 +25,9 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
     context 'with valid parameters' do
       it 'creates a new user' do
-        expect {
+        expect do
           post :create, params: { user: valid_attributes }
-        }.to change(User, :count).by(1)
+        end.to change(User, :count).by(1)
       end
 
       it 'returns a created status and a JWT token' do
@@ -36,9 +43,9 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
     context 'with invalid parameters' do
       it 'does not create a new user' do
-        expect {
+        expect do
           post :create, params: { user: invalid_attributes }
-        }.not_to change(User, :count)
+        end.not_to change(User, :count)
       end
 
       it 'returns unprocessable entity status with error messages' do
@@ -52,9 +59,9 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
     context 'when creating an admin user' do
       it 'creates a new admin user with role 1' do
-        expect {
+        expect do
           post :create, params: { user: admin_attributes }
-        }.to change(User, :count).by(1)
+        end.to change(User, :count).by(1)
 
         user = User.last
         expect(user.role).to eq('admin')
