@@ -1,4 +1,4 @@
-# spec/integration/api/v1/hotels_spec.rb
+# frozen_string_literal: true
 
 require 'swagger_helper'
 
@@ -17,7 +17,7 @@ RSpec.describe 'api/v1/hotels', type: :request do # rubocop:disable Metrics/Bloc
   let!(:hotel) { create(:hotel) }
 
   path '/api/v1/hotels' do # rubocop:disable Metrics/BlockLength
-    post 'Create a hotel' do # rubocop:disable Metrics/BlockLength
+    post 'Create a hotel (Admin only)' do # rubocop:disable Metrics/BlockLength
       security [Bearer: []]
       tags 'Hotels'
       consumes 'application/json'
@@ -70,7 +70,7 @@ RSpec.describe 'api/v1/hotels', type: :request do # rubocop:disable Metrics/Bloc
   path '/api/v1/hotels/{hotel_id}' do # rubocop:disable Metrics/BlockLength
     parameter name: :hotel_id, in: :path, type: :integer, description: 'ID of the hotel'
 
-    put 'Update a hotel' do # rubocop:disable Metrics/BlockLength
+    put 'Update a hotel (Admin only)' do # rubocop:disable Metrics/BlockLength
       security [Bearer: []]
       tags 'Hotels'
       consumes 'application/json'
@@ -119,7 +119,7 @@ RSpec.describe 'api/v1/hotels', type: :request do # rubocop:disable Metrics/Bloc
       end
     end
 
-    delete 'Delete a hotel' do
+    delete 'Delete a hotel (Admin only)' do
       security [Bearer: []]
       tags 'Hotels'
       consumes 'application/json'

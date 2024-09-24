@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'swagger_helper'
 
-RSpec.describe 'Login', type: :request do
-  path '/api/v1/login' do
-    post 'Login a user' do
+RSpec.describe 'Login', type: :request do # rubocop:disable Metrics/BlockLength
+  path '/api/v1/login' do # rubocop:disable Metrics/BlockLength
+    post 'Login a user' do # rubocop:disable Metrics/BlockLength
       tags 'Authentication'
       consumes 'application/json'
       produces 'application/json'
@@ -19,7 +21,7 @@ RSpec.describe 'Login', type: :request do
         let(:user) { create(:user) }
         let(:login_params) { { username: user.username, password: user.password } }
         schema type: :object, properties: {
-          token: { type: :string }
+          token: { type: :string, example: '{token}' }
         }
 
         run_test!
@@ -28,7 +30,7 @@ RSpec.describe 'Login', type: :request do
       response '401', 'Invalid username or password' do
         let(:login_params) { { username: 'wronguser', password: 'wrongpassword' } }
         schema type: :object, properties: {
-          error: { type: :string }
+          error: { type: :string, example: 'Invalid username or password' }
         }
 
         run_test!

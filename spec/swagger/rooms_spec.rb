@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'swagger_helper'
 
-RSpec.describe 'api/v1/rooms', type: :request do
+RSpec.describe 'api/v1/rooms', type: :request do # rubocop:disable Metrics/BlockLength
   let(:hotel) { create(:hotel) }
   let(:hotel_id) { hotel.id }
   let!(:room) { create(:room, hotel:) }
@@ -173,7 +175,7 @@ RSpec.describe 'api/v1/rooms', type: :request do
   end
 
   path '/api/v1/hotels/{hotel_id}/rooms/available' do # rubocop:disable Metrics/BlockLength
-    get 'List available rooms for a hotel' do # rubocop:disable Metrics/BlockLength
+    get 'List available rooms for a hotel (User only)' do # rubocop:disable Metrics/BlockLength
       security [Bearer: []]
       tags 'Rooms'
       consumes 'application/json'

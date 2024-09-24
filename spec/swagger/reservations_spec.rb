@@ -10,7 +10,7 @@ RSpec.describe 'api/v1/reservations', type: :request do
   let(:check_out) { (Date.today + 1.day).to_s }
 
   path '/api/v1/reservations' do
-    get 'Retrieve a list of reservations (past, current, and future)' do
+    get 'Retrieve a list of reservations (past, current, and future) (User only)' do
       security [Bearer: []]
       tags 'Reservations'
       produces 'application/json'
@@ -80,10 +80,8 @@ RSpec.describe 'api/v1/reservations', type: :request do
     end
   end
 
-
-
   path '/api/v1/hotels/{hotel_id}/rooms/{room_id}/reservations' do # rubocop:disable Metrics/BlockLength
-    post 'Create a reservation for a room' do # rubocop:disable Metrics/BlockLength
+    post 'Create a reservation for a room (User only)' do # rubocop:disable Metrics/BlockLength
       security [Bearer: []]
       tags 'Reservations'
       consumes 'application/json'
