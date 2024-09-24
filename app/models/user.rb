@@ -46,6 +46,11 @@ class User < ApplicationRecord
   validates :username, presence: true, uniqueness: true
   validates :password, presence: true, length: { minimum: 6 }
 
+  # A User can have an image attached.
+  #
+  # @return [ActiveStorage::Attached::One]
+  has_one_attached :image
+
   # Generates a JSON Web Token (JWT) for the user.
   # This token can be used for user authentication.
   #
