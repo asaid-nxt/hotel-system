@@ -25,7 +25,7 @@ class ReservationSerializer < ActiveModel::Serializer
   #
   # @return [String] The full name of the user.
   def full_name
-    "#{object.user.first_name} #{object.user.last_name}"
+    "#{user.first_name} #{user.last_name}"
   end
 
   # Returns the URL of the user's avatar image.
@@ -34,27 +34,35 @@ class ReservationSerializer < ActiveModel::Serializer
   def avatar
     return unless object.user.image.attached?
 
-    Rails.application.routes.url_helpers.rails_blob_url(object.user.image, only_path: true)
+    Rails.application.routes.url_helpers.rails_blob_url(user.image, only_path: true)
   end
 
   # Returns the name of the hotel associated with the reservation.
   #
   # @return [String] The name of the hotel.
   def hotel_name
-    object.room.hotel.name
+    room.hotel.name
   end
 
   # Returns the room number associated with the reservation.
   #
   # @return [Integer] The number of the room.
   def room_number
-    object.room.number
+    room.number
   end
 
   # Returns the preferences of the user who made the reservation.
   #
   # @return [String, nil] The user preferences or nil if not set.
   def user_preferences
-    object.user.preferences
+    user.preferences
+  end
+
+  def user
+    @user ||= object.user
+  end
+
+  def room
+    @room ||= object.room
   end
 end
