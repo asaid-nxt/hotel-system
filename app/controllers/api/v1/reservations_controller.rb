@@ -19,7 +19,7 @@ module Api
       #
       # @return [JSON] the list of the current user's reservations grouped into past, current, and future.
       def index
-        reservations = current_user.reservations
+        reservations = current_user.reservations.includes(room: :hotel)
         render json: {
           past: serialize(reservations.past),
           current: serialize(reservations.current),
@@ -33,7 +33,7 @@ module Api
       #
       # @return [JSON] list of all reservations.
       def all_reservations
-        reservations = Reservation.all
+        reservations = Reservation.includes(room: :hotel)
         render json: reservations, each_serializer: ReservationSerializer, status: :ok
       end
 
