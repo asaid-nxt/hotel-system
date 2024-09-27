@@ -10,10 +10,9 @@ RSpec.describe 'Reservations API', type: :request do # rubocop:disable Metrics/B
   let(:check_out) { Date.tomorrow }
 
   describe 'GET /api/v1/reservations' do # rubocop:disable Metrics/BlockLength
-    let!(:current_reservation) { create(:reservation, check_in: Date.today, check_out: Date.tomorrow, user:) }
-    let!(:future_reservation) { create(:reservation, check_in: Date.tomorrow, check_out: Date.today + 2.days, user:) }
-
     describe 'when user is authenticated' do # rubocop:disable Metrics/BlockLength
+      let!(:current_reservation) { create(:reservation, check_in: Date.today, check_out: Date.tomorrow, user:) }
+      let!(:future_reservation) { create(:reservation, check_in: Date.tomorrow, check_out: Date.today + 2.days, user:) }
       context 'when user have reservations' do
         before do
           get '/api/v1/reservations', headers:
@@ -56,13 +55,45 @@ RSpec.describe 'Reservations API', type: :request do # rubocop:disable Metrics/B
         expect(response).to have_http_status :unauthorized
       end
     end
+
+    describe 'pagination' do
+      let!(:current_reservation) { create_list(:reservation, 15, check_in: Date.today, check_out: Date.tomorrow, user:) }
+      let!(:future_reservation) { create_list(:reservation, 15, check_in: Date.tomorrow, check_out: Date.today + 2.days, user:) }
+
+      before do
+        get '/api/v1/reservations', params: { page: 1, per_page: 10 }, headers:
+      end
+
+      it 'returns the paginated reservations with proper metadata' do
+        expect(response).to have_http_status :ok
+
+        # Check the reservation data
+        expect(json_response['current'].size).to eq(10) # Assuming default per_page is 10
+        expect(json_response['meta']['current_page']).to eq(1)
+        expect(json_response['meta']['total_pages']).to be > 1
+        expect(json_response['meta']['total_count']).to eq(30)
+      end
+
+      context 'when requesting page 2' do
+        before do
+          get '/api/v1/reservations', params: { page: 2, per_page: 10 }, headers:
+        end
+
+        it 'returns the second page of reservations' do
+          expect(response).to have_http_status :ok
+          expect(json_response['current'].size).to eq(5) # Assuming there are 15 reservations and 10 per page
+          expect(json_response['meta']['current_page']).to eq(2)
+          expect(json_response['meta']['total_pages']).to eq(3)
+        end
+      end
+    end
   end
 
-  describe 'GET /api/v1/reservations/all' do
-    let!(:reservations) { create_list(:reservation, 3, user:) }
+  describe 'GET /api/v1/reservations/all' do # rubocop:disable Metrics/BlockLength
+    let(:admin) { create(:user, username: 'admin', role: 'admin') }
+    let(:admin_headers) { { 'Authorization': admin.generate_jwt } }
     describe 'when admin is authenticated' do
-      let(:admin) { create(:user, username: 'admin', role: 'admin') }
-      let(:admin_headers) { { 'Authorization': admin.generate_jwt } }
+      let!(:reservations) { create_list(:reservation, 3, user:) }
 
       before do
         get '/api/v1/reservations/all', headers: admin_headers
@@ -70,17 +101,41 @@ RSpec.describe 'Reservations API', type: :request do # rubocop:disable Metrics/B
 
       it 'return all reservations' do
         expect(response).to have_http_status :ok
-        expect(json_response.size).to eq(3)
+        expect(json_response['reservations'].size).to eq(3)
       end
     end
 
     describe 'when admin is not authenticated' do
+      let!(:reservations) { create_list(:reservation, 3, user:) }
       before do
         get '/api/v1/reservations/all'
       end
 
       it 'returns an Unauthorized error' do
         expect(response).to have_http_status :unauthorized
+      end
+    end
+
+    describe 'pagination' do
+      let!(:reservations) { create_list(:reservation, 30, user:) }
+
+      context 'with default pagination' do
+        it 'returns the default number of records per page' do
+          get '/api/v1/reservations/all', headers: admin_headers
+
+          expect(json_response['reservations'].size).to eq(10) # Assuming 10 is your default per_page
+          expect(json_response['meta']['current_page']).to eq(1)
+          expect(json_response['meta']['total_pages']).to eq(3)
+        end
+      end
+
+      context 'with custom per_page parameter' do
+        it 'returns the correct number of records per page' do
+          get '/api/v1/reservations/all', params: { per_page: 5 }, headers: admin_headers
+
+          expect(json_response['reservations'].size).to eq(5)
+          expect(json_response['meta']['total_pages']).to eq(6)
+        end
       end
     end
   end

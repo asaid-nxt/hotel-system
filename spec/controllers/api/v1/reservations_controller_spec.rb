@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Api::V1::ReservationsController, type: :controller do # rubocop:disable Metrics/BlockLength
@@ -45,7 +47,7 @@ RSpec.describe Api::V1::ReservationsController, type: :controller do # rubocop:d
         it 'returns all reservations' do
           get :all_reservations
           expect(response).to have_http_status :ok
-          expect(json_response.size).to eq(3)
+          expect(json_response['reservations'].size).to eq(3)
         end
       end
 
@@ -53,7 +55,7 @@ RSpec.describe Api::V1::ReservationsController, type: :controller do # rubocop:d
         it 'return an empty list' do
           get :all_reservations
           expect(response).to have_http_status :ok
-          expect(json_response).to be_empty
+          expect(json_response['reservations']).to be_empty
         end
       end
     end
