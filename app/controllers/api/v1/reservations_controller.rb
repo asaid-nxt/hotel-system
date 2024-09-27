@@ -18,12 +18,13 @@ module Api
       # Lists reservations for the current user categorized into past, current, and future reservations.
       #
       # @return [JSON] the list of the current user's reservations grouped into past, current, and future.
-      def index
-        reservations = current_user.reservations.includes(room: :hotel)
+      def index # rubocop:disable Metrics/AbcSize
+        reservations = current_user.reservations.includes(room: :hotel).page(params[:page]).per(params[:per_page] || 10)
         render json: {
           past: serialize(reservations.past),
           current: serialize(reservations.current),
-          future: serialize(reservations.future)
+          future: serialize(reservations.future),
+          meta: pagination_meta(reservations)
         }, status: :ok
       end
 
@@ -33,8 +34,11 @@ module Api
       #
       # @return [JSON] list of all reservations.
       def all_reservations
-        reservations = Reservation.includes(room: :hotel)
-        render json: reservations, each_serializer: ReservationSerializer, status: :ok
+        reservations = Reservation.includes(room: :hotel).page(params[:page]).per(params[:per_page] || 10)
+        render json: {
+          reservations: serialize(reservations),
+          meta: pagination_meta(reservations)
+        }, status: :ok
       end
 
       # POST /api/v1/reservations
@@ -87,6 +91,17 @@ module Api
       def find_room
         @room = Room.find_by(id: params[:room_id])
         render json: { error: 'Room not found' }, status: :not_found unless @room
+      end
+
+      # Helper to generate pagination metadata
+      def pagination_meta(collection)
+        {
+          current_page: collection.current_page,
+          next_page: collection.next_page,
+          prev_page: collection.prev_page,
+          total_pages: collection.total_pages,
+          total_count: collection.total_count
+        }
       end
     end
   end
