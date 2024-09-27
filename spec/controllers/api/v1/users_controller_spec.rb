@@ -38,6 +38,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do # rubocop:disable 
         expect(response).to have_http_status(:created)
         expect(JSON.parse(response.body)['token']).to eq('fake-jwt-token')
         expect(JSON.parse(response.body)['user']['username']).to eq('testuser')
+        expect(json_response['user']['image_url']).to start_with('/rails/active_storage')
       end
     end
 
